@@ -1,0 +1,23 @@
+# Internal development notes (not for public repo)
+continuation.md
+
+# Generated WASM build artifacts (compile with wasm/src/build.sh)
+wasm/math_core.js
+wasm/math_core.wasm
+
+# Emscripten intermediates
+wasm/src/*.o
+wasm/src/*.bc
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editors
+.vscode/settings.json
+.idea/
+*.swp
+*.swo
+
+# Node (test runner only — no node_modules expected)
+node_modules/

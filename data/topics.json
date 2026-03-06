@@ -1,0 +1,627 @@
+[
+  {
+    "id": "arithmetic",
+    "title": "Aritmética",
+    "symbol": "±",
+    "level": "EFI",
+    "status": "available"
+  },
+  {
+    "id": "geometry",
+    "title": "Geometria Plana",
+    "symbol": "△",
+    "level": "EFI",
+    "status": "available"
+  },
+  {
+    "id": "rationals",
+    "title": "Números Racionais",
+    "symbol": "ℚ",
+    "level": "EFI",
+    "status": "available"
+  },
+  {
+    "id": "algebraic",
+    "title": "Expressões Algébricas",
+    "symbol": "ax",
+    "level": "EFII",
+    "status": "available"
+  },
+  {
+    "id": "angles",
+    "title": "Ângulos e Polígonos",
+    "symbol": "∠",
+    "level": "EFII",
+    "status": "available"
+  },
+  {
+    "id": "decimals",
+    "title": "Decimais e Percentuais",
+    "symbol": "%",
+    "level": "EFII",
+    "status": "available"
+  },
+  {
+    "id": "equations1",
+    "title": "Equações 1º Grau",
+    "symbol": "x",
+    "level": "EFII",
+    "status": "available"
+  },
+  {
+    "id": "fractions",
+    "title": "Frações",
+    "symbol": "½",
+    "level": "EFII",
+    "status": "available"
+  },
+  {
+    "id": "integers",
+    "title": "Inteiros e Divisibilidade",
+    "symbol": "Z",
+    "level": "EFII",
+    "status": "available"
+  },
+  {
+    "id": "measures",
+    "title": "Grandezas e Medidas",
+    "symbol": "m",
+    "level": "EFII",
+    "status": "available"
+  },
+  {
+    "id": "mmc_mdc",
+    "title": "MMC e MDC",
+    "symbol": "÷",
+    "level": "EFII",
+    "status": "available"
+  },
+  {
+    "id": "powers",
+    "title": "Potências e Raízes",
+    "symbol": "√",
+    "level": "EFII",
+    "status": "available"
+  },
+  {
+    "id": "ratio",
+    "title": "Razão e Proporção",
+    "symbol": "∷",
+    "level": "EFII",
+    "status": "available"
+  },
+  {
+    "id": "similarity",
+    "title": "Semelhança e Congruência",
+    "symbol": "~",
+    "level": "EFII",
+    "status": "available"
+  },
+  {
+    "id": "spatial",
+    "title": "Geometria Espacial",
+    "symbol": "□",
+    "level": "EFII",
+    "status": "available"
+  },
+  {
+    "id": "systems",
+    "title": "Sistemas Lineares",
+    "symbol": "║",
+    "level": "EFII",
+    "status": "available"
+  },
+  {
+    "id": "analytic_geo",
+    "title": "Geometria Analítica",
+    "symbol": "↗",
+    "level": "EM",
+    "status": "available"
+  },
+  {
+    "id": "binomial",
+    "title": "Binômio de Newton",
+    "symbol": "ⁿ",
+    "level": "EM",
+    "status": "available"
+  },
+  {
+    "id": "calculus",
+    "title": "Cálculo",
+    "symbol": "∫",
+    "level": "EM",
+    "status": "available"
+  },
+  {
+    "id": "cartesian",
+    "title": "Cartesiano e Retas",
+    "symbol": "⊹",
+    "level": "EM",
+    "status": "available"
+  },
+  {
+    "id": "combinatorics",
+    "title": "Combinatória",
+    "symbol": "C",
+    "level": "EM",
+    "status": "available"
+  },
+  {
+    "id": "complex",
+    "title": "Números Complexos",
+    "symbol": "i",
+    "level": "EM",
+    "status": "available"
+  },
+  {
+    "id": "conics",
+    "title": "Cônicas",
+    "symbol": "⊙",
+    "level": "EM",
+    "status": "available"
+  },
+  {
+    "id": "dataanalysis",
+    "title": "Análise de Dados",
+    "symbol": "σ",
+    "level": "EM",
+    "status": "available"
+  },
+  {
+    "id": "equations2",
+    "title": "Equações 2º Grau",
+    "symbol": "x²",
+    "level": "EM",
+    "status": "available"
+  },
+  {
+    "id": "exponential",
+    "title": "Funções Exponenciais",
+    "symbol": "eˣ",
+    "level": "EM",
+    "status": "available"
+  },
+  {
+    "id": "factoring",
+    "title": "Produtos Notáveis",
+    "symbol": "⊠",
+    "level": "EM",
+    "status": "available"
+  },
+  {
+    "id": "finance",
+    "title": "Matemática Financeira",
+    "symbol": "R$",
+    "level": "EM",
+    "status": "available"
+  },
+  {
+    "id": "functions",
+    "title": "Funções",
+    "symbol": "f",
+    "level": "EM",
+    "status": "available"
+  },
+  {
+    "id": "inequalities",
+    "title": "Inequações",
+    "symbol": "<",
+    "level": "EM",
+    "status": "available"
+  },
+  {
+    "id": "inverse_func",
+    "title": "Função Inversa",
+    "symbol": "f⁻¹",
+    "level": "EM",
+    "status": "available"
+  },
+  {
+    "id": "logarithms",
+    "title": "Logaritmos",
+    "symbol": "log",
+    "level": "EM",
+    "status": "available"
+  },
+  {
+    "id": "logic",
+    "title": "Lógica e Conjuntos",
+    "symbol": "∧",
+    "level": "EM",
+    "status": "available"
+  },
+  {
+    "id": "matrices",
+    "title": "Matrizes",
+    "symbol": "M",
+    "level": "EM",
+    "status": "available"
+  },
+  {
+    "id": "modular",
+    "title": "Eq. Modulares",
+    "symbol": "|x|",
+    "level": "EM",
+    "status": "available"
+  },
+  {
+    "id": "nonlinear",
+    "title": "Sistemas Não-lineares",
+    "symbol": "⊗",
+    "level": "EM",
+    "status": "available"
+  },
+  {
+    "id": "polynomials",
+    "title": "Polinômios",
+    "symbol": "p",
+    "level": "EM",
+    "status": "available"
+  },
+  {
+    "id": "prob_advanced",
+    "title": "Probabilidade Avançada",
+    "symbol": "P|",
+    "level": "EM",
+    "status": "available"
+  },
+  {
+    "id": "probability",
+    "title": "Probabilidade",
+    "symbol": "P",
+    "level": "EM",
+    "status": "available"
+  },
+  {
+    "id": "progressions",
+    "title": "Progressões (PA/PG)",
+    "symbol": "∑",
+    "level": "EM",
+    "status": "available"
+  },
+  {
+    "id": "real_numbers",
+    "title": "Números Reais",
+    "symbol": "ℝ",
+    "level": "EM",
+    "status": "available"
+  },
+  {
+    "id": "series",
+    "title": "Sequências e Séries",
+    "symbol": "∞",
+    "level": "EM",
+    "status": "available"
+  },
+  {
+    "id": "statistics",
+    "title": "Estatística Avançada",
+    "symbol": "σ²",
+    "level": "EM",
+    "status": "available"
+  },
+  {
+    "id": "trig",
+    "title": "Trigonometria",
+    "symbol": "θ",
+    "level": "EM",
+    "status": "available"
+  },
+  {
+    "id": "trig_circle",
+    "title": "Trig. Círculo Unitário",
+    "symbol": "○",
+    "level": "EM",
+    "status": "available"
+  },
+  {
+    "id": "trig_graphs",
+    "title": "Trig. Gráficos",
+    "symbol": "∿",
+    "level": "EM",
+    "status": "available"
+  },
+  {
+    "id": "vectors",
+    "title": "Vetores",
+    "symbol": "→",
+    "level": "EM",
+    "status": "available"
+  },
+  {
+    "id": "calc_limits",
+    "title": "Limites",
+    "symbol": "lim",
+    "level": "ES",
+    "group": "Cálculo I",
+    "status": "available"
+  },
+  {
+    "id": "derivatives",
+    "title": "Derivadas",
+    "symbol": "f'",
+    "level": "ES",
+    "group": "Cálculo I",
+    "status": "available"
+  },
+  {
+    "id": "curve_analysis",
+    "title": "Análise de Curvas",
+    "symbol": "f''",
+    "level": "ES",
+    "group": "Cálculo I",
+    "status": "available"
+  },
+  {
+    "id": "optimization",
+    "title": "Otimização",
+    "symbol": "max",
+    "level": "ES",
+    "group": "Cálculo I",
+    "status": "available"
+  },
+  {
+    "id": "integrals",
+    "title": "Integrais",
+    "symbol": "∫",
+    "level": "ES",
+    "group": "Cálculo II",
+    "status": "available"
+  },
+  {
+    "id": "definite_integrals",
+    "title": "Integrais Definidas",
+    "symbol": "∫ᵃᵇ",
+    "level": "ES",
+    "group": "Cálculo II",
+    "status": "available"
+  },
+  {
+    "id": "series_calc",
+    "title": "Séries e Convergência",
+    "symbol": "Σ∞",
+    "level": "ES",
+    "group": "Cálculo II",
+    "status": "available"
+  },
+  {
+    "id": "partial_deriv",
+    "title": "Derivadas Parciais",
+    "symbol": "∂",
+    "level": "ES",
+    "group": "Cálculo III",
+    "status": "available"
+  },
+  {
+    "id": "multiple_integrals",
+    "title": "Integrais Múltiplas",
+    "symbol": "∬",
+    "level": "ES",
+    "group": "Cálculo III",
+    "status": "available"
+  },
+  {
+    "id": "vector_calc",
+    "title": "Cálculo Vetorial",
+    "symbol": "∇",
+    "level": "ES",
+    "group": "Cálculo III",
+    "status": "available"
+  },
+  {
+    "id": "gauss_elim",
+    "title": "Eliminação de Gauss",
+    "symbol": "[A|b]",
+    "level": "ES",
+    "group": "Álgebra Linear",
+    "status": "available"
+  },
+  {
+    "id": "vector_spaces",
+    "title": "Espaços Vetoriais",
+    "symbol": "V",
+    "level": "ES",
+    "group": "Álgebra Linear",
+    "status": "available"
+  },
+  {
+    "id": "lin_transformations",
+    "title": "Transformações Lineares",
+    "symbol": "T",
+    "level": "ES",
+    "group": "Álgebra Linear",
+    "status": "available"
+  },
+  {
+    "id": "eigenvalues_adv",
+    "title": "Autovalores e Autovetores",
+    "symbol": "λ",
+    "level": "ES",
+    "group": "Álgebra Linear",
+    "status": "available"
+  },
+  {
+    "id": "ode_first",
+    "title": "EDO de 1ª Ordem",
+    "symbol": "y'",
+    "level": "ES",
+    "group": "EDO",
+    "status": "available"
+  },
+  {
+    "id": "ode_second",
+    "title": "EDO de 2ª Ordem",
+    "symbol": "y''",
+    "level": "ES",
+    "group": "EDO",
+    "status": "available"
+  },
+  {
+    "id": "distributions",
+    "title": "Distribuições Contínuas",
+    "symbol": "φ",
+    "level": "ES",
+    "group": "Prob & Estat",
+    "status": "available"
+  },
+  {
+    "id": "inference",
+    "title": "Inferência Estatística",
+    "symbol": "H₀",
+    "level": "ES",
+    "group": "Prob & Estat",
+    "status": "available"
+  },
+  {
+    "id": "regression",
+    "title": "Regressão Linear",
+    "symbol": "ŷ",
+    "level": "ES",
+    "group": "Prob & Estat",
+    "status": "available"
+  },
+  {
+    "id": "newton_raphson",
+    "title": "Newton-Raphson",
+    "symbol": "x*",
+    "level": "ES",
+    "group": "Cálculo Numérico",
+    "status": "available"
+  },
+  {
+    "id": "numeric_integ",
+    "title": "Integração Numérica",
+    "symbol": "∫≈",
+    "level": "ES",
+    "group": "Cálculo Numérico",
+    "status": "available"
+  },
+  {
+    "id": "euler_method",
+    "title": "Método de Euler",
+    "symbol": "yₙ",
+    "level": "ES",
+    "group": "Cálculo Numérico",
+    "status": "available"
+  },
+  {
+    "id": "gram_schmidt",
+    "title": "Gram-Schmidt",
+    "symbol": "Q",
+    "level": "ES",
+    "group": "Álgebra Linear",
+    "status": "available"
+  },
+  {
+    "id": "lu_factoring",
+    "title": "Fatoração LU",
+    "symbol": "LU",
+    "level": "ES",
+    "group": "Álgebra Linear",
+    "status": "available"
+  },
+  {
+    "id": "quadratic_forms",
+    "title": "Formas Quadráticas",
+    "symbol": "xᵀAx",
+    "level": "ES",
+    "group": "Álgebra Linear",
+    "status": "available"
+  },
+  {
+    "id": "laplace",
+    "title": "Transformada de Laplace",
+    "symbol": "ℒ",
+    "level": "ES",
+    "group": "Transformadas",
+    "status": "available"
+  },
+  {
+    "id": "fourier_series",
+    "title": "Série de Fourier",
+    "symbol": "Σfₙ",
+    "level": "ES",
+    "group": "Transformadas",
+    "status": "available"
+  },
+  {
+    "id": "lagrange",
+    "title": "Multiplicadores de Lagrange",
+    "symbol": "λ",
+    "level": "ES",
+    "group": "Otimização",
+    "status": "available"
+  },
+  {
+    "id": "linear_prog",
+    "title": "Programação Linear",
+    "symbol": "LP",
+    "level": "ES",
+    "group": "Otimização",
+    "status": "available"
+  },
+  {
+    "id": "markov",
+    "title": "Cadeias de Markov",
+    "symbol": "π",
+    "level": "ES",
+    "group": "Prob Avançada",
+    "status": "available"
+  },
+  {
+    "id": "graph_theory",
+    "title": "Teoria dos Grafos",
+    "symbol": "G",
+    "level": "ES",
+    "group": "Grafos",
+    "status": "available"
+  },
+  {
+    "id": "heat_eq",
+    "title": "Equação do Calor",
+    "symbol": "EDP",
+    "level": "ES",
+    "group": "EDP",
+    "status": "available"
+  },
+  {
+    "id": "complex_var",
+    "title": "Variável Complexa",
+    "symbol": "ℂ",
+    "level": "ES",
+    "group": "Cálculo II",
+    "status": "available"
+  },
+  {
+    "id": "runge_kutta",
+    "title": "Runge-Kutta",
+    "symbol": "RK",
+    "level": "ES",
+    "group": "Cálculo Numérico",
+    "status": "available"
+  },
+  {
+    "id": "wave_eq",
+    "title": "Equação de Onda",
+    "symbol": "EO",
+    "level": "ES",
+    "group": "EDP",
+    "status": "available"
+  },
+  {
+    "id": "interpolation",
+    "title": "Interpolação Polinomial",
+    "symbol": "Pₙ",
+    "level": "ES",
+    "group": "Cálculo Numérico",
+    "status": "available"
+  },
+  {
+    "id": "ode_systems",
+    "title": "Sistemas de EDO",
+    "symbol": "Ax",
+    "level": "ES",
+    "group": "EDO",
+    "status": "available"
+  }
+]

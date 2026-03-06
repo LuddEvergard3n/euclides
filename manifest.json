@@ -1,0 +1,14 @@
+{
+  "name": "Euclides",
+  "short_name": "Euclides",
+  "description": "Plataforma de matemática interativa — do Fundamental ao Superior.",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#0c0c10",
+  "theme_color": "#0c0c10",
+  "orientation": "portrait-primary",
+  "icons": [
+    { "src": "icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ],
+  "categories": ["education"]
+}

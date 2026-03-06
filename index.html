@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Euclides</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css"/>
+  <link rel="icon" type="image/svg+xml" href="icon.svg"/>
+  <link rel="manifest" href="manifest.json"/>
+</head>
+<body>
+  <div id="app">
+    <aside id="sidebar">
+      <div id="sidebar-header">
+        <img src="icon.svg" class="logo-mark" alt="Euclides"/>
+        <span class="logo-text">Euclides</span>
+        <button id="btn-sidebar-close" onclick="Sidebar.close()" aria-label="Fechar menu">&times;</button>
+      </div>
+      <div id="progress-bar-wrap"></div>
+      <nav id="topic-nav"></nav>
+      <div id="sidebar-footer">
+        <button id="btn-stats" onclick="Router.navigate('stats')">Estatísticas</button>
+        <button id="btn-exam" onclick="Router.navigate('exam')">Prova</button>
+        <button id="btn-review" onclick="Router.navigate('review')">Revisão</button>
+        <button id="btn-teacher" onclick="Router.navigate('teacher')">Modo Professor</button>
+      </div>
+    </aside>
+    <main id="main">
+      <div id="mobile-bar">
+        <button id="btn-hamburger" onclick="Sidebar.open()" aria-label="Abrir menu">&#9776;</button>
+        <span class="mobile-title">Euclides</span>
+      </div>
+      <div id="view"></div>
+    </main>
+    <div id="sidebar-overlay" onclick="Sidebar.close()"></div>
+  </div>
+  <script src="js/progress.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/renderer.js"></script>
+  <script src="math/rng.js"></script>
+  <script>window.MathGenerators = {};</script>
+  <script src="math/generators/efI.js"></script>
+  <script src="math/generators/efII.js"></script>
+  <script src="math/generators/algebra.js"></script>
+  <script src="math/generators/functions.js"></script>
+  <script src="math/generators/geometry.js"></script>
+  <script src="math/generators/trig.js"></script>
+  <script src="math/generators/prob.js"></script>
+  <script src="math/generators/matrices_logic.js"></script>
+  <script src="math/generators/calculus_adv.js"></script>
+  <script src="math/generators/calc_I.js"></script>
+  <script src="math/generators/calc_II.js"></script>
+  <script src="math/generators/calc_III.js"></script>
+  <script src="math/generators/lin_alg.js"></script>
+  <script src="math/generators/ode_prob.js"></script>
+  <script src="math/generators/numeric_transforms.js"></script>
+  <script src="math/generators/lin_alg_adv.js"></script>
+  <script src="math/generators/batch3.js"></script>
+  <script src="math/generators/batch4.js"></script>
+  <script src="math/fallback.js"></script>
+  <script src="js/wasm-loader.js"></script>
+  <script src="js/teacher.js"></script>
+  <script src="js/router.js"></script>
+
+  <!-- Fundamental I (3) -->
+  <script src="modules/arithmetic.js"></script>
+  <script src="modules/geometry.js"></script>
+  <script src="modules/rationals.js"></script>
+
+  <!-- Fundamental II (13) -->
+  <script src="modules/algebraic.js"></script>
+  <script src="modules/angles.js"></script>
+  <script src="modules/decimals.js"></script>
+  <script src="modules/equations1.js"></script>
+  <script src="modules/fractions.js"></script>
+  <script src="modules/integers.js"></script>
+  <script src="modules/measures.js"></script>
+  <script src="modules/mmc_mdc.js"></script>
+  <script src="modules/powers.js"></script>
+  <script src="modules/ratio.js"></script>
+  <script src="modules/similarity.js"></script>
+  <script src="modules/spatial.js"></script>
+  <script src="modules/systems.js"></script>
+
+  <!-- Ensino Médio (31) -->
+  <script src="modules/analytic_geo.js"></script>
+  <script src="modules/binomial.js"></script>
+  <script src="modules/calculus.js"></script>
+  <script src="modules/cartesian.js"></script>
+  <script src="modules/combinatorics.js"></script>
+  <script src="modules/complex.js"></script>
+  <script src="modules/conics.js"></script>
+  <script src="modules/dataanalysis.js"></script>
+  <script src="modules/equations2.js"></script>
+  <script src="modules/exponential.js"></script>
+  <script src="modules/factoring.js"></script>
+  <script src="modules/finance.js"></script>
+  <script src="modules/functions.js"></script>
+  <script src="modules/inequalities.js"></script>
+  <script src="modules/inverse_func.js"></script>
+  <script src="modules/logarithms.js"></script>
+  <script src="modules/logic.js"></script>
+  <script src="modules/matrices.js"></script>
+  <script src="modules/modular.js"></script>
+  <script src="modules/nonlinear.js"></script>
+  <script src="modules/polynomials.js"></script>
+  <script src="modules/prob_advanced.js"></script>
+  <script src="modules/probability.js"></script>
+  <script src="modules/progressions.js"></script>
+  <script src="modules/real_numbers.js"></script>
+  <script src="modules/series.js"></script>
+  <script src="modules/statistics.js"></script>
+  <script src="modules/trig.js"></script>
+  <script src="modules/trig_circle.js"></script>
+  <script src="modules/trig_graphs.js"></script>
+  <script src="modules/vectors.js"></script>
+
+  <!-- Ensino Superior (32) -->
+  <script src="modules/calc_limits.js"></script>
+  <script src="modules/derivatives.js"></script>
+  <script src="modules/curve_analysis.js"></script>
+  <script src="modules/optimization.js"></script>
+  <script src="modules/integrals.js"></script>
+  <script src="modules/definite_integrals.js"></script>
+  <script src="modules/series_calc.js"></script>
+  <script src="modules/partial_deriv.js"></script>
+  <script src="modules/multiple_integrals.js"></script>
+  <script src="modules/vector_calc.js"></script>
+  <script src="modules/gauss_elim.js"></script>
+  <script src="modules/vector_spaces.js"></script>
+  <script src="modules/lin_transformations.js"></script>
+  <script src="modules/eigenvalues_adv.js"></script>
+  <script src="modules/ode_first.js"></script>
+  <script src="modules/ode_second.js"></script>
+  <script src="modules/distributions.js"></script>
+  <script src="modules/inference.js"></script>
+  <script src="modules/regression.js"></script>
+  <script src="modules/newton_raphson.js"></script>
+  <script src="modules/numeric_integ.js"></script>
+  <script src="modules/euler_method.js"></script>
+  <script src="modules/gram_schmidt.js"></script>
+  <script src="modules/lu_factoring.js"></script>
+  <script src="modules/quadratic_forms.js"></script>
+  <script src="modules/laplace.js"></script>
+  <script src="modules/fourier_series.js"></script>
+  <script src="modules/lagrange.js"></script>
+  <script src="modules/linear_prog.js"></script>
+  <script src="modules/markov.js"></script>
+  <script src="modules/graph_theory.js"></script>
+  <script src="modules/heat_eq.js"></script>
+  <script src="modules/complex_var.js"></script>
+  <script src="modules/runge_kutta.js"></script>
+  <script src="modules/wave_eq.js"></script>
+  <script src="modules/interpolation.js"></script>
+  <script src="modules/ode_systems.js"></script>
+
+  <script src="js/stats.js"></script>
+  <script src="js/sidebar.js"></script>
+  <script src="js/anim.js"></script>
+  <script src="js/review.js"></script>
+  <script src="js/completion.js"></script>
+  <script src="js/exam.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
