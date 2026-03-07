@@ -34,8 +34,8 @@
       UI.renderBreadcrumb([{label:'In\u00edcio',href:''},{label:'Equação de Onda'}])+
       UI.renderPhaseBar(TOPIC_ID,'concept')+
       '<h1 class="topic-title">Equação de Onda</h1>'+
-      '<p class="topic-meta">EDP hiperbólica · d'Alembert · modos normais · velocidade de propagação</p>'+
-      '<div class="content-block">'+'<div class="concept-highlight"><div class="hl-label">Equação e classificação</div>u_tt = c² u_xx  (EDP hiperbólica)<br>c = velocidade de propagação.<br>Modela: cordas vibrantes, ondas acústicas, eletromagnéticas.</div>'+'<div class="concept-highlight"><div class="hl-label">Solução de d'Alembert</div>u(x,t) = f(x-ct) + g(x+ct)<br>f(x-ct): onda viajando para a direita.<br>g(x+ct): onda viajando para a esquerda.<br>Condições iniciais determinam f e g.</div>'+'<div class="concept-highlight"><div class="hl-label">Modos normais (corda fixada)</div>X_n = sen(nπx/L), ω_n = nπc/L<br>u_n(x,t) = sen(nπx/L)(A_n cosω_n t + B_n senω_n t)<br>Freqüência fundamental: f₁ = c/(2L)</div>'+'</div>'+
+      '<p class="topic-meta">EDP hiperbólica · d&#39;Alembert · modos normais · velocidade de propagação</p>'+
+      '<div class="content-block">'+'<div class="concept-highlight"><div class="hl-label">Equação e classificação</div>u_tt = c² u_xx  (EDP hiperbólica)<br>c = velocidade de propagação.<br>Modela: cordas vibrantes, ondas acústicas, eletromagnéticas.</div>'+'<div class="concept-highlight"><div class="hl-label">Solução de d&#39;Alembert</div>u(x,t) = f(x-ct) + g(x+ct)<br>f(x-ct): onda viajando para a direita.<br>g(x+ct): onda viajando para a esquerda.<br>Condições iniciais determinam f e g.</div>'+'<div class="concept-highlight"><div class="hl-label">Modos normais (corda fixada)</div>X_n = sen(nπx/L), ω_n = nπc/L<br>u_n(x,t) = sen(nπx/L)(A_n cosω_n t + B_n senω_n t)<br>Freqüência fundamental: f₁ = c/(2L)</div>'+'</div>'+
       '<div class="btn-row mt-24"><button class="btn btn-primary" onclick="Router.navigate(\'topic/wave_eq/example\')">Ver exemplo \u2192</button></div>'+
     '</div><div class="topic-canvas-panel" id="canvas-panel"></div></div>';
     _mc(view.querySelector('#canvas-panel'),420,380);_drawCanvas();
@@ -57,7 +57,7 @@
       UI.renderBreadcrumb([{label:'In\u00edcio',href:''},{label:'Equação de Onda',href:'topic/wave_eq/concept'},{label:'Exemplo'}])+
       UI.renderPhaseBar(TOPIC_ID,'example')+
       '<h1 class="topic-title">Exemplo passo a passo</h1>'+
-      '<p class="topic-meta">EDP hiperbólica · d'Alembert · modos normais · velocidade de propagação</p>'+
+      '<p class="topic-meta">EDP hiperbólica · d&#39;Alembert · modos normais · velocidade de propagação</p>'+
       '<div class="example-step-bar"><span class="step-counter" id="step-counter">Passo 1 de '+_exSteps.length+'</span>'+
       '<div class="step-progress"><div class="step-progress-fill" id="step-fill" style="width:0%"></div></div></div>'+
       '<div class="step-description" id="step-desc"><span class="text-mono text-gold">'+_exSteps[0].equation+'</span></div>'+

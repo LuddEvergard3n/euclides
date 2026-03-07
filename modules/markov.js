@@ -3,11 +3,14 @@
   function _mc(p,w,h){var c=document.createElement('canvas');c.id='main-canvas';c.width=w||420;c.height=h||380;p.innerHTML='';p.appendChild(c);Renderer.init(c);return c;}
   var _pr={exercise:null,difficulty:1,history:[],hintsEnabled:false,hintIndex:0,solved:false};
   var _exStep=0;
+  function _drawAxes(){
+    var ctx=Renderer.ctx(),W=Renderer.width(),H=Renderer.height();
+    var cx=W/2,cy=H/2;
     ctx.strokeStyle='#3e3e58';ctx.lineWidth=1.5;
     ctx.beginPath();ctx.moveTo(20,cy);ctx.lineTo(W-20,cy);ctx.stroke();
     ctx.beginPath();ctx.moveTo(cx,20);ctx.lineTo(cx,H-20);ctx.stroke();
     ctx.fillStyle='#72728c';ctx.font='10px JetBrains Mono,monospace';ctx.textAlign='center';
-    ctx.fillText('Estados A ↔ B — probabilidades de transição',W/2,H-5);
+    ctx.fillText('Estados A \u2194 B \u2014 probabilidades de transição',W/2,H-5);
   }
   function _drawMarkov(){
     Renderer.clear();
