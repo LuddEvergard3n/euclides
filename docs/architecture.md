@@ -7,6 +7,9 @@ navegação é hash-based, todo estado persistido é `localStorage`, e toda mate
 roda em JS puro (ou WASM quando compilado).
 
 ```
+Topbar (Sobre | Ajuda | Ecossistema)
+    └── TopPanel (painel deslizante, script inline)
+
 URL hash → Router → Module.renderPhase(view)
                          │
               ┌──────────┼──────────────┐
@@ -43,7 +46,37 @@ Cada arquivo tem exatamente uma responsabilidade. Violações desta tabela são 
 
 ---
 
-## Fluxo de navegação
+## Layout estrutural
+
+```
+<body>                         display: flex; flex-direction: column
+  <header #topbar>             altura fixa 44px — logo + abas Sobre/Ajuda/Ecossistema
+  <div #app>                   flex: 1; overflow: hidden
+    <aside #sidebar>           220px, fixo
+    <main #main>               flex: 1
+  <div #tpanel-overlay>        overlay do painel (z-index 500)
+  <div #tpanel>                painel deslizante (z-index 501, top: 44px, right: 0)
+```
+
+---
+
+## TopPanel
+
+Script inline no final de `index.html`. Controlador simples de painel único.
+
+```js
+TopPanel.open('sobre' | 'ajuda' | 'ecossistema')
+// Abre o painel com o conteúdo correspondente.
+// Se o mesmo key já estiver aberto, fecha (toggle).
+
+TopPanel.close()
+// Fecha o painel. Também disparado por Escape e clique no overlay.
+```
+
+Conteúdo dos três painéis é declarado como objeto literal `_content` dentro do IIFE.
+Nenhuma dependência dos outros módulos — completamente isolado.
+
+---
 
 ```
 1. Usuário clica em link ou botão
@@ -205,3 +238,17 @@ mesma semente produzam resultado idêntico (útil para testes reproduzíveis).
 MathRNG.reseed()        // nova semente baseada em Date.now()
 MathRNG.randInt(a, b)   // inteiro uniformemente distribuído em [a, b]
 ```
+
+---
+
+## Ecossistema
+
+Plataformas educacionais do mesmo ecossistema, referenciadas no painel Ecossistema e no README:
+
+| Plataforma | Área | URL |
+|---|---|---|
+| Quintiliano | Português e literatura | https://luddevergard3n.github.io/quintiliano/ |
+| Johnson English | Língua inglesa | https://luddevergard3n.github.io/johnson-english/ |
+| Humboldt | Geografia | https://luddevergard3n.github.io/humboldt/ |
+| Heródoto | História | https://luddevergard3n.github.io/Herodoto/ |
+| Lavoisier | Química | https://luddevergard3n.github.io/lavoisier/ |

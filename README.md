@@ -134,8 +134,23 @@ euclides/
 - **Estatísticas** — acurácia global, por nível, por tópico; tabelas de pontos fortes/fracos
 - **Modo professor** — cria exercícios custom com enunciado, equação, resposta e dicas
 - **Folha imprimível** — gera folha A4 com gabarito opcional via print dialog
+- **Topbar** — barra fixa com abas Sobre, Ajuda e Ecossistema; painéis deslizantes com conteúdo contextual
 - **PWA** — instalável, funciona offline após primeiro carregamento
 - **Mobile** — sidebar colapsável com hamburger, breakpoint 640px
+
+---
+
+## Ecossistema
+
+Plataformas educacionais do mesmo ecossistema:
+
+| Plataforma | Área | URL |
+|---|---|---|
+| Quintiliano | Português e literatura | https://luddevergard3n.github.io/quintiliano/ |
+| Johnson English | Língua inglesa | https://luddevergard3n.github.io/johnson-english/ |
+| Humboldt | Geografia | https://luddevergard3n.github.io/humboldt/ |
+| Heródoto | História | https://luddevergard3n.github.io/Herodoto/ |
+| Lavoisier | Química | https://luddevergard3n.github.io/lavoisier/ |
 
 ---
 

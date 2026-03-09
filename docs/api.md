@@ -6,6 +6,26 @@ quando necessários por callbacks de eventos inline no HTML.
 
 ---
 
+## TopPanel
+
+Script inline em `index.html` → `window.TopPanel`
+
+Controlador dos painéis deslizantes da topbar (Sobre, Ajuda, Ecossistema).
+
+```js
+TopPanel.open(key: 'sobre' | 'ajuda' | 'ecossistema')
+// Abre o painel com o conteúdo do key dado.
+// Se o mesmo key já estiver aberto, fecha (toggle).
+
+TopPanel.close()
+// Fecha o painel e remove o estado ativo das abas.
+// Também disparado por tecla Escape e clique no #tpanel-overlay.
+```
+
+---
+
+---
+
 ## Progress
 
 `js/progress.js` → `window.Progress`

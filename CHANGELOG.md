@@ -5,6 +5,34 @@ Formato: [versão] — data | mudanças agrupadas por tipo.
 
 ---
 
+## [v3.2] — 2026-03-09
+
+### Corrigido
+- **`wave_eq.js`** — `d'Alembert` dentro de string JS com aspas simples causava syntax error; substituído por entidade HTML `d&#39;Alembert`.
+- **`ode_systems.js`** — `y''`, `y'`, `x'` dentro de strings single-quoted causavam syntax error; substituídos por `&#39;`.
+- **`markov.js`** — corpo da função `_drawAxes()` havia ficado solto após `var _exStep=0` sem a declaração da função; declaração restaurada.
+
+---
+
+## [v3.1] — 2026-03-09
+
+### Adicionado
+- **Topbar** (`#topbar`): barra fixa de 44px spanning full-width com logo + "Euclides" à esquerda e abas "Sobre", "Ajuda" e "Ecossistema" à direita.
+- **`TopPanel`** (script inline em `index.html`): controlador de painéis deslizantes ancorados no canto direito, abaixo do topbar. Fecha com Escape ou clique no overlay. Aba ativa recebe destaque gold.
+  - **Sobre** — descrição da plataforma, cobertura de tópicos, stack e filosofia
+  - **Ajuda** — guia de uso em 4 passos, features e explicação da dificuldade adaptativa
+  - **Ecossistema** — cards com links para Quintiliano, Johnson English, Humboldt, Heródoto e Lavoisier
+
+### Alterado
+- Logo e nome "Euclides" movidos do `#sidebar-header` para o `#topbar-brand`.
+- `body` mudou de `height: 100vh; overflow: hidden` para `display: flex; flex-direction: column` com topbar acima e `#app` abaixo.
+- `#sidebar-header` agora tem `display: none` no desktop — aparece apenas no mobile para segurar o botão de fechar, eliminando a barra vazia e assimétrica.
+- Sidebar mobile passa a ter `top: 44px` (abaixo do topbar) em vez de `top: 0`.
+- Bloco `#ecosystem` removido do `#sidebar-footer`.
+- Descrições corrigidas: Quintiliano → "Português e literatura"; Humboldt → "Geografia".
+
+---
+
 ## [v3] — 2026-03-06
 
 ### Adicionado

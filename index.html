@@ -11,11 +11,23 @@
   <link rel="manifest" href="manifest.json"/>
 </head>
 <body>
+  <!-- ── Top bar ─────────────────────────────────────────────────── -->
+  <header id="topbar">
+    <div id="topbar-brand">
+      <img src="icon.svg" class="logo-mark" alt="Euclides"/>
+      <span class="logo-text">Euclides</span>
+    </div>
+    <nav id="topbar-nav">
+      <button class="topbar-tab" onclick="TopPanel.open('sobre')">Sobre</button>
+      <button class="topbar-tab" onclick="TopPanel.open('ajuda')">Ajuda</button>
+      <button class="topbar-tab" onclick="TopPanel.open('ecossistema')">Ecossistema</button>
+    </nav>
+  </header>
+
+  <!-- ── App shell ─────────────────────────────────────────────────── -->
   <div id="app">
     <aside id="sidebar">
       <div id="sidebar-header">
-        <img src="icon.svg" class="logo-mark" alt="Euclides"/>
-        <span class="logo-text">Euclides</span>
         <button id="btn-sidebar-close" onclick="Sidebar.close()" aria-label="Fechar menu">&times;</button>
       </div>
       <div id="progress-bar-wrap"></div>
@@ -35,6 +47,16 @@
       <div id="view"></div>
     </main>
     <div id="sidebar-overlay" onclick="Sidebar.close()"></div>
+  </div>
+
+  <!-- ── Top panel modals ──────────────────────────────────────────── -->
+  <div id="tpanel-overlay" onclick="TopPanel.close()"></div>
+  <div id="tpanel" role="dialog" aria-modal="true">
+    <div id="tpanel-header">
+      <span id="tpanel-title"></span>
+      <button id="tpanel-close" onclick="TopPanel.close()" aria-label="Fechar">&times;</button>
+    </div>
+    <div id="tpanel-body"></div>
   </div>
   <script src="js/progress.js"></script>
   <script src="js/ui.js"></script>
@@ -163,5 +185,94 @@
   <script src="js/completion.js"></script>
   <script src="js/exam.js"></script>
   <script src="js/main.js"></script>
+  <script>
+  /* ── TopPanel — modal controller ──────────────────────────────── */
+  var TopPanel = (function () {
+    var _current = null;
+
+    var _content = {
+      sobre: {
+        title: 'Sobre o Euclides',
+        html:
+          '<p>Euclides é uma plataforma de ensino de matemática desenvolvida para cobrir ' +
+          'do Ensino Fundamental I ao Ensino Superior, com foco em clareza conceitual e prática adaptativa.</p>' +
+          '<h3>Cobertura</h3>' +
+          '<p>84 tópicos em 4 níveis: Fundamental I, Fundamental II, Ensino Médio e Ensino Superior. ' +
+          'O Ensino Superior inclui Cálculo I/II/III, Álgebra Linear, EDO, EDP, Transformadas, ' +
+          'Cálculo Numérico, Grafos e Variável Complexa.</p>' +
+          '<h3>Tecnologia</h3>' +
+          '<p>Aplicação browser-only em HTML, CSS e JavaScript puro. Sem frameworks, sem servidor. ' +
+          'Funciona offline após o primeiro acesso (PWA).</p>' +
+          '<h3>Filosofia</h3>' +
+          '<p>Sem infantilização. Cada tópico apresenta a matemática real — canvas com planos cartesianos, ' +
+          'curvas e retratos de fase — seguido de prática com dificuldade adaptativa.</p>'
+      },
+      ajuda: {
+        title: 'Ajuda',
+        html:
+          '<h3>Como usar</h3>' +
+          '<div class="help-step"><div class="help-num">1</div><div>Escolha um tópico no menu lateral. Os grupos seguem a progressão curricular.</div></div>' +
+          '<div class="help-step"><div class="help-num">2</div><div>Leia o <strong style="color:var(--text)">Conceito</strong> — teoria com visualização em canvas.</div></div>' +
+          '<div class="help-step"><div class="help-num">3</div><div>Acompanhe o <strong style="color:var(--text)">Exemplo</strong> — resolução passo a passo.</div></div>' +
+          '<div class="help-step"><div class="help-num">4</div><div>Pratique — exercícios com dificuldade ajustada pelo seu desempenho.</div></div>' +
+          '<h3>Funcionalidades</h3>' +
+          '<p><strong style="color:var(--text)">Prova</strong> — 20 questões cronometradas (30 min) de tópicos variados.</p>' +
+          '<p><strong style="color:var(--text)">Revisão</strong> — seleção automática dos tópicos com menor acurácia.</p>' +
+          '<p><strong style="color:var(--text)">Estatísticas</strong> — acurácia global, por nível e por tópico.</p>' +
+          '<p><strong style="color:var(--text)">Modo Professor</strong> — criação de exercícios personalizados e folha imprimível com gabarito.</p>' +
+          '<h3>Dificuldade adaptativa</h3>' +
+          '<p>A dificuldade (1–5) sobe após 4 acertos consecutivos e cai após 4 erros nos últimos 5 exercícios.</p>'
+      },
+      ecossistema: {
+        title: 'Ecossistema',
+        html:
+          '<p>Plataformas educacionais do mesmo ecossistema.</p>' +
+          '<a class="eco-link" href="https://luddevergard3n.github.io/quintiliano/" target="_blank" rel="noopener">' +
+            '<div><div class="eco-link-name">Quintiliano</div><div class="eco-link-desc">Português e literatura</div></div>' +
+          '</a>' +
+          '<a class="eco-link" href="https://luddevergard3n.github.io/johnson-english/" target="_blank" rel="noopener">' +
+            '<div><div class="eco-link-name">Johnson English</div><div class="eco-link-desc">L\u00edngua inglesa</div></div>' +
+          '</a>' +
+          '<a class="eco-link" href="https://luddevergard3n.github.io/humboldt/" target="_blank" rel="noopener">' +
+            '<div><div class="eco-link-name">Humboldt</div><div class="eco-link-desc">Geografia</div></div>' +
+          '</a>' +
+          '<a class="eco-link" href="https://luddevergard3n.github.io/Herodoto/" target="_blank" rel="noopener">' +
+            '<div><div class="eco-link-name">Her\u00f3doto</div><div class="eco-link-desc">Hist\u00f3ria</div></div>' +
+          '</a>' +
+          '<a class="eco-link" href="https://luddevergard3n.github.io/lavoisier/" target="_blank" rel="noopener">' +
+            '<div><div class="eco-link-name">Lavoisier</div><div class="eco-link-desc">Qu\u00edmica</div></div>' +
+          '</a>'
+      }
+    };
+
+    function open(key) {
+      if (_current === key) { close(); return; }
+      _current = key;
+      var c = _content[key];
+      document.getElementById('tpanel-title').textContent = c.title;
+      document.getElementById('tpanel-body').innerHTML = c.html;
+      document.getElementById('tpanel').classList.add('open');
+      document.getElementById('tpanel-overlay').classList.add('open');
+      document.querySelectorAll('.topbar-tab').forEach(function (b) {
+        b.classList.toggle('active', b.textContent.toLowerCase().replace('\u00e9','e') === key);
+      });
+    }
+
+    function close() {
+      _current = null;
+      document.getElementById('tpanel').classList.remove('open');
+      document.getElementById('tpanel-overlay').classList.remove('open');
+      document.querySelectorAll('.topbar-tab').forEach(function (b) {
+        b.classList.remove('active');
+      });
+    }
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') close();
+    });
+
+    return { open: open, close: close };
+  })();
+  </script>
 </body>
 </html>
