@@ -241,14 +241,27 @@ MathRNG.randInt(a, b)   // inteiro uniformemente distribuído em [a, b]
 
 ---
 
+## Páginas auxiliares
+
+| Arquivo | Template | Descrição |
+|---|---|---|
+| `sobre.html` | Coluna única centrada (max 860px) | Origem do nome, filosofia, cobertura, ecossistema |
+| `guia-professor.html` | Sidebar 220px + conteúdo flex:1 | Orientações pedagógicas, atividades práticas, referência |
+| `plano-aula.html` | Dois painéis (grid 480px + 1fr) | Gerador de plano com BNCC Matemática, presets, export print |
+
+As três páginas compartilham o mesmo sistema de variáveis CSS e estrutura de topbar do `index.html`. Nenhuma importa módulos externos — todo JS é inline no `<script>` do próprio arquivo.
+
+---
+
 ## Ecossistema
 
-Plataformas educacionais do mesmo ecossistema, referenciadas no painel Ecossistema e no README:
+Plataformas educacionais do mesmo ecossistema, referenciadas no painel Ecossistema, nas páginas auxiliares e no README:
 
 | Plataforma | Área | URL |
 |---|---|---|
 | Quintiliano | Português e literatura | https://luddevergard3n.github.io/quintiliano/ |
 | Johnson English | Língua inglesa | https://luddevergard3n.github.io/johnson-english/ |
 | Humboldt | Geografia | https://luddevergard3n.github.io/humboldt/ |
-| Heródoto | História | https://luddevergard3n.github.io/Herodoto/ |
+| Heródoto | História | https://luddevergard3n.github.io/Herodoto/index.html |
 | Lavoisier | Química | https://luddevergard3n.github.io/lavoisier/ |
+| Archimedes | Física | https://luddevergard3n.github.io/archimedes/ |

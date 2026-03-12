@@ -1,0 +1,987 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Plano de Aula — Euclides</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <link rel="icon" type="image/svg+xml" href="icon.svg"/>
+  <link rel="manifest" href="manifest.json"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:         #0c0c10;
+      --surface:    #13131c;
+      --surface-2:  #1a1a28;
+      --border:     #22223a;
+      --border-2:   #2e2e4a;
+      --text:       #e8e8f2;
+      --text-muted: #72728c;
+      --text-dim:   #3e3e58;
+      --gold:       #c8a44a;
+      --gold-light: #e0bb6a;
+      --gold-dim:   rgba(200,164,74,.15);
+      --teal:       #4ab8b2;
+      --blue:       #5a8fd2;
+      --green:      #4e9e70;
+      --red:        #c45252;
+      --radius:     4px;
+      --font-ui:    'Inter', system-ui, sans-serif;
+      --font-mono:  'JetBrains Mono', 'Fira Code', monospace;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-ui);
+      font-size: 14px;
+      line-height: 1.6;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* ── Topbar ─────────────────────────────────────────────────── */
+    #topbar {
+      height: 44px;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 16px;
+      flex-shrink: 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    #topbar-brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    #topbar-brand img { width: 26px; height: 26px; }
+    #topbar-brand span { font-size: 14px; font-weight: 600; color: var(--text); }
+    #topbar-nav { display: flex; gap: 2px; }
+
+    .topbar-tab {
+      background: transparent; border: none; color: var(--text-muted);
+      font-family: var(--font-ui); font-size: 12px; font-weight: 500;
+      padding: 5px 12px; border-radius: var(--radius); cursor: pointer;
+      text-decoration: none; display: inline-flex; align-items: center;
+      transition: color .15s, background .15s;
+    }
+    .topbar-tab:hover { color: var(--text); background: var(--surface-2); }
+    .topbar-tab.active { color: var(--gold); background: var(--gold-dim); }
+
+    /* ── Layout ─────────────────────────────────────────────────── */
+    .page-wrapper {
+      display: grid;
+      grid-template-columns: 480px 1fr;
+      gap: 1.5rem;
+      padding: 1.5rem;
+      flex: 1;
+      min-height: 0;
+      align-items: start;
+    }
+
+    /* ── Form panel ─────────────────────────────────────────────── */
+    .form-panel {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+
+    .fp-header {
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .fp-header h2 {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text);
+      letter-spacing: 0.03em;
+    }
+
+    .fp-body { padding: 16px; display: flex; flex-direction: column; gap: 16px; }
+
+    /* ── Form groups ────────────────────────────────────────────── */
+    .fsec {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .fsec-title {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--gold);
+      padding-bottom: 4px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .fr2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .fr3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+
+    .fg {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .fg label {
+      font-size: 11px;
+      color: var(--text-muted);
+      min-height: 2em;
+      display: flex;
+      align-items: flex-end;
+      padding-bottom: 2px;
+    }
+
+    input[type="text"],
+    input[type="date"],
+    input[type="number"],
+    select,
+    textarea {
+      background: var(--surface-2);
+      border: 1px solid var(--border-2);
+      border-radius: var(--radius);
+      color: var(--text);
+      font-family: var(--font-ui);
+      font-size: 13px;
+      padding: 6px 8px;
+      width: 100%;
+      transition: border-color .15s;
+    }
+    input:focus, select:focus, textarea:focus {
+      outline: none;
+      border-color: var(--gold);
+    }
+    input[readonly] {
+      background: var(--bg);
+      color: var(--text-muted);
+      cursor: default;
+    }
+    select option { background: var(--surface-2); }
+    textarea { resize: vertical; min-height: 60px; }
+
+    /* ── Checkbox panels ────────────────────────────────────────── */
+    .check-box {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      max-height: 160px;
+      overflow-y: auto;
+      padding: 6px;
+    }
+    .check-box::-webkit-scrollbar { width: 4px; }
+    .check-box::-webkit-scrollbar-track { background: transparent; }
+    .check-box::-webkit-scrollbar-thumb { background: var(--border-2); border-radius: 2px; }
+
+    .pi {
+      display: flex;
+      align-items: flex-start;
+      gap: 7px;
+      padding: 4px 6px;
+      border-radius: 3px;
+      cursor: pointer;
+      transition: background .1s;
+    }
+    .pi:hover { background: rgba(200,164,74,.07); }
+    .pi input[type="checkbox"] {
+      width: 13px;
+      height: 13px;
+      min-width: 13px;
+      margin-top: 2px;
+      background: var(--surface);
+      border: 1px solid var(--border-2);
+      border-radius: 2px;
+      accent-color: var(--gold);
+      cursor: pointer;
+      padding: 0;
+    }
+    .pi label {
+      font-size: 12px;
+      color: var(--text-muted);
+      cursor: pointer;
+      line-height: 1.4;
+      min-height: unset;
+      display: block;
+      padding-bottom: 0;
+    }
+    .pi label .pid {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--teal);
+      background: rgba(74,184,178,.1);
+      border-radius: 2px;
+      padding: 1px 4px;
+      margin-right: 5px;
+      white-space: nowrap;
+    }
+    .pe2 { font-size: 12px; color: var(--text-dim); padding: 8px 6px; }
+
+    /* ── Extra textarea ─────────────────────────────────────────── */
+    .xa-label { font-size: 11px; color: var(--text-dim); margin-top: 4px; }
+
+    /* ── Toolbar ────────────────────────────────────────────────── */
+    .toolbar {
+      display: flex;
+      gap: 8px;
+      padding: 12px 16px;
+      border-top: 1px solid var(--border);
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 7px 14px;
+      border-radius: var(--radius);
+      font-family: var(--font-ui);
+      font-size: 12px;
+      font-weight: 500;
+      cursor: pointer;
+      border: none;
+      transition: opacity .15s, background .15s;
+    }
+    .btn:hover { opacity: .85; }
+    .btn-primary { background: var(--gold); color: #0c0c10; }
+    .btn-secondary { background: var(--surface-2); color: var(--text-muted); border: 1px solid var(--border-2); }
+
+    /* ── Preview panel ──────────────────────────────────────────── */
+    .preview-panel {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+    .pp-header {
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .pp-header h2 { font-size: 13px; font-weight: 600; color: var(--text); }
+    .pp-hint { font-size: 11px; color: var(--text-dim); }
+
+    /* ── Document output ────────────────────────────────────────── */
+    #doc {
+      padding: 2rem 2.5rem;
+      background: #fff;
+      color: #111;
+      font-family: 'Times New Roman', Times, serif;
+      font-size: 13px;
+      line-height: 1.65;
+      min-height: 400px;
+    }
+    #doc .doc-placeholder {
+      font-family: var(--font-ui);
+      font-size: 13px;
+      color: var(--text-dim);
+      padding: 2rem;
+      text-align: center;
+      background: transparent;
+    }
+    /* Document internal styles */
+    #doc .dh {
+      text-align: center;
+      border-bottom: 2px solid #111;
+      padding-bottom: 10px;
+      margin-bottom: 16px;
+    }
+    #doc .dh-inst { font-size: 11px; text-transform: uppercase; letter-spacing: .06em; color: #555; }
+    #doc .dh-title { font-size: 18px; font-weight: bold; margin: 4px 0; color: #111; }
+    #doc .dh-sub { font-size: 11px; color: #555; }
+    #doc .id-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 0;
+      border: 1px solid #999;
+      margin-bottom: 12px;
+    }
+    #doc .id-cell {
+      padding: 4px 8px;
+      border-right: 1px solid #bbb;
+      border-bottom: 1px solid #bbb;
+      font-size: 12px;
+    }
+    #doc .id-cell:nth-child(3n) { border-right: none; }
+    #doc .id-cell:nth-last-child(-n+3) { border-bottom: none; }
+    #doc .id-label { font-size: 10px; text-transform: uppercase; letter-spacing: .05em; color: #777; display: block; }
+    #doc .id-value { font-weight: bold; }
+    #doc .ds {
+      margin-bottom: 10px;
+    }
+    #doc .dst {
+      display: block;
+      background: #111;
+      color: #fff;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      padding: 3px 8px;
+      margin-bottom: 5px;
+    }
+    #doc .ds-body { padding: 4px 8px; }
+    #doc .ds-item {
+      display: flex;
+      gap: 6px;
+      padding: 2px 0;
+      font-size: 12px;
+    }
+    #doc .ds-item::before { content: '•'; color: #555; flex-shrink: 0; }
+    #doc .ds-bncc-item {
+      padding: 2px 0;
+      font-size: 12px;
+    }
+    #doc .ds-bncc-code {
+      font-family: monospace;
+      font-size: 10px;
+      background: #f0f0f0;
+      border: 1px solid #ccc;
+      border-radius: 2px;
+      padding: 1px 4px;
+      margin-right: 4px;
+      color: #333;
+    }
+    #doc .ds-text { padding: 4px 8px; font-size: 12px; white-space: pre-wrap; }
+
+    /* ── Empty state ────────────────────────────────────────────── */
+    .doc-empty {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 3rem 2rem;
+      gap: 8px;
+      background: transparent;
+    }
+    .doc-empty-icon { font-size: 32px; opacity: .3; }
+    .doc-empty-msg { font-family: var(--font-ui); font-size: 13px; color: var(--text-dim); }
+
+    /* ── Responsive ─────────────────────────────────────────────── */
+    @media (max-width: 1100px) {
+      .page-wrapper {
+        grid-template-columns: 420px 1fr;
+      }
+    }
+    @media (max-width: 900px) {
+      .page-wrapper {
+        grid-template-columns: 1fr;
+        padding: 1rem;
+      }
+    }
+    @media (max-width: 640px) {
+      .fr2, .fr3 { grid-template-columns: 1fr; }
+      #topbar-nav .topbar-tab:not(.active) { display: none; }
+    }
+
+    /* ── Print ──────────────────────────────────────────────────── */
+    @media print {
+      body { background: white !important; }
+      #topbar, .form-panel, .pp-header, .toolbar { display: none !important; }
+      .page-wrapper { display: block !important; padding: 0 !important; }
+      .preview-panel { border: none !important; background: white !important; box-shadow: none !important; }
+      #doc {
+        padding: 1.5cm 2cm !important;
+        font-size: 10pt !important;
+        min-height: unset !important;
+      }
+      * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+    }
+  </style>
+</head>
+<body>
+
+  <header id="topbar">
+    <a id="topbar-brand" href="index.html">
+      <img src="icon.svg" alt="Euclides"/>
+      <span>Euclides</span>
+    </a>
+    <nav id="topbar-nav">
+      <a class="topbar-tab" href="sobre.html">Sobre</a>
+      <a class="topbar-tab" href="guia-professor.html">Guia do Professor</a>
+      <a class="topbar-tab active" href="plano-aula.html">Plano de Aula</a>
+      <a class="topbar-tab" href="index.html">&#8592; Plataforma</a>
+    </nav>
+  </header>
+
+  <div class="page-wrapper">
+
+    <!-- ── FORM ────────────────────────────────────────────────── -->
+    <div class="form-panel">
+      <div class="fp-header">
+        <h2>Dados do Plano</h2>
+      </div>
+      <div class="fp-body">
+
+        <!-- Identificação -->
+        <div class="fsec">
+          <div class="fsec-title">Identificação</div>
+          <div class="fr2">
+            <div class="fg"><label>Professor(a)</label><input type="text" id="f-prof" placeholder="Nome completo"/></div>
+            <div class="fg"><label>Escola / Instituição</label><input type="text" id="f-escola" placeholder="Nome da escola"/></div>
+          </div>
+          <div class="fr3">
+            <div class="fg"><label>Disciplina</label><input type="text" id="f-disc" value="Matemática"/></div>
+            <div class="fg"><label>Turma / Grupo</label><input type="text" id="f-turma" placeholder="Ex: 7ºA"/></div>
+            <div class="fg"><label>Data</label><input type="date" id="f-data"/></div>
+          </div>
+          <div class="fr3">
+            <div class="fg">
+              <label>Ano / Série</label>
+              <select id="f-ano" onchange="onAno()">
+                <option value="">— selecionar —</option>
+                <optgroup label="Ensino Fundamental I">
+                  <option value="1">1º ano</option>
+                  <option value="2">2º ano</option>
+                  <option value="3">3º ano</option>
+                  <option value="4">4º ano</option>
+                  <option value="5">5º ano</option>
+                </optgroup>
+                <optgroup label="Ensino Fundamental II">
+                  <option value="6">6º ano</option>
+                  <option value="7">7º ano</option>
+                  <option value="8">8º ano</option>
+                  <option value="9">9º ano</option>
+                </optgroup>
+                <optgroup label="Ensino Médio">
+                  <option value="EM1">1ª série EM</option>
+                  <option value="EM2">2ª série EM</option>
+                  <option value="EM3">3ª série EM</option>
+                </optgroup>
+              </select>
+            </div>
+            <div class="fg">
+              <label>Nº de aulas</label>
+              <input type="number" id="f-naulas" min="1" max="20" value="1" onchange="calcCarga()"/>
+            </div>
+            <div class="fg">
+              <label>Duração / aula</label>
+              <select id="f-dur" onchange="calcCarga()">
+                <option value="45">45 min</option>
+                <option value="50" selected>50 min</option>
+                <option value="60">60 min</option>
+                <option value="90">1h30</option>
+                <option value="100">1h40</option>
+              </select>
+            </div>
+          </div>
+          <div class="fr3">
+            <div class="fg"><label>Carga horária total</label><input type="text" id="f-carga" readonly/></div>
+            <div class="fg" style="grid-column: span 2"><label>Tema / título da aula</label><input type="text" id="f-tema" placeholder="Ex: Sistemas de equações lineares 2×2"/></div>
+          </div>
+        </div>
+
+        <!-- Objetos de Conhecimento BNCC -->
+        <div class="fsec">
+          <div class="fsec-title">Objetos de Conhecimento (BNCC)</div>
+          <div class="check-box" id="box-obj">
+            <div class="pe2">Selecione o ano/série acima.</div>
+          </div>
+          <div class="xa-label">Adicionar livremente:</div>
+          <textarea id="xa-obj" rows="2" placeholder="Outros objetos de conhecimento..."></textarea>
+        </div>
+
+        <!-- Habilidades BNCC -->
+        <div class="fsec">
+          <div class="fsec-title">Habilidades BNCC</div>
+          <div class="check-box" id="box-bncc">
+            <div class="pe2">Selecione o ano/série acima.</div>
+          </div>
+          <div class="xa-label">Adicionar livremente:</div>
+          <textarea id="xa-bncc" rows="2" placeholder="Outras habilidades ou habilidades complementares..."></textarea>
+        </div>
+
+        <!-- Objetivos -->
+        <div class="fsec">
+          <div class="fsec-title">Objetivos de Aprendizagem</div>
+          <div class="check-box" id="box-obj2">
+            <div class="pe2">carregando...</div>
+          </div>
+          <div class="xa-label">Adicionar livremente:</div>
+          <textarea id="xa-obj2" rows="2" placeholder="Outros objetivos específicos desta aula..."></textarea>
+        </div>
+
+        <!-- Metodologia -->
+        <div class="fsec">
+          <div class="fsec-title">Metodologia e Estratégias</div>
+          <div class="check-box" id="box-met">
+            <div class="pe2">carregando...</div>
+          </div>
+          <div class="xa-label">Adicionar livremente:</div>
+          <textarea id="xa-met" rows="2" placeholder="Outras estratégias específicas..."></textarea>
+        </div>
+
+        <!-- Recursos -->
+        <div class="fsec">
+          <div class="fsec-title">Recursos e Materiais</div>
+          <div class="check-box" id="box-rec">
+            <div class="pe2">carregando...</div>
+          </div>
+          <div class="xa-label">Adicionar livremente:</div>
+          <textarea id="xa-rec" rows="1" placeholder="Outros recursos..."></textarea>
+        </div>
+
+        <!-- Avaliação -->
+        <div class="fsec">
+          <div class="fsec-title">Avaliação</div>
+          <div class="check-box" id="box-ava">
+            <div class="pe2">carregando...</div>
+          </div>
+          <div class="xa-label">Adicionar livremente:</div>
+          <textarea id="xa-ava" rows="1" placeholder="Outros instrumentos ou critérios..."></textarea>
+        </div>
+
+        <!-- Observações -->
+        <div class="fsec">
+          <div class="fsec-title">Observações</div>
+          <textarea id="f-obs" rows="3" placeholder="Adaptações curriculares, contexto da turma, continuidade de conteúdo..."></textarea>
+        </div>
+
+      </div><!-- /fp-body -->
+
+      <div class="toolbar">
+        <button class="btn btn-primary" onclick="gerar()">Gerar documento</button>
+        <button class="btn btn-secondary" onclick="window.print()">Imprimir / PDF</button>
+        <button class="btn btn-secondary" onclick="limpar()">Limpar</button>
+      </div>
+    </div><!-- /form-panel -->
+
+    <!-- ── PREVIEW ──────────────────────────────────────────────── -->
+    <div class="preview-panel">
+      <div class="pp-header">
+        <h2>Visualização do documento</h2>
+        <span class="pp-hint">Preencha os dados e clique em "Gerar documento"</span>
+      </div>
+      <div id="doc">
+        <div class="doc-empty">
+          <div class="doc-empty-icon">&#9636;</div>
+          <div class="doc-empty-msg">O plano de aula aparece aqui após gerar.</div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /page-wrapper -->
+
+  <script>
+    /* ── BNCC Matemática — por ano ─────────────────────────────────
+       Fonte: BNCC 3ª edição, homologada em 20/12/2017 (MEC).
+       Cada entrada: { id, oc, t }
+         id — código da habilidade
+         oc — objeto de conhecimento (unidade temática abreviada)
+         t  — descrição da habilidade
+    ──────────────────────────────────────────────────────────────── */
+    var BNCC = {
+      1: [
+        { id:'EF01MA01', oc:'Números e Operações', t:'Utilizar números naturais como indicador de quantidade ou de ordem em diferentes situações cotidianas.' },
+        { id:'EF01MA02', oc:'Números e Operações', t:'Contar de maneira exata ou aproximada, utilizando diferentes estratégias como o agrupamento e a estimativa.' },
+        { id:'EF01MA03', oc:'Números e Operações', t:'Estimar e comparar quantidades de objetos de dois conjuntos (dia-a-dia) pelo pareamento ou outros agrupamentos.' },
+        { id:'EF01MA06', oc:'Números e Operações', t:'Construir fatos básicos da adição e utilizá-los em procedimentos de cálculo para resolver problemas.' },
+        { id:'EF01MA07', oc:'Números e Operações', t:'Compor e decompor número de até dois algarismos, utilizando diferentes formas de representação.' },
+        { id:'EF01MA12', oc:'Geometria', t:'Identificar e nomear figuras planas (triângulo, quadrado, retângulo e círculo) em objetos do mundo físico.' },
+        { id:'EF01MA14', oc:'Grandezas e Medidas', t:'Comparar comprimentos diretamente ou por meio de um objeto intermediário.' },
+        { id:'EF01MA17', oc:'Álgebra', t:'Descrever, após identificar, um padrão (ou regularidade) observado em sequência de números, figuras ou sons.' },
+      ],
+      2: [
+        { id:'EF02MA01', oc:'Números e Operações', t:'Comparar e ordenar números naturais (de até três ordens) pela compreensão de características do sistema de numeração decimal.' },
+        { id:'EF02MA03', oc:'Números e Operações', t:'Comparar quantidades de objetos de dois conjuntos, expressando a comparação por meio dos termos: mais, menos, a mesma quantidade.' },
+        { id:'EF02MA05', oc:'Números e Operações', t:'Construir fatos básicos da adição e da subtração e utilizá-los no cálculo mental ou escrito.' },
+        { id:'EF02MA08', oc:'Números e Operações', t:'Resolver e elaborar problemas de adição e subtração envolvendo números de até três ordens, com os significados de juntar, acrescentar, separar, retirar.' },
+        { id:'EF02MA12', oc:'Geometria', t:'Identificar e registrar, em linguagem verbal ou não verbal, a localização e os deslocamentos de pessoas e de objetos no espaço.' },
+        { id:'EF02MA15', oc:'Grandezas e Medidas', t:'Estimar, medir e comparar comprimentos de objetos, usando unidades de medida não padronizadas e padronizadas (metro, centímetro).' },
+        { id:'EF02MA17', oc:'Grandezas e Medidas', t:'Reconhecer e relacionar períodos do dia, dias da semana e meses do ano.' },
+        { id:'EF02MA21', oc:'Álgebra', t:'Reconhecer e construir sequências numéricas com regularidade, identificando o padrão utilizado.' },
+      ],
+      3: [
+        { id:'EF03MA01', oc:'Números e Operações', t:'Ler, escrever e comparar números naturais de até quatro ordens de grandeza.' },
+        { id:'EF03MA03', oc:'Números e Operações', t:'Construir e utilizar fatos básicos da adição e da multiplicação para o cálculo mental ou escrito.' },
+        { id:'EF03MA05', oc:'Números e Operações', t:'Utilizar diferentes procedimentos de cálculo mental e escrito para resolver problemas com números naturais.' },
+        { id:'EF03MA07', oc:'Números e Operações', t:'Resolver e elaborar problemas de multiplicação (por 2, 3, 4, 5 e 10) com os significados de adição de parcelas iguais e elementos apresentados em arranjo retangular.' },
+        { id:'EF03MA13', oc:'Geometria', t:'Associar figuras geométricas planas a objetos do mundo físico e reconhecer figuras planas: quadriláteros, triângulos, círculos e semicírculos.' },
+        { id:'EF03MA16', oc:'Grandezas e Medidas', t:'Estimar e medir comprimentos e distâncias utilizando representações e instrumentos de medida (trena, fita métrica).' },
+        { id:'EF03MA20', oc:'Grandezas e Medidas', t:'Ler e registrar medidas e intervalos de tempo em horas e minutos para planejar o dia a dia.' },
+        { id:'EF03MA25', oc:'Probabilidade e Estatística', t:'Realizar pesquisa envolvendo variáveis categóricas em um universo de até 50 elementos, organizar os dados coletados e registrá-los em tabelas.' },
+      ],
+      4: [
+        { id:'EF04MA01', oc:'Números e Operações', t:'Ler, escrever e ordenar números naturais até a ordem dos milhões.' },
+        { id:'EF04MA03', oc:'Números e Operações', t:'Reconhecer e mostrar, por meio de exemplos, que a multiplicação é comutativa, associativa e distributiva em relação à adição.' },
+        { id:'EF04MA06', oc:'Números e Operações', t:'Reconhecer as frações unitárias mais usuais como unidade de medida menor do que um todo e utilizá-las em situações cotidianas.' },
+        { id:'EF04MA09', oc:'Números e Operações', t:'Reconhecer as representações decimais dos números racionais como uma extensão do sistema de numeração decimal, identificando a existência de ordens como décimos, centésimos e milésimos.' },
+        { id:'EF04MA16', oc:'Grandezas e Medidas', t:'Medir e estimar comprimentos, capacidades, massas e ângulos em situações cotidianas, utilizando unidades e instrumentos de medida adequados.' },
+        { id:'EF04MA19', oc:'Grandezas e Medidas', t:'Reconhecer e usar o sistema monetário brasileiro em situações cotidianas, fazendo trocas entre cédulas e moedas.' },
+        { id:'EF04MA22', oc:'Álgebra', t:'Reconhecer, por meio de investigações, utilizando a calculadora quando necessário, as relações inversas entre as operações de potenciação e radiciação.' },
+        { id:'EF04MA25', oc:'Probabilidade e Estatística', t:'Interpretar dados apresentados em tabelas simples, de dupla entrada e em gráficos de barras ou de colunas, com base em informações das diferentes áreas do conhecimento.' },
+      ],
+      5: [
+        { id:'EF05MA01', oc:'Números e Operações', t:'Ler, escrever e ordenar números racionais na forma decimal com compreensão das principais características do sistema de numeração decimal.' },
+        { id:'EF05MA04', oc:'Números e Operações', t:'Estabelecer a relação entre frações e suas representações decimais, utilizando a divisão para relacionar as diferentes representações.' },
+        { id:'EF05MA06', oc:'Números e Operações', t:'Associar as representações 10%, 25%, 50%, 75% e 100% respectivamente à décima parte, quarta parte, metade, três quartos e ao inteiro.' },
+        { id:'EF05MA09', oc:'Números e Operações', t:'Resolver e elaborar problemas simples de contagem envolvendo o princípio multiplicativo, como a determinação do número de agrupamentos possíveis ao combinar cada elemento de uma coleção com todos os elementos de outra.' },
+        { id:'EF05MA12', oc:'Geometria', t:'Associar pares de números a pontos do plano cartesiano — primeiro quadrante —, representando deslocamentos por meio de coordenadas cartesianas.' },
+        { id:'EF05MA15', oc:'Grandezas e Medidas', t:'Reconhecer as áreas de quadrado e retângulo como grandeza bidimensional, utilizando a formula correspondente para calcular a medida.' },
+        { id:'EF05MA22', oc:'Álgebra', t:'Definir sequências recursivas e sequências de termos não relacionados por uma regra de formação por meio de padrões.' },
+        { id:'EF05MA25', oc:'Probabilidade e Estatística', t:'Interpretar dados estatísticos apresentados em textos, tabelas e gráficos (colunas ou linhas), referentes a outras áreas do conhecimento ou a outros contextos.' },
+      ],
+      6: [
+        { id:'EF06MA01', oc:'Números e Operações', t:'Comparar, ordenar, ler e escrever números naturais e números inteiros em diferentes contextos.' },
+        { id:'EF06MA03', oc:'Números e Operações', t:'Resolver e elaborar problemas que envolvam cálculo de potências de base 10 e de números inteiros.' },
+        { id:'EF06MA07', oc:'Números e Operações', t:'Resolver e elaborar problemas com números racionais na forma decimal, envolvendo as quatro operações fundamentais e a potenciação.' },
+        { id:'EF06MA12', oc:'Números e Operações', t:'Identificar conjuntos de divisores e de múltiplos de números naturais.' },
+        { id:'EF06MA16', oc:'Álgebra', t:'Reconhecer que a relação de igualdade matemática não se altera ao adicionar, subtrair, multiplicar ou dividir os seus dois membros por um mesmo número.' },
+        { id:'EF06MA23', oc:'Geometria', t:'Construir algoritmo simples para verificar se um número natural é primo.' },
+        { id:'EF06MA28', oc:'Geometria', t:'Reconhecer, nomear e comparar polígonos, considerando lados e ângulos, e identificá-los em figuras do mundo físico e em obras de arte.' },
+        { id:'EF06MA33', oc:'Grandezas e Medidas', t:'Calcular as medidas de comprimento, área, do volume e da capacidade de figuras planas e espaciais com o uso de fórmulas.' },
+        { id:'EF06MA36', oc:'Probabilidade e Estatística', t:'Calcular a média aritmética de um conjunto de dados, utilizando-a para interpretar o significado dos dados.' },
+      ],
+      7: [
+        { id:'EF07MA01', oc:'Números e Operações', t:'Resolver e elaborar problemas com números inteiros, envolvendo as operações de adição, subtração, multiplicação e divisão.' },
+        { id:'EF07MA03', oc:'Números e Operações', t:'Comparar e ordenar números racionais em diferentes contextos e associá-los a pontos da reta numérica.' },
+        { id:'EF07MA07', oc:'Números e Operações', t:'Calcular porcentagens por meio de estratégias diversas, sem fazer uso da regra de três.' },
+        { id:'EF07MA13', oc:'Álgebra', t:'Resolver e elaborar problemas que envolvam equações do 1º grau, inclusive com coeficientes fracionários.' },
+        { id:'EF07MA14', oc:'Álgebra', t:'Resolver e elaborar problemas que envolvam inequações do 1º grau.' },
+        { id:'EF07MA16', oc:'Álgebra', t:'Reconhecer se duas expressões algébricas obtidas para descrever a regularidade de uma sequência são ou não equivalentes.' },
+        { id:'EF07MA21', oc:'Geometria', t:'Reconhecer e construir figuras obtidas por composição e decomposição de polígonos regulares convexos.' },
+        { id:'EF07MA30', oc:'Probabilidade e Estatística', t:'Compreender, em contextos significativos, o significado de média estatística como indicador da tendência de uma pesquisa, calcular seu valor e relacioná-lo aos dados do problema.' },
+        { id:'EF07MA34', oc:'Probabilidade e Estatística', t:'Planejar e realizar pesquisa envolvendo tema da realidade social, organizar e representar os dados em tabelas e gráficos adequados.' },
+      ],
+      8: [
+        { id:'EF08MA01', oc:'Números e Operações', t:'Resolver e elaborar problemas com números reais, inclusive em notação científica, envolvendo diferentes operações.' },
+        { id:'EF08MA03', oc:'Números e Operações', t:'Reconhecer que o conjunto dos números inteiros não é fechado em relação à divisão e que os racionais não cobrem o conjunto dos reais.' },
+        { id:'EF08MA06', oc:'Álgebra', t:'Resolver e elaborar problemas que envolvam sistema de equações do 1º grau com duas variáveis.' },
+        { id:'EF08MA07', oc:'Álgebra', t:'Associar uma equação linear de 1º grau com duas variáveis a uma reta no plano cartesiano.' },
+        { id:'EF08MA11', oc:'Álgebra', t:'Resolver e elaborar problemas que envolvam relação de proporcionalidade direta e inversa entre duas ou mais grandezas, inclusive escalas.' },
+        { id:'EF08MA15', oc:'Geometria', t:'Demonstrar as relações métricas do triângulo retângulo, inclusive as relações trigonométricas (seno, cosseno e tangente).' },
+        { id:'EF08MA19', oc:'Geometria', t:'Reconhecer e aplicar o Teorema de Pitágoras na resolução de problemas com figuras planas e espaciais.' },
+        { id:'EF08MA24', oc:'Probabilidade e Estatística', t:'Calcular a probabilidade de eventos, com equiprobabilidade, e verificar por meio de experimentos.' },
+      ],
+      9: [
+        { id:'EF09MA01', oc:'Números e Operações', t:'Compreender os números reais (racionais e irracionais), suas representações e o conceito de raiz quadrada.' },
+        { id:'EF09MA04', oc:'Álgebra', t:'Resolver e elaborar problemas que envolvam equações de 2º grau: fórmula de Bhaskara, soma e produto das raízes.' },
+        { id:'EF09MA06', oc:'Álgebra', t:'Compreender as funções quadráticas como modelos para situações que envolvem relações quadráticas entre grandezas, e interpretar seu gráfico no plano cartesiano.' },
+        { id:'EF09MA09', oc:'Álgebra', t:'Resolver e elaborar problemas que envolvam porcentagem, incluindo aqueles cujos dados são apresentados em tabelas e gráficos.' },
+        { id:'EF09MA11', oc:'Geometria', t:'Reconhecer as condições de semelhança de triângulos e utilizá-las na resolução de problemas.' },
+        { id:'EF09MA14', oc:'Geometria', t:'Resolver e elaborar problemas sobre figuras de revolução (cone, cilindro, esfera): área da superfície e volume.' },
+        { id:'EF09MA17', oc:'Grandezas e Medidas', t:'Reconhecer e empregar unidades usadas para expressar medidas muito grandes ou muito pequenas em linguagem científica.' },
+        { id:'EF09MA21', oc:'Probabilidade e Estatística', t:'Interpretar e comparar conjuntos de dados estatísticos por meio de diferentes representações gráficas e medidas de tendência central (média, moda, mediana).' },
+      ],
+    };
+
+    /* Ensino Médio — habilidades CHS Matemática (EM13MAT___) são
+       distribuídas pela escola; as 6 competências gerais se aplicam
+       às 3 séries. Aliases para evitar duplicação. */
+    var EM_BNCC = [
+      { id:'EM13MAT101', oc:'Números e Álgebra', t:'Interpretar situações econômicas, sociais e das Ciências da Natureza que envolvem a variação de grandezas, pela análise dos gráficos das funções polinomiais de 1º e 2º graus.' },
+      { id:'EM13MAT102', oc:'Números e Álgebra', t:'Analisar tabelas, gráficos e expressões que representem relações polinomiais de 1º grau nas quais é relevante identificar as taxas de variação.' },
+      { id:'EM13MAT104', oc:'Números e Álgebra', t:'Interpretar representações matemáticas (tabela, gráficos e expressões) de funções polinomiais, exponenciais e logarítmicas para analisar situações do mundo real.' },
+      { id:'EM13MAT201', oc:'Números e Álgebra', t:'Propor ou participar de ações para investigar desafios do mundo contemporâneo e tomar decisões éticas e socialmente responsáveis, com base na análise de problemas de urgência social.' },
+      { id:'EM13MAT302', oc:'Números e Álgebra', t:'Construir modelos empregando as funções polinomiais de 1º ou 2º graus, para resolver problemas oriundos de situações reais.' },
+      { id:'EM13MAT401', oc:'Geometria', t:'Reconhecer figuras espaciais (prismas, pirâmides, cilindros, cones, esferas) na resolução de problemas e calcular suas medidas de área e volume.' },
+      { id:'EM13MAT402', oc:'Geometria', t:'Utilizar conceitos da geometria analítica para interpretar e resolver situações-problema, como as que envolvem retas, circunferências e cônicas.' },
+      { id:'EM13MAT501', oc:'Probabilidade e Estatística', t:'Investigar distribuições de variáveis aleatórias discretas e contínuas (uniforme, binomial e normal), suas representações e aplicações às situações reais.' },
+      { id:'EM13MAT502', oc:'Probabilidade e Estatística', t:'Avaliar a adequação de diferentes tipos de gráficos para representar um conjunto de dados de uma pesquisa e construir os gráficos mais adequados.' },
+      { id:'EM13MAT601', oc:'Números e Álgebra', t:'Compreender e aplicar os conceitos e algoritmos de sistema de equações lineares, fazendo uso das representações algébrica, gráfica e matricial.' },
+      { id:'EM13MAT602', oc:'Números e Álgebra', t:'Investigar e analisar situações que envolvam cálculo e comparação das taxas de variação de funções polinomiais, exponenciais, definindo a noção de derivada como taxa de variação instantânea (introdução ao Cálculo).' },
+      { id:'EM13MAT605', oc:'Probabilidade e Estatística', t:'Interpretar e comparar situações que envolvam dados quantitativos de duas variáveis na identificação de uma possível correlação entre elas.' },
+    ];
+    BNCC['EM1'] = EM_BNCC;
+    BNCC['EM2'] = EM_BNCC;
+    BNCC['EM3'] = EM_BNCC;
+
+    /* ── Objetos de Conhecimento por ano ──────────────────────────── */
+    var OBJ = {
+      1:  ['Números naturais — contagem e comparação','Adição e subtração com números de até 2 algarismos','Figuras geométricas planas','Medidas de comprimento (comparação)','Sequências com regularidade'],
+      2:  ['Números naturais de até 3 ordens','Adição e subtração com agrupamento e reagrupamento','Multiplicação como adição de parcelas iguais','Localização e deslocamento no espaço','Medidas de comprimento (metro e centímetro)','Organização de dados em tabelas simples'],
+      3:  ['Números naturais de até 4 ordens','Multiplicação e divisão','Fatos básicos da multiplicação (tabuada)','Figuras planas e sólidos geométricos','Medidas de comprimento, massa e capacidade','Leitura de horas em relógio analógico e digital'],
+      4:  ['Números naturais até a ordem dos milhões','Frações unitárias e não unitárias','Representações decimais dos racionais','Ângulos em figuras geométricas','Área de quadriláteros e triângulos','Gráficos de colunas e de barras'],
+      5:  ['Números racionais na forma decimal e fracionária','Porcentagem — representações usuais (10%, 25%, 50%, 75%, 100%)','Plano cartesiano — primeiro quadrante','Área e perímetro de polígonos','Sequências numéricas por padrão (álgebra)','Organização e representação de dados'],
+      6:  ['Números inteiros — representação, comparação, operações','Potenciação e radiciação','Números racionais — forma fracionária e decimal','MMC e MDC','Expressões algébricas e equações do 1º grau','Polígonos — classificação e ângulos','Área de figuras planas','Média aritmética'],
+      7:  ['Operações com números inteiros e racionais','Porcentagem e regra de três','Equações e inequações do 1º grau','Proporcionalidade — grandezas diretamente e inversamente proporcionais','Ângulos — propriedades e classificação','Comprimento, área e volume','Probabilidade introdutória'],
+      8:  ['Números reais — representação e operações','Sistema de equações do 1º grau com 2 variáveis','Funções do 1º grau — gráfico e interpretação','Relações métricas e trigonometria no triângulo retângulo','Teorema de Pitágoras','Área de figuras planas e volume de sólidos','Probabilidade de eventos'],
+      9:  ['Números reais — irracionais e raízes','Equações do 2º grau — fórmula de Bhaskara','Funções do 2º grau — gráfico e vértice','Semelhança de triângulos','Área e volume de sólidos de revolução','Estatística — medidas de tendência central','Geometria analítica introdutória'],
+      EM1: ['Funções polinomiais de 1º e 2º graus','Funções exponenciais e logarítmicas','Progressões aritméticas e geométricas','Trigonometria no ciclo trigonométrico','Geometria plana e espacial','Análise combinatória — permutação e combinação','Probabilidade — espaço amostral'],
+      EM2: ['Geometria analítica — ponto, reta e circunferência','Matrizes e determinantes','Sistemas de equações lineares','Números complexos introdução','Cônicas — parábola, elipse, hipérbole','Estatística — distribuição de frequências'],
+      EM3: ['Limites e derivadas (introdução ao Cálculo)','Integrais (introdução)','Logaritmos — propriedades e equações logarítmicas','Estatística — medidas de dispersão','Probabilidade — distribuição binomial','Revisão e aprofundamento para ENEM e vestibulares'],
+    };
+
+    /* ── Presets fixos (não bloqueados por ano) ──────────────────── */
+    var POBJ2 = [
+      'Compreender o conceito matemático central da aula',
+      'Resolver problemas aplicando os procedimentos estudados',
+      'Identificar e corrigir erros comuns no uso do conceito',
+      'Relacionar o conteúdo a situações do cotidiano ou a outras disciplinas',
+      'Desenvolver raciocínio lógico-dedutivo na resolução de problemas',
+      'Consolidar aprendizagens anteriores necessárias ao novo conteúdo',
+      'Estimular o trabalho colaborativo na resolução de problemas em grupo',
+      'Utilizar representações gráficas e algébricas para interpretar resultados',
+    ];
+    var PMET = [
+      'Aula expositiva com resolução comentada no quadro',
+      'Resolução de problemas em pequenos grupos',
+      'Aprendizagem baseada em problemas (ABP)',
+      'Atividade investigativa com coleta e análise de dados',
+      'Uso de software de geometria dinâmica (GeoGebra)',
+      'Plataforma Euclides — prática adaptativa por tópico',
+      'Discussão coletiva de estratégias de resolução',
+      'Jogos matemáticos e desafios lógicos',
+      'Modelagem matemática — problemas do mundo real',
+      'Aula invertida — leitura prévia e discussão em aula',
+    ];
+    var PREC = [
+      'Lousa e giz / marcadores',
+      'Projetor / televisor',
+      'Plataforma Euclides (euclides.github.io)',
+      'GeoGebra (geogebra.org)',
+      'Calculadora científica',
+      'Régua, compasso e transferidor',
+      'Papel milimetrado / quadriculado',
+      'Livro didático adotado',
+      'Lista de exercícios impressa',
+      'Computadores ou tablets individuais',
+    ];
+    var PAVA = [
+      'Observação do engajamento e da participação durante a aula',
+      'Resolução de exercícios em sala (verificação formativa)',
+      'Questionário ou avaliação individual escrita',
+      'Avaliação por rubrica em atividade de grupo',
+      'Registro no caderno — correção de resolução',
+      'Desempenho na plataforma Euclides (acurácia por tópico)',
+      'Apresentação oral de estratégia de resolução',
+      'Lista de exercícios para casa com entrega e correção',
+    ];
+
+    /* ── Renderização de checkboxes ──────────────────────────────── */
+
+    /**
+     * Renders a list of preset strings as checkboxes into a container.
+     * @param {string} boxId   — container element id
+     * @param {string[]} items — array of preset strings
+     * @param {string} pfx     — CSS class prefix for checkbox items
+     */
+    function rp(boxId, items, pfx) {
+      var b = document.getElementById(boxId);
+      b.innerHTML = items.map(function(item, i) {
+        return '<div class="pi">' +
+          '<input type="checkbox" id="c-' + boxId + '-' + i + '" class="' + pfx + '-ck" data-text="' + item.replace(/"/g, '&quot;') + '">' +
+          '<label for="c-' + boxId + '-' + i + '">' + item + '</label>' +
+          '</div>';
+      }).join('');
+    }
+
+    /**
+     * Renders BNCC entries (with code + text) as checkboxes.
+     * @param {string} boxId  — container element id
+     * @param {Array}  items  — array of {id, oc, t} objects
+     * @param {string} pfx    — CSS class prefix
+     */
+    function rb(boxId, items, pfx) {
+      var b = document.getElementById(boxId);
+      if (!items || !items.length) {
+        b.innerHTML = '<div class="pe2">Selecione o ano/série acima.</div>';
+        return;
+      }
+      b.innerHTML = items.map(function(item, i) {
+        var lbl = '<span class="pid">' + item.id + '</span>' + item.t;
+        var dtxt = item.id + ' — ' + item.t;
+        return '<div class="pi">' +
+          '<input type="checkbox" id="c-' + boxId + '-' + i + '" class="' + pfx + '-ck" data-text="' + dtxt.replace(/"/g, '&quot;') + '">' +
+          '<label for="c-' + boxId + '-' + i + '">' + lbl + '</label>' +
+          '</div>';
+      }).join('');
+    }
+
+    /**
+     * Renders Objetos de Conhecimento (plain strings) as checkboxes.
+     */
+    function ro(boxId, items, pfx) {
+      var b = document.getElementById(boxId);
+      if (!items || !items.length) {
+        b.innerHTML = '<div class="pe2">Selecione o ano/série acima.</div>';
+        return;
+      }
+      rp(boxId, items, pfx);
+    }
+
+    /* ── Year/series change handler ──────────────────────────────── */
+
+    function onAno() {
+      var raw = document.getElementById('f-ano').value;
+      var key = isNaN(parseInt(raw)) ? raw : parseInt(raw);
+      ro('box-obj',  OBJ[key]  || null, 'obj');
+      rb('box-bncc', BNCC[key] || null, 'bncc');
+    }
+
+    /* ── Carga horária calculada ─────────────────────────────────── */
+
+    function calcCarga() {
+      var n   = parseInt(document.getElementById('f-naulas').value) || 0;
+      var dur = document.getElementById('f-dur').value;
+      var m   = parseInt(dur);
+      var tot = n * m;
+      var txt = '';
+      if (tot >= 60) {
+        var h = Math.floor(tot / 60), r = tot % 60;
+        txt = r ? (h + 'h' + String(r).padStart(2, '0') + 'min') : (h + 'h');
+      } else {
+        txt = tot > 0 ? (tot + ' min') : '';
+      }
+      document.getElementById('f-carga').value = txt;
+    }
+
+    /* ── Collect checked items + extra textarea ──────────────────── */
+
+    /**
+     * Returns array of selected strings from a checkbox group + extra textarea.
+     * @param {string} pfx   — CSS class prefix (e.g., 'obj')
+     * @param {string} xaId  — id of the extra textarea
+     * @returns {string[]}
+     */
+    function gc(pfx, xaId) {
+      var ch = [].slice.call(document.querySelectorAll('.' + pfx + '-ck:checked'))
+                 .map(function(c) { return c.dataset.text; });
+      var ex = (document.getElementById(xaId) ? document.getElementById(xaId).value : '').trim();
+      return ex ? ch.concat([ex]) : ch;
+    }
+
+    /* ── Document section builder ────────────────────────────────── */
+
+    /**
+     * Wraps content in a labeled document section.
+     * Returns empty string if content is empty.
+     */
+    function sec(titulo, corpo) {
+      if (!corpo) return '';
+      return '<div class="ds"><span class="dst">' + titulo + '</span>' + corpo + '</div>';
+    }
+
+    /** Builds a bulleted item list from a string array. */
+    function lista(items) {
+      if (!items.length) return '';
+      return '<div class="ds-body">' +
+        items.map(function(it) {
+          return '<div class="ds-item">' + it + '</div>';
+        }).join('') +
+        '</div>';
+    }
+
+    /** Builds BNCC item list preserving code badge. */
+    function listaBncc(items) {
+      if (!items.length) return '';
+      return '<div class="ds-body">' +
+        items.map(function(it) {
+          /* Format: "EF07MA13 — Resolver e elaborar..." */
+          var parts = it.split(' — ');
+          if (parts.length >= 2) {
+            return '<div class="ds-bncc-item"><span class="ds-bncc-code">' + parts[0] + '</span>' + parts.slice(1).join(' — ') + '</div>';
+          }
+          return '<div class="ds-item">' + it + '</div>';
+        }).join('') +
+        '</div>';
+    }
+
+    /* ── Gerar documento ─────────────────────────────────────────── */
+
+    function gerar() {
+      var prof   = document.getElementById('f-prof').value.trim();
+      var escola = document.getElementById('f-escola').value.trim();
+      var disc   = document.getElementById('f-disc').value.trim() || 'Matemática';
+      var turma  = document.getElementById('f-turma').value.trim();
+      var data   = document.getElementById('f-data').value;
+      var anoEl  = document.getElementById('f-ano');
+      var ano    = anoEl.options[anoEl.selectedIndex] ? anoEl.options[anoEl.selectedIndex].text : '';
+      var naulas = document.getElementById('f-naulas').value;
+      var carga  = document.getElementById('f-carga').value;
+      var tema   = document.getElementById('f-tema').value.trim();
+      var obs    = document.getElementById('f-obs').value.trim();
+
+      /* Format date from yyyy-mm-dd to dd/mm/yyyy */
+      var dataFmt = data ? data.split('-').reverse().join('/') : '';
+
+      var obj   = gc('obj',  'xa-obj');
+      var bncc  = gc('bncc', 'xa-bncc');
+      var obj2  = gc('obt',  'xa-obj2');
+      var met   = gc('met',  'xa-met');
+      var rec   = gc('rec',  'xa-rec');
+      var ava   = gc('ava',  'xa-ava');
+
+      /* ── Build HTML ── */
+      var html = '';
+
+      /* Header */
+      html += '<div class="dh">';
+      if (escola) html += '<div class="dh-inst">' + escola + '</div>';
+      html += '<div class="dh-title">Plano de Aula</div>';
+      html += '<div class="dh-sub">' + disc + (tema ? ' — ' + tema : '') + '</div>';
+      html += '</div>';
+
+      /* Identification grid */
+      function cell(label, value) {
+        return '<div class="id-cell"><span class="id-label">' + label + '</span><span class="id-value">' + (value || '—') + '</span></div>';
+      }
+      html += '<div class="id-grid">';
+      html += cell('Professor(a)', prof);
+      html += cell('Turma', turma);
+      html += cell('Disciplina', disc);
+      html += cell('Ano / Série', ano);
+      html += cell('Data', dataFmt);
+      html += cell('Nº de aulas', naulas);
+      html += cell('Duração / aula', document.getElementById('f-dur').options[document.getElementById('f-dur').selectedIndex].text);
+      html += cell('Carga horária', carga);
+      html += cell('Tema', tema || '—');
+      html += '</div>';
+
+      /* Content sections */
+      if (obj.length)  html += sec('Objetos de Conhecimento',       lista(obj));
+      if (bncc.length) html += sec('Habilidades BNCC',              listaBncc(bncc));
+      if (obj2.length) html += sec('Objetivos de Aprendizagem',     lista(obj2));
+      if (met.length)  html += sec('Metodologia e Estratégias',     lista(met));
+      if (rec.length)  html += sec('Recursos e Materiais',          lista(rec));
+      if (ava.length)  html += sec('Avaliação',                     lista(ava));
+      if (obs)         html += sec('Observações', '<div class="ds-text">' + obs + '</div>');
+
+      /* Signature area */
+      html += '<div style="margin-top:24px;display:flex;justify-content:space-between;font-size:11px;color:#666;">';
+      html += '<span>Professor(a): _______________________________</span>';
+      html += '<span>Coordenação: _______________________________</span>';
+      html += '</div>';
+
+      document.getElementById('doc').innerHTML = html;
+    }
+
+    /* ── Limpar formulário ───────────────────────────────────────── */
+
+    function limpar() {
+      document.querySelectorAll('input[type="text"], input[type="number"], textarea').forEach(function(el) {
+        el.value = '';
+      });
+      document.getElementById('f-disc').value = 'Matemática';
+      document.getElementById('f-ano').value = '';
+      document.getElementById('f-naulas').value = '1';
+      document.getElementById('f-dur').value = '50';
+      document.getElementById('f-data').valueAsDate = new Date();
+      calcCarga();
+      onAno();
+      document.querySelectorAll('input[type="checkbox"]').forEach(function(cb) {
+        cb.checked = false;
+      });
+      document.getElementById('doc').innerHTML =
+        '<div class="doc-empty"><div class="doc-empty-icon">&#9636;</div><div class="doc-empty-msg">O plano de aula aparece aqui após gerar.</div></div>';
+    }
+
+    /* ── Initialisation ──────────────────────────────────────────── */
+
+    (function init() {
+      document.getElementById('f-data').valueAsDate = new Date();
+      calcCarga();
+      rp('box-obj2', POBJ2, 'obt');
+      rp('box-met',  PMET,  'met');
+      rp('box-rec',  PREC,  'rec');
+      rp('box-ava',  PAVA,  'ava');
+    })();
+  </script>
+
+</body>
+</html>

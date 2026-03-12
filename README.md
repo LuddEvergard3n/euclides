@@ -138,6 +138,14 @@ euclides/
 - **PWA** — instalável, funciona offline após primeiro carregamento
 - **Mobile** — sidebar colapsável com hamburger, breakpoint 640px
 
+### Páginas auxiliares
+
+| Página | Arquivo | Descrição |
+|---|---|---|
+| Sobre | `sobre.html` | Origem do nome, filosofia, cobertura de tópicos, stack, ecossistema |
+| Guia do Professor | `guia-professor.html` | Como usar em sala de aula — atividades práticas, orientações pedagógicas, referência de funcionalidades |
+| Plano de Aula | `plano-aula.html` | Gerador de planos com habilidades BNCC de Matemática por ano/série (EF1–EM3), presets de objetivos, metodologias, recursos e avaliação; exporta para impressão/PDF |
+
 ---
 
 ## Ecossistema
@@ -151,6 +159,7 @@ Plataformas educacionais do mesmo ecossistema:
 | Humboldt | Geografia | https://luddevergard3n.github.io/humboldt/ |
 | Heródoto | História | https://luddevergard3n.github.io/Herodoto/ |
 | Lavoisier | Química | https://luddevergard3n.github.io/lavoisier/ |
+| Archimedes | Física | https://luddevergard3n.github.io/archimedes/ |
 
 ---
 

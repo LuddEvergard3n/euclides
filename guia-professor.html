@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Guia do Professor — Euclides</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <link rel="icon" type="image/svg+xml" href="icon.svg"/>
+  <link rel="manifest" href="manifest.json"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:         #0c0c10;
+      --surface:    #13131c;
+      --surface-2:  #1a1a28;
+      --border:     #22223a;
+      --border-2:   #2e2e4a;
+      --text:       #e8e8f2;
+      --text-muted: #72728c;
+      --text-dim:   #3e3e58;
+      --gold:       #c8a44a;
+      --gold-light: #e0bb6a;
+      --gold-dim:   rgba(200,164,74,.15);
+      --teal:       #4ab8b2;
+      --blue:       #5a8fd2;
+      --green:      #4e9e70;
+      --red:        #c45252;
+      --radius:     4px;
+      --font-ui:    'Inter', system-ui, sans-serif;
+      --font-mono:  'JetBrains Mono', 'Fira Code', monospace;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-ui);
+      font-size: 14px;
+      line-height: 1.6;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* ── Topbar ─────────────────────────────────────────────────── */
+    #topbar {
+      height: 44px;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 16px;
+      flex-shrink: 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    #topbar-brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    #topbar-brand img { width: 26px; height: 26px; }
+    #topbar-brand span { font-size: 14px; font-weight: 600; color: var(--text); }
+    #topbar-nav { display: flex; gap: 2px; }
+
+    .topbar-tab {
+      background: transparent; border: none; color: var(--text-muted);
+      font-family: var(--font-ui); font-size: 12px; font-weight: 500;
+      padding: 5px 12px; border-radius: var(--radius); cursor: pointer;
+      text-decoration: none; display: inline-flex; align-items: center;
+      transition: color .15s, background .15s;
+    }
+    .topbar-tab:hover { color: var(--text); background: var(--surface-2); }
+    .topbar-tab.active { color: var(--gold); background: var(--gold-dim); }
+
+    /* ── Layout ─────────────────────────────────────────────────── */
+    .page-wrapper {
+      max-width: 1160px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem 4rem;
+      width: 100%;
+      display: flex;
+      gap: 1.5rem;
+      align-items: flex-start;
+      flex: 1;
+    }
+
+    /* ── Sidebar ────────────────────────────────────────────────── */
+    .guia-sidebar {
+      width: 210px;
+      flex-shrink: 0;
+    }
+
+    .sidebar-panel {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1rem 0;
+      position: sticky;
+      top: 60px;
+    }
+
+    .sec-group {
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      padding: 0.8rem 1rem 0.3rem;
+    }
+
+    .sec-group:first-child { padding-top: 0.3rem; }
+
+    .sidebar-panel a {
+      display: block;
+      font-size: 12px;
+      color: var(--text-muted);
+      text-decoration: none;
+      padding: 0.35rem 1rem 0.35rem 0.85rem;
+      border-left: 3px solid transparent;
+      transition: color .15s, border-color .15s, background .15s;
+    }
+
+    .sidebar-panel a:hover {
+      color: var(--text);
+      border-left-color: var(--border-2);
+      background: var(--surface-2);
+    }
+
+    /* ── Content ────────────────────────────────────────────────── */
+    .guia-content { flex: 1; min-width: 0; }
+
+    .content-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 2rem 2.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .page-title {
+      font-family: var(--font-mono);
+      font-size: 1.5rem;
+      font-weight: 500;
+      color: var(--gold);
+      margin-bottom: 0.4rem;
+    }
+
+    .page-subtitle {
+      font-size: 13px;
+      color: var(--text-muted);
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 1.5rem;
+    }
+
+    h2 {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin: 2rem 0 0.8rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--border);
+      scroll-margin-top: 60px;
+    }
+
+    h3 {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--teal);
+      margin: 1.2rem 0 0.5rem;
+    }
+
+    p { color: var(--text-muted); margin-bottom: 0.8rem; line-height: 1.7; }
+    p:last-child { margin-bottom: 0; }
+    strong { color: var(--text); font-weight: 600; }
+    ul, ol { padding-left: 1.4rem; color: var(--text-muted); margin-bottom: 0.8rem; }
+    li { margin-bottom: 0.3rem; line-height: 1.6; }
+
+    /* ── Activity card ───────────────────────────────────────────── */
+    .atividade {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      margin: 1.2rem 0;
+      overflow: hidden;
+    }
+
+    .atividade-header {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      padding: 0.7rem 1rem;
+      border-bottom: 1px solid var(--border);
+      background: linear-gradient(90deg, rgba(200,164,74,.06), transparent);
+    }
+
+    .atividade-num {
+      background: var(--gold);
+      color: var(--bg);
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: .06em;
+      padding: 0.2rem 0.6rem;
+      border-radius: 2px;
+      white-space: nowrap;
+    }
+
+    .atividade-titulo {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .atividade-body { padding: 1rem 1.2rem; }
+
+    .atividade-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-bottom: 0.8rem;
+    }
+
+    .meta-tag {
+      display: inline-block;
+      background: rgba(90,143,210,.08);
+      border: 1px solid rgba(90,143,210,.2);
+      border-radius: 2px;
+      padding: 0.15rem 0.5rem;
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    /* ── Level badges ────────────────────────────────────────────── */
+    .nivel-tag {
+      display: inline-block;
+      padding: 0.15rem 0.5rem;
+      border-radius: 2px;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+    }
+
+    .nivel-tag.efi  { background: rgba(78,158,112,.1); color: var(--green); border: 1px solid rgba(78,158,112,.25); }
+    .nivel-tag.efii { background: rgba(74,184,178,.1); color: var(--teal);  border: 1px solid rgba(74,184,178,.25); }
+    .nivel-tag.em   { background: rgba(90,143,210,.1); color: var(--blue);  border: 1px solid rgba(90,143,210,.25); }
+    .nivel-tag.es   { background: rgba(200,164,74,.1); color: var(--gold);  border: 1px solid rgba(200,164,74,.25); }
+
+    /* ── Aviso / nota ────────────────────────────────────────────── */
+    .aviso {
+      background: rgba(196,82,82,.06);
+      border-left: 4px solid var(--red);
+      padding: 0.8rem 1.2rem;
+      border-radius: 0 var(--radius) var(--radius) 0;
+      margin: 1rem 0;
+    }
+
+    .aviso p { color: var(--text-muted); margin: 0; }
+
+    .nota {
+      background: var(--gold-dim);
+      border-left: 3px solid var(--gold);
+      padding: 0.8rem 1.2rem;
+      border-radius: 0 var(--radius) var(--radius) 0;
+      margin: 1rem 0;
+    }
+
+    .nota p { color: var(--text-muted); margin: 0; }
+
+    /* ── Feature table ───────────────────────────────────────────── */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1rem 0;
+      font-size: 13px;
+    }
+
+    th {
+      text-align: left;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      padding: 0.5rem 0.8rem;
+      border-bottom: 1px solid var(--border-2);
+    }
+
+    td {
+      padding: 0.5rem 0.8rem;
+      border-bottom: 1px solid var(--border);
+      color: var(--text-muted);
+      vertical-align: top;
+    }
+
+    tr:last-child td { border-bottom: none; }
+    td strong { color: var(--text); }
+
+    footer {
+      text-align: center;
+      padding: 1.5rem;
+      font-size: 11px;
+      color: var(--text-dim);
+      border-top: 1px solid var(--border);
+    }
+
+    footer a { color: var(--text-dim); text-decoration: none; }
+    footer a:hover { color: var(--text-muted); }
+
+    /* ── Ecosystem section ──────────────────────────────────────── */
+    .ecosystem-section {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      padding: 2.5rem 1.5rem;
+    }
+    .ecosystem-section h2 {
+      max-width: 1160px;
+      margin: 0 auto 1rem;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+    .eco-grid {
+      max-width: 1160px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .eco-card {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      padding: 10px 14px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--surface-2);
+      text-decoration: none;
+      transition: border-color .15s, background .15s;
+      min-width: 140px;
+    }
+    .eco-card:hover { border-color: var(--border-2); background: rgba(255,255,255,.03); }
+    .eco-card--active { border-color: var(--gold-dim); cursor: default; pointer-events: none; }
+    .eco-name { font-size: 12px; font-weight: 600; color: var(--text); }
+    .eco-desc { font-size: 11px; color: var(--text-muted); }
+
+    @media (max-width: 860px) {
+      .guia-sidebar { display: none; }
+      .content-card { padding: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <header id="topbar">
+    <a id="topbar-brand" href="index.html">
+      <img src="icon.svg" alt="Euclides"/>
+      <span>Euclides</span>
+    </a>
+    <nav id="topbar-nav">
+      <a class="topbar-tab" href="sobre.html">Sobre</a>
+      <a class="topbar-tab active" href="guia-professor.html">Guia do Professor</a>
+      <a class="topbar-tab" href="plano-aula.html">Plano de Aula</a>
+      <a class="topbar-tab" href="index.html">&#8592; Plataforma</a>
+    </nav>
+  </header>
+
+  <div class="page-wrapper">
+
+    <aside class="guia-sidebar">
+      <div class="sidebar-panel">
+        <div class="sec-group">Introdução</div>
+        <a href="#o-que-e">O que é o Euclides?</a>
+        <a href="#como-funciona">Como funciona</a>
+        <a href="#features">Ferramentas do professor</a>
+
+        <div class="sec-group">Atividades</div>
+        <a href="#ativ-conceito">1 — Conceito em aula</a>
+        <a href="#ativ-pratica">2 — Prática individual</a>
+        <a href="#ativ-revisao">3 — Revisão semanal</a>
+        <a href="#ativ-avaliacao">4 — Avaliação diagnóstica</a>
+        <a href="#ativ-superior">5 — Nível Superior</a>
+
+        <div class="sec-group">Referência</div>
+        <a href="#planejamento">Planejamento de aula</a>
+        <a href="#dificuldade">Dificuldade adaptativa</a>
+        <a href="#modo-professor">Modo Professor</a>
+        <a href="#limitacoes">Limitações</a>
+      </div>
+    </aside>
+
+    <div class="guia-content">
+
+      <div class="content-card">
+        <h1 class="page-title">Guia do Professor</h1>
+        <p class="page-subtitle">Como usar o Euclides em sala de aula — atividades práticas, orientações pedagógicas e referência de funcionalidades</p>
+
+        <!-- ── O que é ─────────────────────────────────────────── -->
+        <h2 id="o-que-e">O que é o Euclides?</h2>
+        <p>
+          O Euclides é uma plataforma de ensino de matemática que funciona inteiramente no browser —
+          sem instalação, sem conta, sem internet após o primeiro acesso. O professor abre no projetor
+          ou o aluno no celular: a experiência é a mesma.
+        </p>
+        <p>
+          A plataforma cobre 84 tópicos de matemática, desde <strong>aritmética básica</strong> até
+          <strong>Cálculo III, Álgebra Linear e Equações Diferenciais</strong>. Cada tópico tem três fases:
+          conceito, exemplo e prática.
+        </p>
+
+        <div class="nota">
+          <p>
+            O Euclides não substitui a aula — ele complementa. É mais eficaz quando usado junto com
+            explicação do professor do que como ferramenta de autoaprendizado isolada.
+          </p>
+        </div>
+
+        <!-- ── Como funciona ─────────────────────────────────────── -->
+        <h2 id="como-funciona">Como funciona</h2>
+
+        <h3>As três fases de cada tópico</h3>
+        <table>
+          <thead><tr><th>Fase</th><th>O que mostra</th><th>Tempo estimado</th></tr></thead>
+          <tbody>
+            <tr>
+              <td><strong>Conceito</strong></td>
+              <td>Definição, propriedades-chave e visualização em canvas (gráfico, diagrama ou simulação matemática)</td>
+              <td>3–5 min</td>
+            </tr>
+            <tr>
+              <td><strong>Exemplo</strong></td>
+              <td>Resolução passo a passo navegável. O aluno avança pelos passos no próprio ritmo</td>
+              <td>5–8 min</td>
+            </tr>
+            <tr>
+              <td><strong>Prática</strong></td>
+              <td>Exercícios com geração automática e dificuldade adaptativa. Dicas disponíveis sob demanda</td>
+              <td>10–20 min</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- ── Features ───────────────────────────────────────────── -->
+        <h2 id="features">Ferramentas do professor</h2>
+        <table>
+          <thead><tr><th>Ferramenta</th><th>O que faz</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Prova</strong></td><td>20 questões de tópicos variados, cronometradas (30 min). Resultado com breakdown por tópico.</td></tr>
+            <tr><td><strong>Revisão</strong></td><td>Seleciona automaticamente os tópicos com menor acurácia do aluno. Peso maior para tópicos mais fracos.</td></tr>
+            <tr><td><strong>Estatísticas</strong></td><td>Acurácia global, por nível (EFI/EFII/EM/ES) e por tópico. Mostra pontos fortes e fracos.</td></tr>
+            <tr><td><strong>Modo Professor</strong></td><td>Cria exercícios personalizados (enunciado + resposta + dicas). Gera folha imprimível com gabarito.</td></tr>
+            <tr><td><strong>Plano de Aula</strong></td><td>Gerador de planos com habilidades BNCC de matemática por ano/série. <a href="plano-aula.html" style="color:var(--blue)">Acessar →</a></td></tr>
+          </tbody>
+        </table>
+
+      </div>
+
+      <!-- ── Atividades ─────────────────────────────────────────── -->
+      <div class="content-card">
+        <h2 id="ativ-conceito" style="margin-top:0">Atividade 1 — Conceito em aula expositiva</h2>
+
+        <div class="atividade">
+          <div class="atividade-header">
+            <span class="atividade-num">Ativ. 1</span>
+            <span class="atividade-titulo">Introdução visual do conceito</span>
+          </div>
+          <div class="atividade-body">
+            <div class="atividade-meta">
+              <span class="meta-tag"><strong>Nível:</strong> qualquer</span>
+              <span class="meta-tag"><strong>Duração:</strong> 15–25 min</span>
+              <span class="meta-tag"><strong>Modo:</strong> Aula expositiva com projetor</span>
+            </div>
+            <p>Abra o tópico no projetor. Navegue pela fase <strong>Conceito</strong> com a turma, pausando em cada bloco de teoria. Use o canvas como ponto de partida para discussão — peça aos alunos que identifiquem padrões antes de revelar a explicação.</p>
+            <p>Em seguida, projete a fase <strong>Exemplo</strong> e percorra os passos junto com a turma, fazendo perguntas a cada transição: "o que acontece aqui?", "por que esse passo?". Não avance antes de haver resposta.</p>
+            <h3>Variante</h3>
+            <p>Oculte o projetor após o Conceito e peça à turma que tente resolver o Exemplo por conta própria antes de ver os passos. Compare as abordagens antes de continuar.</p>
+          </div>
+        </div>
+
+        <h2 id="ativ-pratica">Atividade 2 — Prática individual em aula</h2>
+
+        <div class="atividade">
+          <div class="atividade-header">
+            <span class="atividade-num">Ativ. 2</span>
+            <span class="atividade-titulo">Prática com dificuldade adaptativa</span>
+          </div>
+          <div class="atividade-body">
+            <div class="atividade-meta">
+              <span class="meta-tag"><strong>Nível:</strong> qualquer</span>
+              <span class="meta-tag"><strong>Duração:</strong> 20–30 min</span>
+              <span class="meta-tag"><strong>Modo:</strong> Individual — celular ou computador</span>
+            </div>
+            <p>Após a exposição do conceito, cada aluno pratica no próprio dispositivo. A dificuldade começa no nível 1 e sobe automaticamente conforme o aluno acerta — não há necessidade de configuração.</p>
+            <p>O professor circula pela sala observando os feedbacks na tela: verde (correto) ou vermelho (errado). Alunos que travam no mesmo exercício são candidatos a intervenção individual.</p>
+            <div class="nota"><p>Oriente os alunos a usar as <strong>dicas</strong> antes de pedir ajuda. Cada exercício tem 2–3 dicas progressivas que direcionam sem revelar a resposta.</p></div>
+          </div>
+        </div>
+
+        <h2 id="ativ-revisao">Atividade 3 — Revisão semanal ponderada</h2>
+
+        <div class="atividade">
+          <div class="atividade-header">
+            <span class="atividade-num">Ativ. 3</span>
+            <span class="atividade-titulo">Sessão de revisão com pesos</span>
+          </div>
+          <div class="atividade-body">
+            <div class="atividade-meta">
+              <span class="meta-tag"><strong>Nível:</strong> qualquer</span>
+              <span class="meta-tag"><strong>Duração:</strong> 15–20 min</span>
+              <span class="meta-tag"><strong>Modo:</strong> Individual — início ou fim de aula</span>
+            </div>
+            <p>Reserve os primeiros 15 minutos de aula para a sessão de <strong>Revisão</strong>. O modo revisão seleciona automaticamente os tópicos com menor acurácia do aluno — sem que o professor precise indicar o que revisar.</p>
+            <p>Após a sessão, oriente os alunos a verificar a tela de <strong>Estatísticas</strong> e identificar seus dois maiores pontos fracos. Essa consciência metacognitiva é parte do aprendizado.</p>
+          </div>
+        </div>
+
+        <h2 id="ativ-avaliacao">Atividade 4 — Avaliação diagnóstica com Prova</h2>
+
+        <div class="atividade">
+          <div class="atividade-header">
+            <span class="atividade-num">Ativ. 4</span>
+            <span class="atividade-titulo">Prova diagnóstica cronometrada</span>
+          </div>
+          <div class="atividade-body">
+            <div class="atividade-meta">
+              <span class="meta-tag"><strong>Nível:</strong> qualquer</span>
+              <span class="meta-tag"><strong>Duração:</strong> 30 min</span>
+              <span class="meta-tag"><strong>Modo:</strong> Individual — avaliação diagnóstica</span>
+            </div>
+            <p>Use o modo <strong>Prova</strong> como avaliação diagnóstica antes de iniciar uma unidade nova. As 20 questões são selecionadas dos tópicos já estudados — o professor vê quais conceitos precisam de reforço antes de avançar.</p>
+            <p>A prova não bloqueia o aluno por tempo — o cronômetro é informativo. Use o resultado como diagnóstico, não como nota.</p>
+            <h3>Variante — Prova em duplas</h3>
+            <p>Duas pessoas no mesmo dispositivo. Uma responde, a outra justifica em voz alta antes de confirmar. Estimula o raciocínio explícito e a discussão entre pares.</p>
+          </div>
+        </div>
+
+        <h2 id="ativ-superior">Atividade 5 — Tópicos de Ensino Superior</h2>
+
+        <div class="atividade">
+          <div class="atividade-header">
+            <span class="atividade-num">Ativ. 5</span>
+            <span class="atividade-titulo">Antecipação de conteúdo universitário</span>
+          </div>
+          <div class="atividade-body">
+            <div class="atividade-meta">
+              <span class="meta-tag"><strong>Nível:</strong> <span class="nivel-tag em">EM</span> <span class="nivel-tag es">ES</span></span>
+              <span class="meta-tag"><strong>Duração:</strong> 20–40 min</span>
+              <span class="meta-tag"><strong>Modo:</strong> Enriquecimento curricular</span>
+            </div>
+            <p>Os tópicos de Ensino Superior do Euclides são adequados para alunos do 3º EM em preparação para cursos de exatas, para grupos de estudo de vestibular e ENEM, ou para cursos técnicos com base matemática.</p>
+            <p>Sugestão de sequência para o 3º EM: <strong>Limites → Derivadas → Análise de Curvas</strong>. O Conceito de Limites é auto-suficiente para quem domina funções do EM — não requer pré-requisito universitário.</p>
+            <div class="aviso"><p>Os tópicos de ES são desafiadores por design. Normal que o aluno encontre dificuldade 1 difícil no primeiro contato. O objetivo não é domínio imediato, mas familiarização com o vocabulário e os objetos matemáticos.</p></div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ── Planejamento ─────────────────────────────────────────── -->
+      <div class="content-card">
+        <h2 id="planejamento" style="margin-top:0">Planejamento de aula com o Euclides</h2>
+        <p>
+          O <strong>Gerador de Plano de Aula</strong> (<a href="plano-aula.html" style="color:var(--blue)">plano-aula.html</a>)
+          é uma ferramenta separada que permite criar planos estruturados com as habilidades BNCC de Matemática
+          correspondentes ao ano/série da turma — do 1º ano do Fundamental I à 3ª série do Ensino Médio.
+          O documento gerado pode ser impresso diretamente ou salvo como PDF pelo diálogo nativo do browser.
+        </p>
+
+        <h3>Como usar o gerador na preparação de aula</h3>
+        <div class="atividade">
+          <div class="atividade-header">
+            <span class="atividade-num">Passo 1</span>
+            <span class="atividade-titulo">Selecionar ano e tema</span>
+          </div>
+          <div class="atividade-body">
+            <p>
+              Abra o <a href="plano-aula.html" style="color:var(--blue)">Gerador de Plano de Aula</a>.
+              Preencha os dados de identificação e selecione o <strong>ano/série</strong> da turma.
+              Ao selecionar, os painéis de <em>Objetos de Conhecimento</em> e <em>Habilidades BNCC</em>
+              são populados automaticamente com as habilidades matemáticas correspondentes ao ano.
+            </p>
+            <p>
+              O campo <strong>Carga Horária Total</strong> é calculado automaticamente a partir do número de aulas
+              e da duração de cada uma — não precisa fazer a conta manualmente.
+            </p>
+          </div>
+        </div>
+
+        <div class="atividade">
+          <div class="atividade-header">
+            <span class="atividade-num">Passo 2</span>
+            <span class="atividade-titulo">Marcar habilidades e presets</span>
+          </div>
+          <div class="atividade-body">
+            <p>
+              Marque apenas as <strong>Habilidades BNCC</strong> efetivamente trabalhadas nesta aula — não todas do
+              ano. O padrão BNCC mostra o código (ex: <code style="font-family:var(--font-mono);font-size:11px;background:var(--surface-2);padding:1px 4px;border-radius:2px;">EF07MA13</code>)
+              seguido da descrição completa.
+            </p>
+            <p>
+              Marque também os <strong>Objetos de Conhecimento</strong>, <strong>Objetivos</strong>,
+              <strong>Metodologias</strong>, <strong>Recursos</strong> e <strong>Avaliação</strong> relevantes.
+              Cada seção tem um campo de texto livre para adicionar itens que não estão nos presets.
+            </p>
+            <div class="nota">
+              <p>
+                <strong>Integração com o Euclides:</strong> nos campos de Recursos e Metodologia há presets
+                que referenciam diretamente a plataforma. Marcar "Plataforma Euclides — prática adaptativa"
+                registra formalmente o uso da ferramenta no plano.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="atividade">
+          <div class="atividade-header">
+            <span class="atividade-num">Passo 3</span>
+            <span class="atividade-titulo">Gerar e exportar</span>
+          </div>
+          <div class="atividade-body">
+            <p>
+              Clique em <strong>Gerar documento</strong>. O plano aparece no painel direito com formatação
+              pronta para impressão: cabeçalho, grid de identificação, seções em blocos destacados, código BNCC
+              em badge e área para assinatura.
+            </p>
+            <p>
+              Clique em <strong>Imprimir / PDF</strong> para abrir o diálogo de impressão do sistema.
+              Em Chrome e Edge, escolha "Salvar como PDF" para gerar um arquivo PDF sem precisar de nenhuma
+              biblioteca externa. O formulário e a interface somem na impressão — apenas o documento é impresso.
+            </p>
+          </div>
+        </div>
+
+        <h3>Correspondência entre tópicos do Euclides e habilidades BNCC</h3>
+        <p>
+          Cada tópico da plataforma corresponde a uma ou mais habilidades BNCC. A tabela abaixo mostra exemplos
+          de correspondência para os anos mais usados em sala:
+        </p>
+        <table>
+          <thead><tr><th>Tópico no Euclides</th><th>Nível</th><th>Habilidades BNCC relacionadas</th></tr></thead>
+          <tbody>
+            <tr>
+              <td>Equações do 1º grau</td>
+              <td>EFII — 7º ano</td>
+              <td><code style="font-size:11px;font-family:var(--font-mono)">EF07MA13, EF07MA14</code></td>
+            </tr>
+            <tr>
+              <td>Sistemas de equações</td>
+              <td>EFII — 8º ano</td>
+              <td><code style="font-size:11px;font-family:var(--font-mono)">EF08MA06, EF08MA07</code></td>
+            </tr>
+            <tr>
+              <td>Funções do 1º e 2º graus</td>
+              <td>EM</td>
+              <td><code style="font-size:11px;font-family:var(--font-mono)">EM13MAT101, EM13MAT102, EM13MAT302</code></td>
+            </tr>
+            <tr>
+              <td>Trigonometria no triângulo retângulo</td>
+              <td>EFII — 8º ano</td>
+              <td><code style="font-size:11px;font-family:var(--font-mono)">EF08MA15, EF08MA19</code></td>
+            </tr>
+            <tr>
+              <td>Probabilidade</td>
+              <td>EFII — 8º e 9º ano</td>
+              <td><code style="font-size:11px;font-family:var(--font-mono)">EF08MA24, EF09MA21</code></td>
+            </tr>
+            <tr>
+              <td>Matrizes e sistemas lineares</td>
+              <td>ES</td>
+              <td><code style="font-size:11px;font-family:var(--font-mono)">EM13MAT601</code></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="aviso">
+          <p>
+            <strong>Sobre o Ensino Médio:</strong> as habilidades BNCC do EM (EM13MAT___) não são segmentadas
+            por série na BNCC — são as mesmas para as 3 séries. A distribuição por ano é responsabilidade
+            do currículo estadual e do PPP da escola. O gerador lista as mesmas habilidades para EM1, EM2 e EM3;
+            cabe ao professor selecionar as pertinentes à série.
+          </p>
+        </div>
+      </div>
+
+      <!-- ── Referência ───────────────────────────────────────────── -->
+      <div class="content-card">
+        <h2 id="dificuldade" style="margin-top:0">Dificuldade adaptativa — como funciona</h2>
+        <p>
+          Cada sessão de prática começa na dificuldade 1. O sistema observa os últimos 5 exercícios:
+        </p>
+        <ul>
+          <li>4 ou mais acertos nos últimos 5 → <strong>sobe um nível</strong> (máximo: 5)</li>
+          <li>4 ou mais erros nos últimos 5 → <strong>desce um nível</strong> (mínimo: 1)</li>
+          <li>Outros resultados → <strong>mantém o nível</strong></li>
+        </ul>
+        <p>
+          O professor não intervém nesse processo. A dificuldade é propriedade da sessão, não do tópico —
+          começa do zero a cada vez que o aluno entra em Prática.
+        </p>
+
+        <h2 id="modo-professor">Modo Professor — exercícios customizados</h2>
+        <p>
+          O Modo Professor permite criar exercícios fora do banco gerado automaticamente. Acesse pelo
+          botão no menu lateral.
+        </p>
+        <h3>Criar um exercício</h3>
+        <ol>
+          <li>Escolha o tópico base (define o contexto visual)</li>
+          <li>Escreva o enunciado e a equação do problema</li>
+          <li>Defina a resposta correta e 2–3 dicas progressivas</li>
+          <li>Salve — o exercício aparece na lista e fica disponível para prática</li>
+        </ol>
+        <h3>Folha imprimível</h3>
+        <p>
+          Em "Folha de exercícios", selecione tópico, dificuldade (1–5 ou Misto) e número de questões.
+          A folha gerada inclui o gabarito separado — adequada para avaliação impressa.
+        </p>
+
+        <h2 id="limitacoes">Limitações — comunicar aos alunos</h2>
+        <div class="aviso">
+          <p>As limitações abaixo fazem parte do aprendizado — não são falhas a esconder.</p>
+        </div>
+        <ul>
+          <li><strong>Respostas numéricas apenas:</strong> a plataforma valida números com tolerância ±0.05. Respostas que exigem texto, vetores ou matrizes não são aceitas no campo de resposta.</li>
+          <li><strong>Sem verificação de processo:</strong> o sistema verifica apenas o resultado final, não o caminho. Dois alunos com métodos diferentes e mesma resposta ambos acertam.</li>
+          <li><strong>Dificuldade 1 é simplificada:</strong> nos tópicos de ES, dificuldade 1 usa números especialmente simples para introduzir o procedimento. Não representa a complexidade real do assunto.</li>
+          <li><strong>Progresso salvo localmente:</strong> o progresso fica no dispositivo (localStorage). Trocar de computador reinicia as estatísticas.</li>
+        </ul>
+
+      </div>
+
+    </div><!-- /guia-content -->
+  </div><!-- /page-wrapper -->
+
+  <section class="ecosystem-section">
+    <h2>Ecossistema educacional</h2>
+    <div class="eco-grid">
+      <span class="eco-card eco-card--active">
+        <span class="eco-name">Euclides</span>
+        <span class="eco-desc">Matemática — você está aqui</span>
+      </span>
+      <a class="eco-card" href="https://luddevergard3n.github.io/quintiliano/" target="_blank" rel="noopener">
+        <span class="eco-name">Quintiliano</span>
+        <span class="eco-desc">Português e literatura</span>
+      </a>
+      <a class="eco-card" href="https://luddevergard3n.github.io/johnson-english/" target="_blank" rel="noopener">
+        <span class="eco-name">Johnson English</span>
+        <span class="eco-desc">Língua inglesa</span>
+      </a>
+      <a class="eco-card" href="https://luddevergard3n.github.io/humboldt/" target="_blank" rel="noopener">
+        <span class="eco-name">Humboldt</span>
+        <span class="eco-desc">Geografia</span>
+      </a>
+      <a class="eco-card" href="https://luddevergard3n.github.io/Herodoto/index.html" target="_blank" rel="noopener">
+        <span class="eco-name">Heródoto</span>
+        <span class="eco-desc">História</span>
+      </a>
+      <a class="eco-card" href="https://luddevergard3n.github.io/lavoisier/" target="_blank" rel="noopener">
+        <span class="eco-name">Lavoisier</span>
+        <span class="eco-desc">Química</span>
+      </a>
+      <a class="eco-card" href="https://luddevergard3n.github.io/archimedes/" target="_blank" rel="noopener">
+        <span class="eco-name">Archimedes</span>
+        <span class="eco-desc">Física</span>
+      </a>
+    </div>
+  </section>
+
+  <footer>
+    Euclides v3.2 &mdash;
+    <a href="https://github.com/LuddEvergard3n/euclides" target="_blank" rel="noopener">GitHub</a>
+    &mdash; <a href="sobre.html">Sobre</a> &mdash; <a href="index.html">Plataforma</a>
+  </footer>
+
+</body>
+</html>

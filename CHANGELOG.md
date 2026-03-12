@@ -5,6 +5,37 @@ Formato: [versão] — data | mudanças agrupadas por tipo.
 
 ---
 
+## [v4.1] — 2026-03-12
+
+### Corrigido
+- **`sw.js` — falha crítica no fetch handler**: o handler de `catch` retornava uma página HTML para **qualquer** request que falhasse — incluindo requisições de `.js`, `.wasm`, `.css`. Isso causava o erro "Um ServiceWorker interceptou a requisição e encontrou um erro não esperado" quando `wasm/math_core.js` era requisitado (arquivo não compilado — só o `.c` fonte existe em `wasm/src/`). O browser recebia `Content-Type: text/html` para um `<script>`, reportava o erro e podia impedir `script.onerror` de disparar, o que por sua vez impedia `wasm-loader.js` de chamar `_useFallback()` corretamente.
+
+  **Solução**: o handler de fetch foi separado em dois caminhos:
+  - **Navigation requests** (`e.request.mode === 'navigate'`): cache-first com fallback para `index.html` cacheado quando offline. A página HTML offline só é servida para requests de navegação.
+  - **Assets estáticos** (JS, WASM, CSS, JSON, imagens): cache-first sem `catch`. Se o fetch falha, o erro propaga naturalmente — `script.onerror` dispara limpo, `_useFallback()` é chamado, fallback JS assume.
+
+- **`CACHE_VER`** incrementado para `euclides-v4-1` para forçar reinstalação do SW em todos os clientes com a versão defeituosa.
+
+---
+
+## [v4.0] — 2026-03-12
+
+### Adicionado
+- **`plano-aula.html`** — gerador de plano de aula com layout dois painéis (formulário 480px + preview `1fr`). Funcionalidades:
+  - Campos de identificação (professor, escola, disciplina, turma, data, ano/série, nº de aulas, duração, carga horária calculada automaticamente, tema)
+  - Seletor de ano/série (EF1 ao EM3); ao selecionar, popula dinamicamente os painéis de Objetos de Conhecimento BNCC e Habilidades BNCC correspondentes
+  - Habilidades BNCC de Matemática: 8–12 habilidades por ano (EF01MA–EF09MA); 12 habilidades EM compartilhadas (EM13MAT___)  com aliases EM1/EM2/EM3 — sem duplicação de dados
+  - Presets de Objetivos de Aprendizagem, Metodologias, Recursos e Avaliação via checkboxes; cada seção tem textarea de adição livre
+  - Campo de Observações livres
+  - Botão "Gerar documento" produz HTML formatado para impressão no painel direito
+  - Botão "Imprimir / PDF" chama `window.print()` com `@media print` completo: sem header/formulário, coluna única, `print-color-adjust: exact`
+  - Botão "Limpar" reseta todos os campos
+- **Archimedes** adicionado ao painel Ecossistema do `TopPanel` em `index.html` (estava ausente)
+- **Seção Ecossistema** adicionada ao `guia-professor.html` — cards com os 7 projetos do ecossistema
+- **`CACHE_VER`** no `sw.js` incrementado para `euclides-v4`; `sobre.html`, `guia-professor.html` e `plano-aula.html` adicionados ao `CACHE_URLS`
+
+---
+
 ## [v3.2] — 2026-03-09
 
 ### Corrigido

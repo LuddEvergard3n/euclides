@@ -6,11 +6,14 @@
  * FONT_CACHE is intentionally stable — never deleted on version bumps.
  */
 
-var CACHE_VER  = 'euclides-v3';
+var CACHE_VER  = 'euclides-v4-1';
 var FONT_CACHE = 'euclides-fonts-v1';  // separate, persistent font cache
 var CACHE_URLS = [
   './',
   './index.html',
+  './sobre.html',
+  './guia-professor.html',
+  './plano-aula.html',
   './style.css',
   './manifest.json',
   './icon.svg',
@@ -207,7 +210,39 @@ self.addEventListener('fetch', function (e) {
     return;
   }
 
-  // ── App assets: cache-first ───────────────────────────────────────
+  // ── Navigation requests (HTML pages): cache-first, offline fallback ─
+  //   Only navigation requests get the offline fallback page.
+  //   Serving HTML for a JS/WASM request confuses the browser and breaks
+  //   script loading error handling (script.onerror never fires cleanly).
+  if (e.request.mode === 'navigate') {
+    e.respondWith(
+      caches.match(e.request).then(function (cached) {
+        if (cached) return cached;
+        return fetch(e.request).then(function (response) {
+          if (!response || response.status !== 200) return response;
+          var clone = response.clone();
+          caches.open(CACHE_VER).then(function (cache) { cache.put(e.request, clone); });
+          return response;
+        });
+      }).catch(function () {
+        // Offline: serve cached index.html as app shell.
+        return caches.match('./index.html').then(function (shell) {
+          return shell || new Response(
+            '<!DOCTYPE html><html><body style="background:#0c0c10;color:#e8e8f2;font-family:monospace;padding:48px;text-align:center">' +
+            '<h2>Euclides \u2014 offline</h2><p>Reabra quando tiver conex\u00e3o para sincronizar.</p>' +
+            '</body></html>',
+            { headers: { 'Content-Type': 'text/html' } }
+          );
+        });
+      })
+    );
+    return;
+  }
+
+  // ── Static assets (JS, WASM, CSS, JSON, images): cache-first ─────────
+  //   No catch handler: if fetch fails, let the browser handle it natively.
+  //   This ensures script.onerror fires correctly (e.g. wasm-loader.js
+  //   calls _useFallback() cleanly when wasm/math_core.js is not compiled).
   e.respondWith(
     caches.match(e.request).then(function (cached) {
       if (cached) return cached;
@@ -217,13 +252,6 @@ self.addEventListener('fetch', function (e) {
         caches.open(CACHE_VER).then(function (cache) { cache.put(e.request, clone); });
         return response;
       });
-    }).catch(function () {
-      return new Response(
-        '<!DOCTYPE html><html><body style="background:#0c0c10;color:#e8e8f2;font-family:monospace;padding:48px;text-align:center">' +
-        '<h2>Euclides — offline</h2><p>Reabra quando tiver conex\u00e3o para sincronizar.</p>' +
-        '</body></html>',
-        { headers: { 'Content-Type': 'text/html' } }
-      );
     })
   );
 });

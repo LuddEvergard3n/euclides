@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sobre — Euclides</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <link rel="icon" type="image/svg+xml" href="icon.svg"/>
+  <link rel="manifest" href="manifest.json"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:         #0c0c10;
+      --surface:    #13131c;
+      --surface-2:  #1a1a28;
+      --border:     #22223a;
+      --border-2:   #2e2e4a;
+      --text:       #e8e8f2;
+      --text-muted: #72728c;
+      --text-dim:   #3e3e58;
+      --gold:       #c8a44a;
+      --gold-light: #e0bb6a;
+      --gold-dim:   rgba(200,164,74,.15);
+      --teal:       #4ab8b2;
+      --blue:       #5a8fd2;
+      --green:      #4e9e70;
+      --red:        #c45252;
+      --radius:     4px;
+      --font-ui:    'Inter', system-ui, sans-serif;
+      --font-mono:  'JetBrains Mono', 'Fira Code', monospace;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-ui);
+      font-size: 14px;
+      line-height: 1.6;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* ── Topbar ─────────────────────────────────────────────────── */
+    #topbar {
+      height: 44px;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 16px;
+      flex-shrink: 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    #topbar-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    #topbar-brand img { width: 26px; height: 26px; }
+
+    #topbar-brand span {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text);
+      letter-spacing: .02em;
+    }
+
+    #topbar-nav { display: flex; gap: 2px; }
+
+    .topbar-tab {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      font-family: var(--font-ui);
+      font-size: 12px;
+      font-weight: 500;
+      padding: 5px 12px;
+      border-radius: var(--radius);
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      transition: color .15s, background .15s;
+    }
+
+    .topbar-tab:hover { color: var(--text); background: var(--surface-2); }
+    .topbar-tab.active { color: var(--gold); background: var(--gold-dim); }
+
+    /* ── Layout ─────────────────────────────────────────────────── */
+    .page-wrapper {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 2.5rem 1.5rem 4rem;
+      width: 100%;
+    }
+
+    /* ── Card ───────────────────────────────────────────────────── */
+    .content-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 2.5rem 3rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .page-title {
+      font-family: var(--font-mono);
+      font-size: 1.8rem;
+      font-weight: 500;
+      color: var(--gold);
+      letter-spacing: .02em;
+      margin-bottom: 0.5rem;
+    }
+
+    .page-subtitle {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 2rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    /* ── Sections ───────────────────────────────────────────────── */
+    h2 {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin: 2rem 0 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    h2:first-of-type { margin-top: 0; }
+
+    p { color: var(--text-muted); margin-bottom: 0.9rem; line-height: 1.7; }
+    p:last-child { margin-bottom: 0; }
+    strong { color: var(--text); font-weight: 600; }
+
+    /* ── Epigraph ───────────────────────────────────────────────── */
+    .epigraph {
+      font-style: italic;
+      border-left: 3px solid var(--border-2);
+      padding: 0.6rem 1.2rem;
+      margin: 1.5rem 0;
+      color: var(--text-muted);
+    }
+
+    .epigraph cite {
+      display: block;
+      font-style: normal;
+      font-size: 12px;
+      color: var(--text-dim);
+      margin-top: 0.4rem;
+      font-family: var(--font-mono);
+    }
+
+    /* ── Metrics ────────────────────────────────────────────────── */
+    .metricas {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 1rem;
+      margin: 1rem 0;
+    }
+
+    .metrica-card {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1rem 1.2rem;
+    }
+
+    .metrica-valor {
+      font-family: var(--font-mono);
+      font-size: 1.6rem;
+      font-weight: 500;
+      color: var(--teal);
+      display: block;
+      margin-bottom: 0.2rem;
+    }
+
+    .metrica-label {
+      font-size: 11px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: .08em;
+    }
+
+    /* ── Level breakdown ────────────────────────────────────────── */
+    .level-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+      gap: 0.75rem;
+      margin: 1rem 0;
+    }
+
+    .level-card {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 0.9rem 1rem;
+    }
+
+    .level-name {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      margin-bottom: 0.3rem;
+    }
+
+    .level-count {
+      font-family: var(--font-mono);
+      font-size: 1.4rem;
+      font-weight: 500;
+      color: var(--gold);
+    }
+
+    .level-desc {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-top: 0.2rem;
+    }
+
+    /* ── Nota / destaque ────────────────────────────────────────── */
+    .nota {
+      background: var(--gold-dim);
+      border-left: 3px solid var(--gold);
+      padding: 0.8rem 1.2rem;
+      border-radius: 0 var(--radius) var(--radius) 0;
+      margin: 1rem 0;
+    }
+
+    .nota p { color: var(--text-muted); margin: 0; }
+
+    /* ── Links ───────────────────────────────────────────────────── */
+    a.inline { color: var(--blue); text-decoration: none; }
+    a.inline:hover { text-decoration: underline; }
+
+    /* ── Ecosystem section ───────────────────────────────────────── */
+    .ecosystem-section {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 2rem 2.5rem;
+    }
+
+    .ecosystem-section h2 { margin-top: 0; }
+
+    .eco-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 0.75rem;
+      margin-top: 1rem;
+    }
+
+    .eco-card {
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 0.9rem 1rem;
+      text-decoration: none;
+      background: var(--surface-2);
+      transition: border-color .15s, background .15s;
+      display: block;
+    }
+
+    .eco-card:hover {
+      border-color: var(--gold);
+      background: var(--gold-dim);
+    }
+
+    .eco-card--active {
+      border-color: var(--border-2);
+      cursor: default;
+      pointer-events: none;
+      opacity: .6;
+    }
+
+    .eco-name {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text);
+      margin-bottom: 2px;
+    }
+
+    .eco-desc {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    /* ── Footer ─────────────────────────────────────────────────── */
+    footer {
+      text-align: center;
+      padding: 1.5rem;
+      font-size: 11px;
+      color: var(--text-dim);
+      border-top: 1px solid var(--border);
+      margin-top: auto;
+    }
+
+    footer a { color: var(--text-dim); text-decoration: none; }
+    footer a:hover { color: var(--text-muted); }
+
+    @media (max-width: 640px) {
+      .content-card { padding: 1.5rem 1.25rem; }
+      .page-title { font-size: 1.4rem; }
+      .ecosystem-section { padding: 1.5rem 1.25rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <header id="topbar">
+    <a id="topbar-brand" href="index.html">
+      <img src="icon.svg" alt="Euclides"/>
+      <span>Euclides</span>
+    </a>
+    <nav id="topbar-nav">
+      <a class="topbar-tab active" href="sobre.html">Sobre</a>
+      <a class="topbar-tab" href="guia-professor.html">Guia do Professor</a>
+      <a class="topbar-tab" href="plano-aula.html">Plano de Aula</a>
+      <a class="topbar-tab" href="index.html">&#8592; Plataforma</a>
+    </nav>
+  </header>
+
+  <main class="page-wrapper">
+
+    <div class="content-card">
+      <h1 class="page-title">Euclides</h1>
+      <p class="page-subtitle">Plataforma de ensino de matemática — do Fundamental I ao Ensino Superior</p>
+
+      <h2>O nome</h2>
+      <blockquote class="epigraph">
+        "Não existe estrada real para a geometria."
+        <cite>— Euclides de Alexandria, ao rei Ptolomeu I, c. 300 a.C.</cite>
+      </blockquote>
+      <p>
+        <strong>Euclides de Alexandria</strong> foi o matemático grego que sistematizou a geometria no século III a.C.
+        nos <em>Elementos</em> — a obra científica mais influente da história, continuamente publicada por mais de
+        dois mil anos. Ao ser perguntado pelo rei Ptolomeu se havia um caminho mais curto para aprender geometria,
+        respondeu que não existe estrada real para a matemática: não há atalho, apenas o trabalho rigoroso com os
+        fundamentos.
+      </p>
+      <p>
+        O nome honra essa filosofia: <strong>a plataforma não simplifica a matemática</strong>. Apresenta conceitos
+        reais, com notação precisa, visualizações honestas e progressão adaptada ao ritmo do estudante — mas sem
+        infantilização.
+      </p>
+
+      <h2>O que é</h2>
+      <p>
+        Euclides é uma <strong>plataforma de ensino de matemática browser-only</strong>, sem servidor, sem conta,
+        sem dependências externas. Funciona offline após o primeiro acesso e pode ser instalada como aplicativo
+        (PWA) em qualquer dispositivo.
+      </p>
+      <p>
+        Cada tópico tem três fases: <strong>Conceito</strong> (teoria com visualização em canvas),
+        <strong>Exemplo</strong> (resolução passo a passo navegável) e <strong>Prática</strong>
+        (exercícios com dificuldade adaptativa automática). A dificuldade sobe após sequências de acertos
+        e cai após erros — sem intervenção do usuário.
+      </p>
+
+      <h2>Cobertura</h2>
+
+      <div class="level-grid">
+        <div class="level-card">
+          <div class="level-name">Fundamental I</div>
+          <div class="level-count">3</div>
+          <div class="level-desc">Aritmética, Geometria, Racionais</div>
+        </div>
+        <div class="level-card">
+          <div class="level-name">Fundamental II</div>
+          <div class="level-count">13</div>
+          <div class="level-desc">Álgebra, Equações, Frações, Geometria, Probabilidade</div>
+        </div>
+        <div class="level-card">
+          <div class="level-name">Ensino Médio</div>
+          <div class="level-count">31</div>
+          <div class="level-desc">Trigonometria, Matrizes, Funções, Cálculo intro, Cônicas</div>
+        </div>
+        <div class="level-card">
+          <div class="level-name">Ensino Superior</div>
+          <div class="level-count">37</div>
+          <div class="level-desc">Cálculo I/II/III, Álgebra Linear, EDO, EDP, Transformadas, Grafos</div>
+        </div>
+      </div>
+
+      <h2>Números</h2>
+      <div class="metricas">
+        <div class="metrica-card">
+          <span class="metrica-valor">84</span>
+          <span class="metrica-label">Tópicos</span>
+        </div>
+        <div class="metrica-card">
+          <span class="metrica-valor">469</span>
+          <span class="metrica-label">Testes automatizados</span>
+        </div>
+        <div class="metrica-card">
+          <span class="metrica-valor">5</span>
+          <span class="metrica-label">Níveis de dificuldade</span>
+        </div>
+        <div class="metrica-card">
+          <span class="metrica-valor">PWA</span>
+          <span class="metrica-label">Funciona offline</span>
+        </div>
+      </div>
+
+      <h2>Tecnologia</h2>
+      <p>
+        A plataforma foi construída em <strong>HTML5, CSS3 e JavaScript ES5 puro</strong> — sem frameworks,
+        sem bundlers, sem npm. O motor matemático é um módulo em <strong>C compilado para WebAssembly</strong>
+        via Emscripten, com fallback automático em JavaScript puro para ambientes sem WASM.
+      </p>
+      <p>
+        A visualização matemática usa a <strong>Canvas 2D API</strong> nativa do browser: planos cartesianos,
+        curvas de função, retratos de fase, somas de Fourier, diagramas de Argand — tudo desenhado
+        sem bibliotecas externas.
+      </p>
+      <div class="nota">
+        <p>
+          Sem frameworks significa sem breaking changes. O código de hoje funcionará em 2030 sem
+          nenhuma atualização de dependência.
+        </p>
+      </div>
+
+      <h2>Filosofia</h2>
+      <p>
+        A escolha de não infantilizar a matemática foi deliberada. Ferramentas que substituem equações
+        por blocos coloridos ou balanças ensinam a metáfora, não a matemática. O Euclides mostra a equação
+        real, o símbolo real, o gráfico real.
+      </p>
+      <p>
+        A dificuldade adaptativa existe porque estudantes diferentes precisam de ritmos diferentes — não
+        porque o conteúdo deva ser simplificado. Dificuldade 1 e dificuldade 5 tratam do mesmo tópico; apenas a
+        complexidade dos números e dos passos envolvidos muda.
+      </p>
+
+      <h2>Código aberto</h2>
+      <p>
+        O código-fonte está disponível em
+        <a class="inline" href="https://github.com/LuddEvergard3n/euclides" target="_blank" rel="noopener">
+          github.com/LuddEvergard3n/euclides</a>.
+        MIT License.
+      </p>
+    </div>
+
+    <div class="ecosystem-section">
+      <h2>Ecossistema educacional</h2>
+      <p style="color:var(--text-muted);font-size:13px;margin-bottom:0">
+        Plataformas do mesmo ecossistema, com a mesma filosofia de zero dependências e funcionamento offline.
+      </p>
+      <div class="eco-grid">
+        <span class="eco-card eco-card--active">
+          <div class="eco-name">Euclides</div>
+          <div class="eco-desc">Matemática — você está aqui</div>
+        </span>
+        <a class="eco-card" href="https://luddevergard3n.github.io/quintiliano/" target="_blank" rel="noopener">
+          <div class="eco-name">Quintiliano</div>
+          <div class="eco-desc">Português e literatura</div>
+        </a>
+        <a class="eco-card" href="https://luddevergard3n.github.io/johnson-english/" target="_blank" rel="noopener">
+          <div class="eco-name">Johnson English</div>
+          <div class="eco-desc">Língua inglesa</div>
+        </a>
+        <a class="eco-card" href="https://luddevergard3n.github.io/humboldt/" target="_blank" rel="noopener">
+          <div class="eco-name">Humboldt</div>
+          <div class="eco-desc">Geografia</div>
+        </a>
+        <a class="eco-card" href="https://luddevergard3n.github.io/Herodoto/" target="_blank" rel="noopener">
+          <div class="eco-name">Heródoto</div>
+          <div class="eco-desc">História</div>
+        </a>
+        <a class="eco-card" href="https://luddevergard3n.github.io/lavoisier/" target="_blank" rel="noopener">
+          <div class="eco-name">Lavoisier</div>
+          <div class="eco-desc">Química</div>
+        </a>
+        <a class="eco-card" href="https://luddevergard3n.github.io/archimedes/" target="_blank" rel="noopener">
+          <div class="eco-name">Archimedes</div>
+          <div class="eco-desc">Física</div>
+        </a>
+      </div>
+    </div>
+
+  </main>
+
+  <footer>
+    Euclides v3.2 &mdash;
+    <a href="https://github.com/LuddEvergard3n/euclides" target="_blank" rel="noopener">GitHub</a>
+    &mdash; MIT License
+  </footer>
+
+</body>
+</html>
