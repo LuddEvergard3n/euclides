@@ -190,9 +190,9 @@
 
   function _updateExUI() {
     var i=_exStep,n=_exSteps.length;
-    document.getElementById('step-counter').textContent='Passo '+(i+1)+' de '+n;
-    document.getElementById('step-fill').style.width=Math.round(i/(n-1)*100)+'%';
-    document.getElementById('step-desc').innerHTML=_buildDesc(i);
+    var _sc=document.getElementById('step-counter');if(_sc)_sc.textContent='Passo '+(i+1)+' de '+n;
+    var _sf=document.getElementById('step-fill');if(_sf)_sf.style.width=Math.round(i/(n-1)*100)+'%';
+    var _sd=document.getElementById('step-desc');if(_sd)_sd.innerHTML=_buildDesc(i);
     var prev=document.getElementById('btn-prev'),next=document.getElementById('btn-next');
     if(prev) prev.disabled=i===0;
     if(next){

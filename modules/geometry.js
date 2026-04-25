@@ -178,9 +178,9 @@
 
   function _updateExampleUI() {
     var idx = _example.current, n = _example.steps.length;
-    document.getElementById('step-counter').textContent = 'Passo ' + (idx+1) + ' de ' + n;
-    document.getElementById('step-fill').style.width    = Math.round(idx / (n-1) * 100) + '%';
-    document.getElementById('step-desc').innerHTML      = _buildStepDesc(idx);
+    var _sc=document.getElementById('step-counter');if(_sc)_sc.textContent='Passo ' + (idx+1) + ' de ' + n;
+    var _sf=document.getElementById('step-fill');if(_sf)_sf.style.width=Math.round(idx / (n-1) * 100) + '%';
+    var _sd=document.getElementById('step-desc');if(_sd)_sd.innerHTML=_buildStepDesc(idx);
     var prev = document.getElementById('btn-prev'), next = document.getElementById('btn-next');
     if (prev) prev.disabled = idx === 0;
     if (next) {

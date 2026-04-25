@@ -6,7 +6,7 @@
  * FONT_CACHE is intentionally stable — never deleted on version bumps.
  */
 
-var CACHE_VER  = 'euclides-v4-1';
+var CACHE_VER  = 'euclides-v4-4';
 var FONT_CACHE = 'euclides-fonts-v1';  // separate, persistent font cache
 var CACHE_URLS = [
   './',
@@ -14,6 +14,7 @@ var CACHE_URLS = [
   './sobre.html',
   './guia-professor.html',
   './plano-aula.html',
+  './formulas.html',
   './style.css',
   './manifest.json',
   './icon.svg',

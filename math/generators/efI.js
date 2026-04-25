@@ -131,7 +131,53 @@
       pct + '% de ' + base + ' = ' + res,
     ],
   };
-}
+};
+
+  // ── Arithmetic op-specific aliases ────────────────────────────────────
+  // arithmetic.js requests generators by operation type (e.g. 'arith_subtraction').
+  // Named function declarations avoid the ASI pitfall of calling the previous
+  // expression when an IIFE follows a closing brace without semicolon.
+  function _makeArithGen(forcedType) {
+    return function(difficulty) {
+      _reseed();
+      var max = difficulty <= 2 ? 20 : difficulty <= 4 ? 100 : 999;
+      if (forcedType === 'addition') {
+        var a = _randInt(1, max), b = _randInt(1, max);
+        return { statement: 'Calcule a soma.', equation: a + ' + ' + b, answer: String(a + b),
+          hints: ['Some os algarismos da direita para a esquerda.',
+                  'Se a soma de uma coluna passar de 9, carregue 1 para a próxima.',
+                  a + ' + ' + b + ' = ' + (a + b)] };
+      }
+      if (forcedType === 'subtraction') {
+        var a = _randInt(1, max), b = _randInt(1, a);
+        return { statement: 'Calcule a subtração.', equation: a + ' - ' + b, answer: String(a - b),
+          hints: ['Subtraia coluna por coluna da direita para a esquerda.',
+                  'Se precisar, pegue emprestado da coluna seguinte.',
+                  a + ' - ' + b + ' = ' + (a - b)] };
+      }
+      if (forcedType === 'multiplication') {
+        var maxM = difficulty <= 2 ? 10 : 25;
+        var a = _randInt(2, maxM), b = _randInt(2, maxM);
+        return { statement: 'Calcule o produto.', equation: a + ' × ' + b, answer: String(a * b),
+          hints: ['Multiplique ' + a + ' pelo algarismo das unidades de ' + b + '.',
+                  difficulty > 2 ? 'Some os produtos parciais alinhando pelas colunas.' : 'Use a tabuada.',
+                  a + ' × ' + b + ' = ' + (a * b)] };
+      }
+      // division
+      var b = _randInt(2, difficulty <= 2 ? 9 : 12);
+      var q = _randInt(2, difficulty <= 2 ? 9 : 20);
+      var a = b * q;
+      return { statement: 'Calcule o quociente (divisão exata).', equation: a + ' ÷ ' + b, answer: String(q),
+        hints: ['Quantas vezes ' + b + ' cabe em ' + a + '?',
+                'Ou: ' + a + ' ÷ ' + b + ' é o mesmo que encontrar x em ' + b + 'x = ' + a + '.',
+                a + ' ÷ ' + b + ' = ' + q] };
+    };
+  }
+  var _arithOps = ['addition', 'subtraction', 'multiplication', 'division'];
+  for (var _oi = 0; _oi < _arithOps.length; _oi++) {
+    MathGenerators['arith_' + _arithOps[_oi]] = _makeArithGen(_arithOps[_oi]);
+    MathGenerators[_arithOps[_oi]]            = _makeArithGen(_arithOps[_oi]);
+  }
 
   // ── geometry ─────────────────────────────────────────────
   MathGenerators['geometry'] = function _genGeometry(difficulty) {

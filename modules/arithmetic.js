@@ -439,12 +439,10 @@
 
   // Generate one exercise for a specific type (bypasses the random dispatch)
   function _genForType(opType, difficulty) {
-    // Call MathCore with a special key — if WASM doesn't know it,
-    // fallback handles it; otherwise call fallback directly.
+    // Try WASM first (key: 'arith_<opType>'), fall back to JS generator with same key.
     var ex;
     try { ex = MathCore.generateExercise('arith_' + opType, difficulty); } catch(e) { ex = null; }
-    // Always fall back to MathFallback which knows all types
-    if (!ex || !ex.answer) ex = MathFallback._genByType(opType, difficulty);
+    if (!ex || !ex.answer || ex.answer === '—') ex = MathFallback.generateExercise('arith_' + opType, difficulty);
     return ex;
   }
 

@@ -223,6 +223,37 @@ MathCore.nextDifficulty(history: boolean[]) → 1|2|3|4|5
 
 ---
 
+## MathGenerators
+
+`window.MathGenerators` — objeto chave→função populado pelos arquivos em `math/generators/*.js`.
+
+Cada gerador recebe `difficulty` (1–5) e retorna um objeto de exercício no mesmo formato
+de `MathCore.generateExercise`. O dispatcher em `MathFallback.generateExercise` faz:
+
+```js
+var gen = MathGenerators[topicId];
+if (gen) return gen(difficulty);
+// senão: retorna objeto com mensagem "Tópico não encontrado"
+```
+
+**Aliases do módulo `arithmetic`** (registrados em `math/generators/efI.js`):
+
+O módulo `arithmetic.js` gera exercícios por tipo de operação via `_genForType(opType, d)`,
+que chama `MathFallback.generateExercise('arith_' + opType, d)`. Por isso, além do
+gerador geral `'arithmetic'`, os seguintes aliases devem estar registrados:
+
+```
+'arith_addition'        'addition'
+'arith_subtraction'     'subtraction'
+'arith_multiplication'  'multiplication'
+'arith_division'        'division'
+```
+
+Nunca remover esses aliases — o módulo depende deles. Nunca usar `MathFallback._genByType`
+com chave sem prefixo `arith_`; esse método é alias interno de `generateExercise`.
+
+---
+
 ## Stats
 
 `js/stats.js` → `window.Stats`

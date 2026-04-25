@@ -143,6 +143,7 @@ euclides/
 | Página | Arquivo | Descrição |
 |---|---|---|
 | Sobre | `sobre.html` | Origem do nome, filosofia, cobertura de tópicos, stack, ecossistema |
+| Fórmulas | `formulas.html` | Referência de fórmulas, regras e dicas — EF I, EF II, EM e ES; sidebar com navegação por âncoras |
 | Guia do Professor | `guia-professor.html` | Como usar em sala de aula — atividades práticas, orientações pedagógicas, referência de funcionalidades |
 | Plano de Aula | `plano-aula.html` | Gerador de planos com habilidades BNCC de Matemática por ano/série (EF1–EM3), presets de objetivos, metodologias, recursos e avaliação; exporta para impressão/PDF |
 

@@ -149,8 +149,8 @@
 
     if (type === 'max_value') {
       return {
-        statement: pr.type==='max'?'Maximize':'Minimize' + ' z = ' + pr.obj + ' sujeito a: ' + constraintStr + '. Qual o valor ótimo de z?',
-        equation:  pr.type==='max'?'max':'min' + ' z = ' + pr.obj,
+        statement: (pr.type==='max'?'Maximize':'Minimize') + ' z = ' + pr.obj + ' sujeito a: ' + constraintStr + '. Qual o valor ótimo de z?',
+        equation:  (pr.type==='max'?'max':'min') + ' z = ' + pr.obj,
         answer:    String(pr.max),
         hints: [
           'Identifique os vértices da região viável',

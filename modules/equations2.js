@@ -185,9 +185,9 @@
     var n   = _example.steps.length;
     var pct = Math.round((idx / (n - 1)) * 100);
 
-    document.getElementById('step-counter').textContent = 'Passo ' + (idx + 1) + ' de ' + n;
-    document.getElementById('step-fill').style.width    = pct + '%';
-    document.getElementById('step-desc').innerHTML      = _buildStepDesc(idx);
+    var _sc=document.getElementById('step-counter');if(_sc)_sc.textContent='Passo ' + (idx + 1) + ' de ' + n;
+    var _sf=document.getElementById('step-fill');if(_sf)_sf.style.width=pct + '%';
+    var _sd=document.getElementById('step-desc');if(_sd)_sd.innerHTML=_buildStepDesc(idx);
 
     var prev = document.getElementById('btn-prev');
     var next = document.getElementById('btn-next');

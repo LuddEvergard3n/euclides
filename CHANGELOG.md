@@ -5,6 +5,60 @@ Formato: [versão] — data | mudanças agrupadas por tipo.
 
 ---
 
+## [v4.4] — 2026-04-25
+
+### Adicionado
+- **`formulas.html`** — página de referência matemática completa, organizada em 4 níveis: EF I (1º–5º ano), EF II (6º–9º ano), Ensino Médio e Ensino Superior. Conteúdo inclui:
+  - **EF I**: quatro operações com prova real, frações (soma/subtração/multiplicação/divisão/simplificação), geometria básica (perímetros e áreas), tabela de conversões de medidas, porcentagem
+  - **EF II**: equações e inequações do 1º grau com roteiro de resolução, regra de três direta/inversa/composta, razão e proporção, potências e raízes, áreas de figuras planas (tabela completa incluindo Heron e setor circular), Teorema de Pitágoras, razões trigonométricas, ângulos notáveis, estatística básica
+  - **EM**: Bhaskara (discriminante + fórmula + relações de Girard + roteiro), funções afim/quadrática/exponencial/logarítmica, PA e PG (termo geral, soma, PG infinita), trigonometria (identidades, adição, arco duplo, lei dos senos e cossenos), propriedades de logaritmos, análise combinatória (fatorial, permutação, arranjo, combinação, Binômio de Newton), probabilidade (clássica, complementar, União, condicional), geometria espacial com tabela de volumes e áreas, geometria analítica, matrizes e determinantes (Sarrus, Cramer, produto)
+  - **ES**: limites fundamentais e L'Hôpital, derivadas (definição, regras básicas, produto, quociente, cadeia, derivadas comuns), integrais (indefinida, Teorema Fundamental, imediatas, integração por partes, substituição), séries de Taylor e Maclaurin, fórmula de Euler, EDO (variáveis separáveis, linear 1ª ordem, 2ª ordem coef. constantes, lei de crescimento/decaimento), álgebra linear (produto escalar e vetorial, autovalores, Gram-Schmidt), números complexos (formas algébrica/polar, De Moivre)
+  - Sidebar com navegação por âncoras e destaque do item ativo via `IntersectionObserver`
+  - Blocos de dica (`.tip-block`) e roteiros passo a passo (`.steps`) nos tópicos mais complexos
+- **`formulas.html` adicionado ao `CACHE_URLS`** do `sw.js`
+- **Link "Fórmulas"** adicionado ao topbar de todas as páginas: `index.html`, `sobre.html`, `guia-professor.html`, `plano-aula.html`
+
+### Corrigido
+- **`batch3.js` — `linear_prog` d1**: operador ternário sem parênteses em `pr.type==='max'?'Maximize':'Minimize' + ' z = ...'` causava precedência incorreta — `statement` ficava só `'Maximize'` e `equation` ficava só `'max'`. Parênteses adicionados em todas as ocorrências.
+
+- **`CACHE_VER`** incrementado para `euclides-v4-4`.
+
+---
+
+## [v4.3] — 2026-04-25
+
+### Corrigido
+- **`math/generators/efI.js` + `modules/arithmetic.js` — "Tópico não encontrado" em Aritmética**: o módulo `arithmetic.js` gera exercícios por tipo de operação (`'arith_addition'`, `'arith_subtraction'`, etc.), mas esses identificadores não estavam registrados em `MathGenerators` — só existia `'arithmetic'` (que sorteia a operação aleatoriamente). O `_genForType` então chamava `MathFallback._genByType(opType, d)` com a chave `'subtraction'` (sem prefixo), que também não existia. Resultado: a mensagem `Tópico "arith_subtraction" não encontrado.` aparecia no exercício, sem equação e com resposta `—`.
+
+  **Correção em dois arquivos:**
+  - `math/generators/efI.js` — registrados 8 novos aliases: `'arith_addition'`, `'arith_subtraction'`, `'arith_multiplication'`, `'arith_division'` e os equivalentes sem prefixo (`'addition'`, `'subtraction'`, `'multiplication'`, `'division'`). Cada alias força a operação específica em vez de sortear.
+  - `modules/arithmetic.js` — `_genForType` agora chama `MathFallback.generateExercise('arith_' + opType, d)` em vez do método `_genByType` com chave incorreta.
+
+  Também corrigido um bug secundário de ASI (Automatic Semicolon Insertion) no `efI.js`: a função geradora `arithmetic` não tinha `;` após o `}` de fechamento, o que fazia o browser interpretar o bloco de aliases seguinte como uma chamada à função geradora.
+
+- **`CACHE_VER`** incrementado para `euclides-v4-3`.
+
+---
+
+## [v4.2] — 2026-04-25
+
+### Corrigido
+- **244 acessos DOM inseguros em 83 módulos** — todas as chamadas a `getElementById` seguidas de acesso direto a `.textContent`, `.innerHTML`, `.style.width` ou `.disabled` sem verificação de existência do elemento foram substituídas pelo padrão seguro:
+  ```js
+  // antes (crash se elemento não existir no DOM)
+  document.getElementById('step-counter').textContent = '...';
+
+  // depois (sem-op se elemento ausente)
+  var _sc = document.getElementById('step-counter');
+  if (_sc) _sc.textContent = '...';
+  ```
+  Elementos afetados: `step-counter`, `step-fill`, `step-desc`, `btn-prev`, `btn-next`. Isso eliminava o `TypeError: Cannot set properties of null` que ocorria quando o usuário navegava para outro tópico enquanto o temporizador de exemplo ainda estava ativo ou ao usar o botão Prev/Next em rápida sucessão.
+- 38 ocorrências adicionais com atribuições ternárias multiline também corrigidas (mesmo padrão, não capturado pela primeira passagem).
+- **`CACHE_VER`** incrementado para `euclides-v4-2` para forçar reinstalação do SW.
+- **469 testes passando** após todas as alterações.
+
+---
+
 ## [v4.1] — 2026-03-12
 
 ### Corrigido

@@ -68,10 +68,10 @@
   }
   function _updateEx(){
     var i=_exStep,n=_exSteps.length;
-    document.getElementById('step-counter').textContent='Passo '+(i+1)+' de '+n;
-    document.getElementById('step-fill').style.width=Math.round(i/(n-1)*100)+'%';
+    var _sc=document.getElementById('step-counter');if(_sc)_sc.textContent='Passo '+(i+1)+' de '+n;
+    var _sf=document.getElementById('step-fill');if(_sf)_sf.style.width=Math.round(i/(n-1)*100)+'%';
     var s=_exSteps[i];
-    document.getElementById('step-desc').innerHTML=i>0?'<strong>'+s.note+'</strong><br><span class="text-mono text-gold">'+s.equation+'</span>':
+    var _sd=document.getElementById('step-desc');if(_sd)_sd.innerHTML=i>0?'<strong>'+s.note+'</strong><br><span class="text-mono text-gold">'+s.equation+'</span>':
       '<span class="text-mono text-gold">'+s.equation+'</span>';
     var prev=document.getElementById('btn-prev'),next=document.getElementById('btn-next');
     if(prev)prev.disabled=i===0;

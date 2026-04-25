@@ -47,8 +47,8 @@
     if(desc)desc.innerHTML='<span class="text-mono text-gold">'+s.equation+'</span>'+(s.note?'<br><span class="text-dim" style="font-size:12px">'+s.note+'</span>':'');
     var ctr=document.getElementById('step-counter');if(ctr)ctr.textContent='Passo '+(_exStep+1)+' de '+_exSteps.length;
     var fill=document.getElementById('step-fill');if(fill)fill.style.width=(_exStep/(_exSteps.length-1)*100)+'%';
-    document.getElementById('btn-prev').disabled=_exStep===0;
-    document.getElementById('btn-next').textContent=_exStep===_exSteps.length-1?'Ir para pr\u00e1tica \u2192':'Pr\u00f3ximo \u2192';
+    var _bp=document.getElementById('btn-prev');if(_bp)_bp.disabled=_exStep===0;
+    var _bn=document.getElementById('btn-next');if(_bn)_bn.textContent=_exStep===_exSteps.length-1?'Ir para pr\u00e1tica \u2192':'Pr\u00f3ximo \u2192';
     Renderer.drawEquationSteps(_exSteps,_exStep);
   }
   function renderExample(view){

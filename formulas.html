@@ -1,0 +1,1363 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Fórmulas e Referências — Euclides</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <link rel="icon" type="image/svg+xml" href="icon.svg"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:         #0c0c10;
+      --surface:    #13131c;
+      --surface-2:  #1a1a28;
+      --border:     #22223a;
+      --border-2:   #2e2e4a;
+      --text:       #e8e8f2;
+      --text-muted: #72728c;
+      --text-dim:   #3e3e58;
+      --gold:       #c8a44a;
+      --gold-light: #e0bb6a;
+      --gold-dim:   rgba(200,164,74,.12);
+      --teal:       #4ab8b2;
+      --blue:       #5a8fd2;
+      --green:      #4e9e70;
+      --red:        #c45252;
+      --violet:     #8b6ad2;
+      --radius:     4px;
+      --font-ui:    'Inter', system-ui, sans-serif;
+      --font-mono:  'JetBrains Mono', 'Fira Code', monospace;
+
+      /* Level accent colours */
+      --ef1:   #4e9e70;
+      --ef2:   #5a8fd2;
+      --em:    #c8a44a;
+      --es:    #8b6ad2;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-ui);
+      font-size: 14px;
+      line-height: 1.6;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* ── Topbar ─────────────────────────────────────────────────── */
+    #topbar {
+      height: 44px;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 16px;
+      flex-shrink: 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    #topbar-brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    #topbar-brand img { width: 26px; height: 26px; }
+    #topbar-brand span { font-size: 14px; font-weight: 600; color: var(--text); }
+    #topbar-nav { display: flex; gap: 2px; }
+    .topbar-tab {
+      background: transparent; border: none; color: var(--text-muted);
+      font-family: var(--font-ui); font-size: 12px; font-weight: 500;
+      padding: 5px 12px; border-radius: var(--radius); cursor: pointer;
+      text-decoration: none; display: inline-flex; align-items: center;
+      transition: color .15s, background .15s;
+    }
+    .topbar-tab:hover { color: var(--text); background: var(--surface-2); }
+    .topbar-tab.active { color: var(--gold); background: var(--gold-dim); }
+
+    /* ── Layout ─────────────────────────────────────────────────── */
+    .page-wrapper {
+      display: flex;
+      flex: 1;
+      gap: 0;
+    }
+
+    /* ── Sidebar ─────────────────────────────────────────────────── */
+    .sidebar {
+      width: 220px;
+      flex-shrink: 0;
+      background: var(--surface);
+      border-right: 1px solid var(--border);
+      padding: 16px 0;
+      position: sticky;
+      top: 44px;
+      height: calc(100vh - 44px);
+      overflow-y: auto;
+    }
+    .sidebar::-webkit-scrollbar { width: 4px; }
+    .sidebar::-webkit-scrollbar-thumb { background: var(--border-2); border-radius: 2px; }
+
+    .sb-level {
+      padding: 10px 16px 4px;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+    .sb-level-ef1 { color: var(--ef1); }
+    .sb-level-ef2 { color: var(--ef2); }
+    .sb-level-em  { color: var(--em); }
+    .sb-level-es  { color: var(--es); }
+
+    .sb-link {
+      display: block;
+      padding: 5px 16px;
+      font-size: 12px;
+      color: var(--text-muted);
+      text-decoration: none;
+      border-left: 2px solid transparent;
+      transition: color .12s, border-color .12s, background .12s;
+    }
+    .sb-link:hover { color: var(--text); background: rgba(255,255,255,.03); }
+    .sb-link.active { color: var(--text); border-left-color: var(--gold); }
+
+    /* ── Content ─────────────────────────────────────────────────── */
+    .content {
+      flex: 1;
+      padding: 2rem 2.5rem 4rem;
+      max-width: 900px;
+    }
+
+    .page-title {
+      font-size: 22px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+    .page-subtitle {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 2.5rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    /* ── Level sections ─────────────────────────────────────────── */
+    .level-section { margin-bottom: 3rem; }
+
+    .level-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 1.5rem;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--border);
+      scroll-margin-top: 64px;
+    }
+    .level-badge {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      border-radius: 3px;
+    }
+    .badge-ef1 { background: rgba(78,158,112,.15); color: var(--ef1); border: 1px solid rgba(78,158,112,.3); }
+    .badge-ef2 { background: rgba(90,143,210,.15); color: var(--ef2); border: 1px solid rgba(90,143,210,.3); }
+    .badge-em  { background: rgba(200,164,74,.15); color: var(--em);  border: 1px solid rgba(200,164,74,.3); }
+    .badge-es  { background: rgba(139,106,210,.15); color: var(--es); border: 1px solid rgba(139,106,210,.3); }
+
+    .level-title { font-size: 16px; font-weight: 600; color: var(--text); }
+    .level-desc  { font-size: 12px; color: var(--text-dim); margin-left: auto; }
+
+    /* ── Topic groups ────────────────────────────────────────────── */
+    .topic-group { margin-bottom: 2rem; }
+    .topic-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      margin-bottom: 10px;
+      padding-left: 10px;
+      border-left: 3px solid var(--border-2);
+      scroll-margin-top: 64px;
+    }
+
+    /* ── Formula cards ──────────────────────────────────────────── */
+    .formula-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 10px;
+    }
+    .formula-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 14px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .fc-name {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: .05em;
+    }
+    .fc-formula {
+      font-family: var(--font-mono);
+      font-size: 14px;
+      color: var(--gold-light);
+      line-height: 1.5;
+    }
+    .fc-note {
+      font-size: 11px;
+      color: var(--text-dim);
+      line-height: 1.5;
+    }
+
+    /* ── Tip blocks ─────────────────────────────────────────────── */
+    .tip-block {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--teal);
+      border-radius: var(--radius);
+      padding: 12px 16px;
+      margin-bottom: 10px;
+    }
+    .tip-block.warn  { border-left-color: var(--em); }
+    .tip-block.info  { border-left-color: var(--blue); }
+    .tip-block.alert { border-left-color: var(--red); }
+
+    .tip-label {
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      color: var(--teal);
+      margin-bottom: 4px;
+    }
+    .tip-block.warn  .tip-label { color: var(--em); }
+    .tip-block.info  .tip-label { color: var(--blue); }
+    .tip-block.alert .tip-label { color: var(--red); }
+
+    .tip-text { font-size: 12px; color: var(--text-muted); line-height: 1.6; }
+    .tip-text code {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      background: var(--surface-2);
+      padding: 1px 5px;
+      border-radius: 2px;
+      color: var(--gold-light);
+    }
+
+    /* ── Steps list ─────────────────────────────────────────────── */
+    .steps {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 14px 16px;
+      margin-bottom: 10px;
+    }
+    .steps-title {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: .05em;
+      margin-bottom: 10px;
+    }
+    .step-item {
+      display: flex;
+      gap: 10px;
+      padding: 5px 0;
+      font-size: 12px;
+      color: var(--text-muted);
+      line-height: 1.5;
+      border-bottom: 1px solid var(--border);
+    }
+    .step-item:last-child { border-bottom: none; }
+    .step-n {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--gold);
+      min-width: 18px;
+      padding-top: 1px;
+    }
+    .step-item code {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--gold-light);
+      background: var(--surface-2);
+      padding: 1px 4px;
+      border-radius: 2px;
+    }
+
+    /* ── Table ──────────────────────────────────────────────────── */
+    .ref-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+      margin-bottom: 12px;
+    }
+    .ref-table th {
+      background: var(--surface-2);
+      color: var(--text-muted);
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      padding: 7px 10px;
+      text-align: left;
+      border-bottom: 1px solid var(--border-2);
+    }
+    .ref-table td {
+      padding: 7px 10px;
+      border-bottom: 1px solid var(--border);
+      color: var(--text-muted);
+      vertical-align: top;
+    }
+    .ref-table tr:last-child td { border-bottom: none; }
+    .ref-table td:first-child { color: var(--text); font-weight: 500; }
+    .ref-table td code {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--gold-light);
+    }
+
+    /* ── Responsive ─────────────────────────────────────────────── */
+    @media (max-width: 900px) {
+      .sidebar { display: none; }
+      .content { padding: 1.5rem 1rem 3rem; }
+      .formula-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 640px) {
+      .topbar-tab:not(.active) { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <header id="topbar">
+    <a id="topbar-brand" href="index.html">
+      <img src="icon.svg" alt="Euclides"/>
+      <span>Euclides</span>
+    </a>
+    <nav id="topbar-nav">
+      <a class="topbar-tab" href="guia-professor.html">Guia do Professor</a>
+      <a class="topbar-tab active" href="formulas.html">Fórmulas</a>
+      <a class="topbar-tab" href="plano-aula.html">Plano de Aula</a>
+      <a class="topbar-tab" href="sobre.html">Sobre</a>
+      <a class="topbar-tab" href="index.html">&#8592; Plataforma</a>
+    </nav>
+  </header>
+
+  <div class="page-wrapper">
+
+    <!-- ── Sidebar ─────────────────────────────────────────────── -->
+    <nav class="sidebar">
+      <div class="sb-level sb-level-ef1">Fundamental I</div>
+      <a class="sb-link" href="#ef1-op">Operações</a>
+      <a class="sb-link" href="#ef1-frac">Frações</a>
+      <a class="sb-link" href="#ef1-geo">Geometria básica</a>
+      <a class="sb-link" href="#ef1-medidas">Medidas</a>
+      <a class="sb-link" href="#ef1-pct">Porcentagem</a>
+
+      <div class="sb-level sb-level-ef2">Fundamental II</div>
+      <a class="sb-link" href="#ef2-equacoes">Equações 1º grau</a>
+      <a class="sb-link" href="#ef2-regra3">Regra de três</a>
+      <a class="sb-link" href="#ef2-proporcao">Razão e proporção</a>
+      <a class="sb-link" href="#ef2-potencias">Potências e raízes</a>
+      <a class="sb-link" href="#ef2-geo">Geometria plana</a>
+      <a class="sb-link" href="#ef2-pitagoras">Pitágoras</a>
+      <a class="sb-link" href="#ef2-estat">Estatística</a>
+
+      <div class="sb-level sb-level-em">Ensino Médio</div>
+      <a class="sb-link" href="#em-bhaskara">Bhaskara</a>
+      <a class="sb-link" href="#em-funcoes">Funções</a>
+      <a class="sb-link" href="#em-progressoes">Progressões</a>
+      <a class="sb-link" href="#em-trig">Trigonometria</a>
+      <a class="sb-link" href="#em-log">Logaritmos</a>
+      <a class="sb-link" href="#em-combinatoria">Combinatória</a>
+      <a class="sb-link" href="#em-probabilidade">Probabilidade</a>
+      <a class="sb-link" href="#em-geo-espacial">Geometria espacial</a>
+      <a class="sb-link" href="#em-analitica">Geometria analítica</a>
+      <a class="sb-link" href="#em-matrizes">Matrizes</a>
+
+      <div class="sb-level sb-level-es">Ensino Superior</div>
+      <a class="sb-link" href="#es-limites">Limites</a>
+      <a class="sb-link" href="#es-derivadas">Derivadas</a>
+      <a class="sb-link" href="#es-integrais">Integrais</a>
+      <a class="sb-link" href="#es-series">Séries</a>
+      <a class="sb-link" href="#es-edo">EDO</a>
+      <a class="sb-link" href="#es-lin-alg">Álgebra linear</a>
+      <a class="sb-link" href="#es-complexos">Números complexos</a>
+    </nav>
+
+    <!-- ── Content ─────────────────────────────────────────────── -->
+    <div class="content">
+      <div class="page-title">Fórmulas e Referências</div>
+      <div class="page-subtitle">
+        Regras, fórmulas e dicas organizadas por nível — do Ensino Fundamental I ao Superior.
+        Use a navegação lateral ou a busca do browser (Ctrl+F) para localizar tópicos rapidamente.
+      </div>
+
+      <!-- ══════════════════════════════════════════════════════════
+           FUNDAMENTAL I
+      ══════════════════════════════════════════════════════════ -->
+      <section class="level-section">
+        <div class="level-header" id="ef1">
+          <span class="level-badge badge-ef1">EF I</span>
+          <span class="level-title">Ensino Fundamental I</span>
+          <span class="level-desc">1º ao 5º ano</span>
+        </div>
+
+        <!-- Operações -->
+        <div class="topic-group" id="ef1-op">
+          <div class="topic-title">Quatro operações</div>
+          <div class="formula-grid">
+            <div class="formula-card">
+              <div class="fc-name">Adição</div>
+              <div class="fc-formula">a + b = soma</div>
+              <div class="fc-note">Some coluna por coluna da direita para a esquerda. Se uma coluna ultrapassar 9, "carregue 1" para a coluna seguinte.</div>
+            </div>
+            <div class="formula-card">
+              <div class="fc-name">Subtração</div>
+              <div class="fc-formula">a − b = diferença</div>
+              <div class="fc-note">Se o dígito de cima for menor que o de baixo, peça emprestado à casa à esquerda (1 dezena = 10 unidades).</div>
+            </div>
+            <div class="formula-card">
+              <div class="fc-name">Multiplicação</div>
+              <div class="fc-formula">a × b = produto</div>
+              <div class="fc-note">Propriedade comutativa: a × b = b × a. Distribua: a × (b + c) = a×b + a×c.</div>
+            </div>
+            <div class="formula-card">
+              <div class="fc-name">Divisão</div>
+              <div class="fc-formula">a ÷ b = quociente</div>
+              <div class="fc-note">Prova real: quociente × divisor + resto = dividendo. Resto zero → divisão exata.</div>
+            </div>
+          </div>
+
+          <div class="tip-block">
+            <div class="tip-label">Prova Real da Multiplicação</div>
+            <div class="tip-text">Para verificar <code>a × b = c</code>: some os algarismos de <code>c</code> até obter um dígito, faça o mesmo com <code>a</code> e <code>b</code>. Se <code>digito(a) × digito(b) ≡ digito(c) (mod 9)</code>, a conta está provavelmente correta.</div>
+          </div>
+        </div>
+
+        <!-- Frações -->
+        <div class="topic-group" id="ef1-frac">
+          <div class="topic-title">Frações</div>
+          <div class="formula-grid">
+            <div class="formula-card">
+              <div class="fc-name">Mesmos denominadores</div>
+              <div class="fc-formula">a/n + b/n = (a+b)/n</div>
+              <div class="fc-note">Some ou subtraia apenas os numeradores. O denominador não muda.</div>
+            </div>
+            <div class="formula-card">
+              <div class="fc-name">Denominadores diferentes</div>
+              <div class="fc-formula">a/b + c/d = (ad+bc)/bd</div>
+              <div class="fc-note">Multiplique cruzado os numeradores e coloque o produto dos denominadores em baixo. Simplifique ao final.</div>
+            </div>
+            <div class="formula-card">
+              <div class="fc-name">Multiplicação</div>
+              <div class="fc-formula">(a/b) × (c/d) = ac/bd</div>
+              <div class="fc-note">Multiplique numerador com numerador, denominador com denominador. Simplifique antes se possível.</div>
+            </div>
+            <div class="formula-card">
+              <div class="fc-name">Divisão</div>
+              <div class="fc-formula">(a/b) ÷ (c/d) = (a/b) × (d/c)</div>
+              <div class="fc-note">Inverta a fração divisora e multiplique. "Dividir por uma fração = multiplicar pelo inverso."</div>
+            </div>
+            <div class="formula-card">
+              <div class="fc-name">Simplificação</div>
+              <div class="fc-formula">a/b → (a÷mdc) / (b÷mdc)</div>
+              <div class="fc-note">Divida numerador e denominador pelo MDC(a,b). A fração permanece equivalente.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Geometria básica -->
+        <div class="topic-group" id="ef1-geo">
+          <div class="topic-title">Geometria básica</div>
+          <div class="formula-grid">
+            <div class="formula-card">
+              <div class="fc-name">Perímetro do retângulo</div>
+              <div class="fc-formula">P = 2(b + h)</div>
+              <div class="fc-note">b = base, h = altura. Soma de todos os lados.</div>
+            </div>
+            <div class="formula-card">
+              <div class="fc-name">Área do retângulo</div>
+              <div class="fc-formula">A = b × h</div>
+              <div class="fc-note">Quadrado: A = l². Unidades de área: cm², m², km².</div>
+            </div>
+            <div class="formula-card">
+              <div class="fc-name">Perímetro do triângulo</div>
+              <div class="fc-formula">P = a + b + c</div>
+              <div class="fc-note">Soma dos três lados. Triângulo equilátero: P = 3a.</div>
+            </div>
+            <div class="formula-card">
+              <div class="fc-name">Área do triângulo</div>
+              <div class="fc-formula">A = (b × h) / 2</div>
+              <div class="fc-note">h é a altura perpendicular à base b.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Medidas -->
+        <div class="topic-group" id="ef1-medidas">
+          <div class="topic-title">Medidas e conversões</div>
+          <table class="ref-table">
+            <thead><tr><th>Grandeza</th><th>Conversões principais</th></tr></thead>
+            <tbody>
+              <tr><td>Comprimento</td><td><code>1 km = 1000 m = 100.000 cm = 1.000.000 mm</code></td></tr>
+              <tr><td>Massa</td><td><code>1 t = 1000 kg = 1.000.000 g</code></td></tr>
+              <tr><td>Capacidade</td><td><code>1 L = 10 dL = 100 cL = 1000 mL</code></td></tr>
+              <tr><td>Área</td><td><code>1 m² = 10.000 cm²;  1 km² = 1.000.000 m²</code></td></tr>
+              <tr><td>Tempo</td><td><code>1 h = 60 min = 3600 s;  1 dia = 24 h</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Porcentagem -->
+        <div class="topic-group" id="ef1-pct">
+          <div class="topic-title">Porcentagem</div>
+          <div class="formula-grid">
+            <div class="formula-card">
+              <div class="fc-name">Calcular X% de N</div>
+              <div class="fc-formula">resultado = N × X/100</div>
+              <div class="fc-note">Ex: 25% de 80 = 80 × 25/100 = 20.</div>
+            </div>
+            <div class="formula-card">
+              <div class="fc-name">Valores usuais</div>
+              <div class="fc-formula">
+                10% → ÷10<br>
+                25% → ÷4<br>
+                50% → ÷2<br>
+                75% → ÷4×3<br>
+                100% → o próprio
+              </div>
+            </div>
+            <div class="formula-card">
+              <div class="fc-name">Aumento percentual</div>
+              <div class="fc-formula">novo = N × (1 + X/100)</div>
+              <div class="fc-note">Ex: aumento de 15%: N × 1,15.</div>
+            </div>
+            <div class="formula-card">
+              <div class="fc-name">Desconto percentual</div>
+              <div class="fc-formula">novo = N × (1 − X/100)</div>
+              <div class="fc-note">Ex: desconto de 20%: N × 0,80.</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══════════════════════════════════════════════════════════
+           FUNDAMENTAL II
+      ══════════════════════════════════════════════════════════ -->
+      <section class="level-section">
+        <div class="level-header" id="ef2">
+          <span class="level-badge badge-ef2">EF II</span>
+          <span class="level-title">Ensino Fundamental II</span>
+          <span class="level-desc">6º ao 9º ano</span>
+        </div>
+
+        <!-- Equações 1º grau -->
+        <div class="topic-group" id="ef2-equacoes">
+          <div class="topic-title">Equações do 1º grau</div>
+          <div class="formula-grid">
+            <div class="formula-card">
+              <div class="fc-name">Forma geral</div>
+              <div class="fc-formula">ax + b = 0  →  x = −b/a</div>
+              <div class="fc-note">a ≠ 0. Isole o x: passe tudo que não é x para o outro lado, invertendo o sinal.</div>
+            </div>
+            <div class="formula-card">
+              <div class="fc-name">Inequação 1º grau</div>
+              <div class="fc-formula">ax + b &lt; 0  →  x &lt; −b/a</div>
+              <div class="fc-note">Ao multiplicar ou dividir por número negativo, inverta o sentido da desigualdade.</div>
+            </div>
+          </div>
+          <div class="steps">
+            <div class="steps-title">Como resolver: ax + b = cx + d</div>
+            <div class="step-item"><span class="step-n">1.</span> Agrupe os termos com x: <code>ax − cx = d − b</code></div>
+            <div class="step-item"><span class="step-n">2.</span> Fatore: <code>(a − c)x = d − b</code></div>
+            <div class="step-item"><span class="step-n">3.</span> Divida: <code>x = (d − b) / (a − c)</code>, com <code>a ≠ c</code></div>
+            <div class="step-item"><span class="step-n">4.</span> Prova real: substitua o valor encontrado na equação original</div>
+          </div>
+        </div>
+
+        <!-- Regra de três -->
+        <div class="topic-group" id="ef2-regra3">
+          <div class="topic-title">Regra de três</div>
+          <div class="formula-grid">
+            <div class="formula-card">
+              <div class="fc-name">Direta (simples)</div>
+              <div class="fc-formula">a/b = c/x  →  x = bc/a</div>
+              <div class="fc-note">Grandezas crescem juntas. Ex: mais km, mais litros de combustível.</div>
+            </div>
+            <div class="formula-card">
+              <div class="fc-name">Inversa (simples)</div>
+              <div class="fc-formula">a·b = c·x  →  x = ab/c</div>
+              <div class="fc-note">Uma cresce enquanto a outra decresce. Ex: mais operários, menos dias.</div>
+            </div>
+            <div class="formula-card">
+              <div class="fc-name">Composta</div>
+              <div class="fc-formula">x = b × (a₁/b₁) × (a₂/b₂) × …</div>
+              <div class="fc-note">Identifique para cada par se a relação é direta ou inversa. Diretas: divide. Inversas: inverte e divide.</div>
+            </div>
+          </div>
+          <div class="tip-block warn">
+            <div class="tip-label">Identificar o tipo</div>
+            <div class="tip-text">Pergunte: se a grandeza A aumenta, a grandeza B também aumenta? Se sim → <code>direta</code>. Se B diminui → <code>inversa</code>. Monte a proporção de acordo antes de calcular.</div>
+          </div>
+        </div>
+
+        <!-- Razão e proporção -->
+        <div class="topic-group" id="ef2-proporcao">
+          <div class="topic-title">Razão e proporção</div>
+          <div class="formula-grid">
+            <div class="formula-card">
+              <div class="fc-name">Razão</div>
+              <div class="fc-formula">r = a/b  (b ≠ 0)</div>
+              <div class="fc-note">Comparação entre duas quantidades de mesma unidade. Frequentemente expressa como fração irredutível.</div>
+            </div>
+            <div class="formula-card">
+              <div class="fc-name">Proporção</div>
+              <div class="fc-formula">a/b = c/d  ↔  ad = bc</div>
+              <div class="fc-note">Produto dos extremos = produto dos meios. Permite descobrir o quarto proporcional.</div>
+            </div>
+            <div class="formula-card">
+              <div class="fc-name">Quarto proporcional</div>
+              <div class="fc-formula">x = (b × c) / a</div>
+              <div class="fc-note">Dada a proporção a:b = c:x, isolamos x multiplicando cruzado.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Potências e raízes -->
+        <div class="topic-group" id="ef2-potencias">
+          <div class="topic-title">Potências e raízes</div>
+          <div class="formula-grid">
+            <div class="formula-card">
+              <div class="fc-name">Propriedades</div>
+              <div class="fc-formula">
+                aᵐ · aⁿ = aᵐ⁺ⁿ<br>
+                aᵐ ÷ aⁿ = aᵐ⁻ⁿ<br>
+                (aᵐ)ⁿ = aᵐⁿ<br>
+                (ab)ⁿ = aⁿbⁿ<br>
+                a⁰ = 1  (a ≠ 0)<br>
+                a⁻ⁿ = 1/aⁿ
+              </div>
+            </div>
+            <div class="formula-card">
+              <div class="fc-name">Raiz e potência fracionária</div>
+              <div class="fc-formula">
+                ⁿ√a = a^(1/n)<br>
+                ⁿ√aᵐ = a^(m/n)<br>
+                √a × √b = √(ab)<br>
+                √a / √b = √(a/b)
+              </div>
+              <div class="fc-note">√a é definida para a ≥ 0 nos reais.</div>
+            </div>
+            <div class="formula-card">
+              <div class="fc-name">Racionalização</div>
+              <div class="fc-formula">1/√a = √a / a</div>
+              <div class="fc-note">Multiplique numerador e denominador pelo conjugado para eliminar raiz no denominador.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Geometria plana -->
+        <div class="topic-group" id="ef2-geo">
+          <div class="topic-title">Geometria plana — áreas</div>
+          <table class="ref-table">
+            <thead><tr><th>Figura</th><th>Área</th><th>Notas</th></tr></thead>
+            <tbody>
+              <tr><td>Quadrado</td><td><code>A = l²</code></td><td>l = lado</td></tr>
+              <tr><td>Retângulo</td><td><code>A = b × h</code></td><td>base × altura</td></tr>
+              <tr><td>Triângulo</td><td><code>A = bh / 2</code></td><td>altura perpendicular à base</td></tr>
+              <tr><td>Triângulo (Heron)</td><td><code>A = √(s(s−a)(s−b)(s−c))</code></td><td>s = (a+b+c)/2</td></tr>
+              <tr><td>Paralelogramo</td><td><code>A = b × h</code></td><td>h = altura, não lado oblíquo</td></tr>
+              <tr><td>Trapézio</td><td><code>A = (B + b) × h / 2</code></td><td>B = base maior, b = base menor</td></tr>
+              <tr><td>Losango</td><td><code>A = D × d / 2</code></td><td>D = diagonal maior, d = menor</td></tr>
+              <tr><td>Círculo</td><td><code>A = π r²</code></td><td>π ≈ 3,14159…</td></tr>
+              <tr><td>Setor circular</td><td><code>A = πr² × α/360°</code></td><td>α em graus</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Pitágoras -->
+        <div class="topic-group" id="ef2-pitagoras">
+          <div class="topic-title">Teorema de Pitágoras e trigonometria no triângulo</div>
+          <div class="formula-grid">
+            <div class="formula-card">
+              <div class="fc-name">Pitágoras</div>
+              <div class="fc-formula">a² = b² + c²</div>
+              <div class="fc-note">a = hipotenusa (lado oposto ao ângulo reto). b, c = catetos.</div>
+            </div>
+            <div class="formula-card">
+              <div class="fc-name">Razões trigonométricas</div>
+              <div class="fc-formula">
+                sen θ = oposto / hipotenusa<br>
+                cos θ = adjacente / hipotenusa<br>
+                tg θ = oposto / adjacente
+              </div>
+            </div>
+            <div class="formula-card">
+              <div class="fc-name">Ângulos notáveis</div>
+              <div class="fc-formula">
+                30°: sen=1/2, cos=√3/2, tg=√3/3<br>
+                45°: sen=√2/2, cos=√2/2, tg=1<br>
+                60°: sen=√3/2, cos=1/2, tg=√3
+              </div>
+            </div>
+            <div class="formula-card">
+              <div class="fc-name">Relação fundamental</div>
+              <div class="fc-formula">sen²θ + cos²θ = 1</div>
+              <div class="fc-note">Decorre diretamente do Teorema de Pitágoras aplicado ao círculo de raio 1.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Estatística básica -->
+        <div class="topic-group" id="ef2-estat">
+          <div class="topic-title">Estatística básica</div>
+          <div class="formula-grid">
+            <div class="formula-card">
+              <div class="fc-name">Média aritmética</div>
+              <div class="fc-formula">x̄ = (x₁ + x₂ + … + xₙ) / n</div>
+              <div class="fc-note">Soma de todos os valores dividida pela quantidade de valores.</div>
+            </div>
+            <div class="formula-card">
+              <div class="fc-name">Moda</div>
+              <div class="fc-formula">Mo = valor mais frequente</div>
+              <div class="fc-note">Pode ser amodal, bimodal ou multimodal.</div>
+            </div>
+            <div class="formula-card">
+              <div class="fc-name">Mediana</div>
+              <div class="fc-formula">Md = valor central ordenado</div>
+              <div class="fc-note">Com n par: média dos dois valores centrais. Menos sensível a outliers que a média.</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══════════════════════════════════════════════════════════
+           ENSINO MÉDIO
+      ══════════════════════════════════════════════════════════ -->
+      <section class="level-section">
+        <div class="level-header" id="em">
+          <span class="level-badge badge-em">EM</span>
+          <span class="level-title">Ensino Médio</span>
+          <span class="level-desc">1ª a 3ª série</span>
+        </div>
+
+        <!-- Bhaskara -->
+        <div class="topic-group" id="em-bhaskara">
+          <div class="topic-title">Equação do 2º grau — Bhaskara</div>
+          <div class="formula-grid">
+            <div class="formula-card">
+              <div class="fc-name">Forma geral</div>
+              <div class="fc-formula">ax² + bx + c = 0  (a ≠ 0)</div>
+            </div>
+            <div class="formula-card">
+              <div class="fc-name">Discriminante</div>
+              <div class="fc-formula">Δ = b² − 4ac</div>
+              <div class="fc-note">Δ &gt; 0 → 2 raízes reais. Δ = 0 → 1 raiz real (dupla). Δ &lt; 0 → raízes complexas.</div>
+            </div>
+            <div class="formula-card">
+              <div class="fc-name">Fórmula de Bhaskara</div>
+              <div class="fc-formula">x = (−b ± √Δ) / 2a</div>
+            </div>
+            <div class="formula-card">
+              <div class="fc-name">Soma e produto</div>
+              <div class="fc-formula">x₁ + x₂ = −b/a<br>x₁ · x₂ = c/a</div>
+              <div class="fc-note">Relações de Girard. Úteis para montar equação a partir das raízes.</div>
+            </div>
+          </div>
+          <div class="steps">
+            <div class="steps-title">Roteiro de resolução</div>
+            <div class="step-item"><span class="step-n">1.</span> Identifique a, b, c</div>
+            <div class="step-item"><span class="step-n">2.</span> Calcule <code>Δ = b² − 4ac</code></div>
+            <div class="step-item"><span class="step-n">3.</span> Analise o sinal de Δ</div>
+            <div class="step-item"><span class="step-n">4.</span> Se Δ ≥ 0: aplique <code>x = (−b ± √Δ) / 2a</code></div>
+            <div class="step-item"><span class="step-n">5.</span> Verifique substituindo as raízes na equação original</div>
+          </div>
+        </div>
+
+        <!-- Funções -->
+        <div class="topic-group" id="em-funcoes">
+          <div class="topic-title">Funções</div>
+          <div class="formula-grid">
+            <div class="formula-card">
+              <div class="fc-name">Função afim (1º grau)</div>
+              <div class="fc-formula">f(x) = ax + b</div>
+              <div class="fc-note">a = coeficiente angular (inclinação). b = coeficiente linear (interseção com eixo y). Raiz: x = −b/a.</div>
+            </div>
+            <div class="formula-card">
+              <div class="fc-name">Função quadrática (2º grau)</div>
+              <div class="fc-formula">f(x) = ax² + bx + c</div>
+              <div class="fc-note">Parábola. Vértice V = (−b/2a, −Δ/4a). a &gt; 0 → concavidade para cima; a &lt; 0 → para baixo.</div>
+            </div>
+            <div class="formula-card">
+              <div class="fc-name">Função exponencial</div>
+              <div class="fc-formula">f(x) = aˣ  (a &gt; 0, a ≠ 1)</div>
+              <div class="fc-note">Domínio: ℝ. Imagem: (0, +∞). a &gt; 1 → crescente; 0 &lt; a &lt; 1 → decrescente.</div>
+            </div>
+            <div class="formula-card">
+              <div class="fc-name">Função logarítmica</div>
+              <div class="fc-formula">f(x) = log_a(x)</div>
+              <div class="fc-note">Inversa da exponencial. Domínio: (0, +∞). Imagem: ℝ. Bases comuns: 10 (log) e e (ln).</div>
+            </div>
+            <div class="formula-card">
+              <div class="fc-name">Coeficiente angular</div>
+              <div class="fc-formula">a = (y₂ − y₁) / (x₂ − x₁)</div>
+              <div class="fc-note">Taxa de variação da função afim. Equivale à inclinação da reta.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Progressões -->
+        <div class="topic-group" id="em-progressoes">
+          <div class="topic-title">Progressões</div>
+          <div class="formula-grid">
+            <div class="formula-card">
+              <div class="fc-name">PA — termo geral</div>
+              <div class="fc-formula">aₙ = a₁ + (n−1)r</div>
+              <div class="fc-note">r = razão (diferença entre termos consecutivos). n = posição do termo.</div>
+            </div>
+            <div class="formula-card">
+              <div class="fc-name">PA — soma dos termos</div>
+              <div class="fc-formula">Sₙ = n(a₁ + aₙ) / 2</div>
+              <div class="fc-note">Equivale a n × média aritmética entre o primeiro e o último termo.</div>
+            </div>
+            <div class="formula-card">
+              <div class="fc-name">PG — termo geral</div>
+              <div class="fc-formula">aₙ = a₁ · qⁿ⁻¹</div>
+              <div class="fc-note">q = razão (quociente entre termos consecutivos). q ≠ 0.</div>
+            </div>
+            <div class="formula-card">
+              <div class="fc-name">PG — soma dos termos (q ≠ 1)</div>
+              <div class="fc-formula">Sₙ = a₁(qⁿ − 1) / (q − 1)</div>
+              <div class="fc-note">Se q = 1: Sₙ = n·a₁.</div>
+            </div>
+            <div class="formula-card">
+              <div class="fc-name">PG infinita (|q| &lt; 1)</div>
+              <div class="fc-formula">S∞ = a₁ / (1 − q)</div>
+              <div class="fc-note">Converge apenas quando |q| &lt; 1.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Trigonometria -->
+        <div class="topic-group" id="em-trig">
+          <div class="topic-title">Trigonometria</div>
+          <div class="formula-grid">
+            <div class="formula-card">
+              <div class="fc-name">Identidades fundamentais</div>
+              <div class="fc-formula">
+                sen²θ + cos²θ = 1<br>
+                tg θ = sen θ / cos θ<br>
+                sec²θ = 1 + tg²θ<br>
+                csc²θ = 1 + cotg²θ
+              </div>
+            </div>
+            <div class="formula-card">
+              <div class="fc-name">Adição de arcos</div>
+              <div class="fc-formula">
+                sen(A±B) = senA cosB ± cosA senB<br>
+                cos(A±B) = cosA cosB ∓ senA senB<br>
+                tg(A+B) = (tgA+tgB)/(1−tgA·tgB)
+              </div>
+            </div>
+            <div class="formula-card">
+              <div class="fc-name">Arco duplo</div>
+              <div class="fc-formula">
+                sen 2A = 2 senA cosA<br>
+                cos 2A = cos²A − sen²A<br>
+                cos 2A = 1 − 2sen²A<br>
+                tg 2A = 2tgA / (1−tg²A)
+              </div>
+            </div>
+            <div class="formula-card">
+              <div class="fc-name">Lei dos senos</div>
+              <div class="fc-formula">a/senA = b/senB = c/senC = 2R</div>
+              <div class="fc-note">R = raio da circunferência circunscrita.</div>
+            </div>
+            <div class="formula-card">
+              <div class="fc-name">Lei dos cossenos</div>
+              <div class="fc-formula">a² = b² + c² − 2bc cosA</div>
+              <div class="fc-note">Generalização de Pitágoras. A = 90° → reduz-se ao Teorema de Pitágoras.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Logaritmos -->
+        <div class="topic-group" id="em-log">
+          <div class="topic-title">Logaritmos</div>
+          <div class="formula-grid">
+            <div class="formula-card">
+              <div class="fc-name">Definição</div>
+              <div class="fc-formula">log_a b = x  ↔  aˣ = b</div>
+              <div class="fc-note">a &gt; 0, a ≠ 1, b &gt; 0.</div>
+            </div>
+            <div class="formula-card">
+              <div class="fc-name">Propriedades</div>
+              <div class="fc-formula">
+                log(xy) = log x + log y<br>
+                log(x/y) = log x − log y<br>
+                log xⁿ = n log x<br>
+                log_a a = 1;  log_a 1 = 0
+              </div>
+            </div>
+            <div class="formula-card">
+              <div class="fc-name">Mudança de base</div>
+              <div class="fc-formula">log_a b = log_c b / log_c a</div>
+              <div class="fc-note">Útil para calcular em calculadora (use log₁₀ ou ln).</div>
+            </div>
+            <div class="formula-card">
+              <div class="fc-name">Número e</div>
+              <div class="fc-formula">e ≈ 2,71828…<br>ln(eˣ) = x<br>eˡⁿˣ = x</div>
+              <div class="fc-note">Base do logaritmo natural. Fundamental em crescimento e decaimento exponencial.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Combinatória -->
+        <div class="topic-group" id="em-combinatoria">
+          <div class="topic-title">Análise combinatória</div>
+          <div class="formula-grid">
+            <div class="formula-card">
+              <div class="fc-name">Princípio multiplicativo</div>
+              <div class="fc-formula">total = n₁ × n₂ × … × nₖ</div>
+              <div class="fc-note">Se cada etapa é independente, multiplique o número de escolhas em cada etapa.</div>
+            </div>
+            <div class="formula-card">
+              <div class="fc-name">Fatorial</div>
+              <div class="fc-formula">n! = n × (n−1) × … × 2 × 1<br>0! = 1</div>
+            </div>
+            <div class="formula-card">
+              <div class="fc-name">Permutação simples</div>
+              <div class="fc-formula">P(n) = n!</div>
+              <div class="fc-note">Arranjos de todos os n elementos distintos.</div>
+            </div>
+            <div class="formula-card">
+              <div class="fc-name">Arranjo</div>
+              <div class="fc-formula">A(n,p) = n! / (n−p)!</div>
+              <div class="fc-note">Escolha e ordena p elementos de n. A ordem importa.</div>
+            </div>
+            <div class="formula-card">
+              <div class="fc-name">Combinação</div>
+              <div class="fc-formula">C(n,p) = n! / (p!(n−p)!)</div>
+              <div class="fc-note">Escolha p elementos de n sem importar a ordem. C(n,p) = C(n, n−p).</div>
+            </div>
+            <div class="formula-card">
+              <div class="fc-name">Binômio de Newton</div>
+              <div class="fc-formula">(a+b)ⁿ = Σ C(n,k) aⁿ⁻ᵏ bᵏ</div>
+              <div class="fc-note">Termo geral: T(k+1) = C(n,k) aⁿ⁻ᵏ bᵏ.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Probabilidade -->
+        <div class="topic-group" id="em-probabilidade">
+          <div class="topic-title">Probabilidade</div>
+          <div class="formula-grid">
+            <div class="formula-card">
+              <div class="fc-name">Probabilidade clássica</div>
+              <div class="fc-formula">P(A) = |A| / |Ω|</div>
+              <div class="fc-note">|A| = casos favoráveis, |Ω| = total de casos igualmente prováveis.</div>
+            </div>
+            <div class="formula-card">
+              <div class="fc-name">Complementar</div>
+              <div class="fc-formula">P(Aᶜ) = 1 − P(A)</div>
+            </div>
+            <div class="formula-card">
+              <div class="fc-name">União</div>
+              <div class="fc-formula">P(A∪B) = P(A) + P(B) − P(A∩B)</div>
+            </div>
+            <div class="formula-card">
+              <div class="fc-name">Independentes</div>
+              <div class="fc-formula">P(A∩B) = P(A) × P(B)</div>
+              <div class="fc-note">Apenas se A e B são eventos independentes.</div>
+            </div>
+            <div class="formula-card">
+              <div class="fc-name">Probabilidade condicional</div>
+              <div class="fc-formula">P(A|B) = P(A∩B) / P(B)</div>
+              <div class="fc-note">Probabilidade de A dado que B ocorreu.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Geometria espacial -->
+        <div class="topic-group" id="em-geo-espacial">
+          <div class="topic-title">Geometria espacial — volumes</div>
+          <table class="ref-table">
+            <thead><tr><th>Sólido</th><th>Volume</th><th>Área superficial</th></tr></thead>
+            <tbody>
+              <tr><td>Cubo</td><td><code>V = a³</code></td><td><code>A = 6a²</code></td></tr>
+              <tr><td>Paralelepípedo</td><td><code>V = abc</code></td><td><code>A = 2(ab + bc + ca)</code></td></tr>
+              <tr><td>Prisma</td><td><code>V = Abase × h</code></td><td>2×Abase + lateral</td></tr>
+              <tr><td>Pirâmide</td><td><code>V = (Abase × h) / 3</code></td><td>Abase + lateral</td></tr>
+              <tr><td>Cilindro</td><td><code>V = πr²h</code></td><td><code>A = 2πr(r + h)</code></td></tr>
+              <tr><td>Cone</td><td><code>V = πr²h / 3</code></td><td><code>A = πr(r + g)</code> (g = geratriz)</td></tr>
+              <tr><td>Esfera</td><td><code>V = (4/3)πr³</code></td><td><code>A = 4πr²</code></td></tr>
+              <tr><td>Tronco de cone</td><td><code>V = πh(R²+Rr+r²)/3</code></td><td>—</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Geometria analítica -->
+        <div class="topic-group" id="em-analitica">
+          <div class="topic-title">Geometria analítica</div>
+          <div class="formula-grid">
+            <div class="formula-card">
+              <div class="fc-name">Distância entre pontos</div>
+              <div class="fc-formula">d = √((x₂−x₁)² + (y₂−y₁)²)</div>
+            </div>
+            <div class="formula-card">
+              <div class="fc-name">Ponto médio</div>
+              <div class="fc-formula">M = ((x₁+x₂)/2, (y₁+y₂)/2)</div>
+            </div>
+            <div class="formula-card">
+              <div class="fc-name">Equação da reta</div>
+              <div class="fc-formula">
+                geral: ax + by + c = 0<br>
+                reduzida: y = ax + b<br>
+                ponto-inclinação: y−y₀ = a(x−x₀)
+              </div>
+            </div>
+            <div class="formula-card">
+              <div class="fc-name">Distância ponto-reta</div>
+              <div class="fc-formula">d = |ax₀ + by₀ + c| / √(a²+b²)</div>
+            </div>
+            <div class="formula-card">
+              <div class="fc-name">Circunferência</div>
+              <div class="fc-formula">(x−h)² + (y−k)² = r²</div>
+              <div class="fc-note">Centro (h, k), raio r.</div>
+            </div>
+            <div class="formula-card">
+              <div class="fc-name">Área do triângulo (coords.)</div>
+              <div class="fc-formula">A = |x₁(y₂−y₃) + x₂(y₃−y₁) + x₃(y₁−y₂)| / 2</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Matrizes -->
+        <div class="topic-group" id="em-matrizes">
+          <div class="topic-title">Matrizes e determinantes</div>
+          <div class="formula-grid">
+            <div class="formula-card">
+              <div class="fc-name">Determinante 2×2</div>
+              <div class="fc-formula">det = ad − bc</div>
+              <div class="fc-note">Onde a,b,c,d são os elementos da matriz 2×2.</div>
+            </div>
+            <div class="formula-card">
+              <div class="fc-name">Determinante 3×3 (Sarrus)</div>
+              <div class="fc-formula">det = aei+bfg+cdh − ceg−bdi−afh</div>
+              <div class="fc-note">Repita as duas primeiras colunas à direita e some as diagonais.</div>
+            </div>
+            <div class="formula-card">
+              <div class="fc-name">Regra de Cramer (2×2)</div>
+              <div class="fc-formula">x = Dₓ/D,  y = D_y/D</div>
+              <div class="fc-note">D = det do sistema. Dₓ = det substituindo coluna de x pelos termos independentes.</div>
+            </div>
+            <div class="formula-card">
+              <div class="fc-name">Produto de matrizes</div>
+              <div class="fc-formula">C[i,j] = Σₖ A[i,k] × B[k,j]</div>
+              <div class="fc-note">AB ≠ BA em geral. Linha de A × coluna de B.</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══════════════════════════════════════════════════════════
+           ENSINO SUPERIOR
+      ══════════════════════════════════════════════════════════ -->
+      <section class="level-section">
+        <div class="level-header" id="es">
+          <span class="level-badge badge-es">ES</span>
+          <span class="level-title">Ensino Superior</span>
+          <span class="level-desc">Cálculo, álgebra linear, EDO</span>
+        </div>
+
+        <!-- Limites -->
+        <div class="topic-group" id="es-limites">
+          <div class="topic-title">Limites</div>
+          <div class="formula-grid">
+            <div class="formula-card">
+              <div class="fc-name">Limites fundamentais</div>
+              <div class="fc-formula">
+                lim(x→0) sen x / x = 1<br>
+                lim(x→0) (1−cos x)/x = 0<br>
+                lim(x→∞) (1+1/x)ˣ = e<br>
+                lim(x→0) (eˣ−1)/x = 1<br>
+                lim(x→0) ln(1+x)/x = 1
+              </div>
+            </div>
+            <div class="formula-card">
+              <div class="fc-name">Regra de L'Hôpital</div>
+              <div class="fc-formula">lim f/g = lim f'/g'</div>
+              <div class="fc-note">Aplicável quando lim resulta em 0/0 ou ∞/∞. Derive numerador e denominador separadamente.</div>
+            </div>
+            <div class="formula-card">
+              <div class="fc-name">Continuidade</div>
+              <div class="fc-formula">lim(x→c) f(x) = f(c)</div>
+              <div class="fc-note">Três condições: f(c) existe, limite existe, e ambos coincidem.</div>
+            </div>
+          </div>
+          <div class="tip-block info">
+            <div class="tip-label">Ideia intuitiva</div>
+            <div class="tip-text">O símbolo <code>dx</code> pode ser lido como "um pedacinho infinitesimal de x". O limite é o processo de deixar esse pedacinho tender a zero e observar o comportamento da razão entre as variações — conforme descrito em <em>Calculus Made Easy</em> (Thompson, 1910).</div>
+          </div>
+        </div>
+
+        <!-- Derivadas -->
+        <div class="topic-group" id="es-derivadas">
+          <div class="topic-title">Derivadas</div>
+          <div class="formula-grid">
+            <div class="formula-card">
+              <div class="fc-name">Definição (taxa de variação)</div>
+              <div class="fc-formula">f'(x) = lim(h→0) [f(x+h)−f(x)] / h</div>
+              <div class="fc-note">A derivada mede a taxa de variação instantânea de f em relação a x — a inclinação da reta tangente ao gráfico no ponto x.</div>
+            </div>
+            <div class="formula-card">
+              <div class="fc-name">Regras básicas</div>
+              <div class="fc-formula">
+                d/dx [c] = 0<br>
+                d/dx [xⁿ] = nxⁿ⁻¹<br>
+                d/dx [cf] = c·f'<br>
+                d/dx [f+g] = f' + g'
+              </div>
+            </div>
+            <div class="formula-card">
+              <div class="fc-name">Regra do produto</div>
+              <div class="fc-formula">d/dx [fg] = f'g + fg'</div>
+              <div class="fc-note">Não basta multiplicar as derivadas separadamente.</div>
+            </div>
+            <div class="formula-card">
+              <div class="fc-name">Regra do quociente</div>
+              <div class="fc-formula">d/dx [f/g] = (f'g − fg') / g²</div>
+            </div>
+            <div class="formula-card">
+              <div class="fc-name">Regra da cadeia</div>
+              <div class="fc-formula">d/dx [f(g(x))] = f'(g(x)) · g'(x)</div>
+              <div class="fc-note">Se y = f(u) e u = g(x), então dy/dx = dy/du · du/dx.</div>
+            </div>
+            <div class="formula-card">
+              <div class="fc-name">Derivadas comuns</div>
+              <div class="fc-formula">
+                d/dx [eˣ] = eˣ<br>
+                d/dx [ln x] = 1/x<br>
+                d/dx [sen x] = cos x<br>
+                d/dx [cos x] = −sen x<br>
+                d/dx [tg x] = sec²x<br>
+                d/dx [aˣ] = aˣ ln a
+              </div>
+            </div>
+          </div>
+          <div class="tip-block">
+            <div class="tip-label">Significado geométrico</div>
+            <div class="tip-text">A derivada <code>f'(x₀)</code> é o coeficiente angular da reta tangente ao gráfico de f no ponto x₀. Se f'(x₀) = 0, o ponto pode ser máximo, mínimo ou ponto de inflexão — verifique com a segunda derivada.</div>
+          </div>
+        </div>
+
+        <!-- Integrais -->
+        <div class="topic-group" id="es-integrais">
+          <div class="topic-title">Integrais</div>
+          <div class="formula-grid">
+            <div class="formula-card">
+              <div class="fc-name">Integral indefinida</div>
+              <div class="fc-formula">∫ f(x) dx = F(x) + C</div>
+              <div class="fc-note">F é a antiderivada de f: F'(x) = f(x). C é a constante de integração.</div>
+            </div>
+            <div class="formula-card">
+              <div class="fc-name">Teorema fundamental do Cálculo</div>
+              <div class="fc-formula">∫ₐᵇ f(x) dx = F(b) − F(a)</div>
+              <div class="fc-note">Liga derivação e integração. A integral define a área sob a curva f entre a e b.</div>
+            </div>
+            <div class="formula-card">
+              <div class="fc-name">Integrais imediatas</div>
+              <div class="fc-formula">
+                ∫ xⁿ dx = xⁿ⁺¹/(n+1) + C (n≠−1)<br>
+                ∫ 1/x dx = ln|x| + C<br>
+                ∫ eˣ dx = eˣ + C<br>
+                ∫ sen x dx = −cos x + C<br>
+                ∫ cos x dx = sen x + C<br>
+                ∫ aˣ dx = aˣ/ln a + C
+              </div>
+            </div>
+            <div class="formula-card">
+              <div class="fc-name">Integração por partes</div>
+              <div class="fc-formula">∫ u dv = uv − ∫ v du</div>
+              <div class="fc-note">Mnemônico LIATE para escolha de u: Logaritmo, Inversa trig., Algébrica, Trig., Exponencial.</div>
+            </div>
+            <div class="formula-card">
+              <div class="fc-name">Substituição (u-sub)</div>
+              <div class="fc-formula">∫ f(g(x)) g'(x) dx = ∫ f(u) du</div>
+              <div class="fc-note">Identifique u = g(x), calcule du = g'(x) dx e substitua.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Séries -->
+        <div class="topic-group" id="es-series">
+          <div class="topic-title">Séries e expansões</div>
+          <div class="formula-grid">
+            <div class="formula-card">
+              <div class="fc-name">Série de Taylor</div>
+              <div class="fc-formula">f(x) = Σ f⁽ⁿ⁾(a)/n! · (x−a)ⁿ</div>
+              <div class="fc-note">Expansão de f em torno do ponto a. Série de Maclaurin: a = 0.</div>
+            </div>
+            <div class="formula-card">
+              <div class="fc-name">Expansões fundamentais (x=0)</div>
+              <div class="fc-formula">
+                eˣ = 1 + x + x²/2! + x³/3! + …<br>
+                sen x = x − x³/3! + x⁵/5! − …<br>
+                cos x = 1 − x²/2! + x⁴/4! − …<br>
+                ln(1+x) = x − x²/2 + x³/3 − … (|x|≤1)
+              </div>
+            </div>
+            <div class="formula-card">
+              <div class="fc-name">Série geométrica</div>
+              <div class="fc-formula">Σ xⁿ = 1/(1−x), |x| &lt; 1</div>
+            </div>
+            <div class="formula-card">
+              <div class="fc-name">Fórmula de Euler</div>
+              <div class="fc-formula">eⁱᶿ = cos θ + i·sen θ</div>
+              <div class="fc-note">Caso especial θ=π: e^(iπ) + 1 = 0 (identidade de Euler).</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- EDO -->
+        <div class="topic-group" id="es-edo">
+          <div class="topic-title">Equações Diferenciais Ordinárias</div>
+          <div class="formula-grid">
+            <div class="formula-card">
+              <div class="fc-name">Variáveis separáveis</div>
+              <div class="fc-formula">dy/dx = f(x)g(y)<br>→ ∫ dy/g(y) = ∫ f(x) dx</div>
+              <div class="fc-note">Separe y e x em lados opostos e integre cada lado.</div>
+            </div>
+            <div class="formula-card">
+              <div class="fc-name">EDO linear 1ª ordem</div>
+              <div class="fc-formula">y' + p(x)y = q(x)<br>μ(x) = e^(∫p dx)</div>
+              <div class="fc-note">Fator integrante μ: multiplique a EDO por μ, o lado esquerdo torna-se d(μy)/dx.</div>
+            </div>
+            <div class="formula-card">
+              <div class="fc-name">EDO 2ª ordem coef. constantes</div>
+              <div class="fc-formula">ay'' + by' + cy = 0<br>equação característica: ar² + br + c = 0</div>
+              <div class="fc-note">Δ &gt; 0: y = C₁e^(r₁x) + C₂e^(r₂x). Δ = 0: y = (C₁+C₂x)e^(rx). Δ &lt; 0: solução oscilatória com senos e cossenos.</div>
+            </div>
+            <div class="formula-card">
+              <div class="fc-name">Lei do crescimento/decaimento</div>
+              <div class="fc-formula">dy/dt = ky  →  y = y₀ eᵏᵗ</div>
+              <div class="fc-note">k &gt; 0 → crescimento. k &lt; 0 → decaimento. Meia-vida: t₁/₂ = ln2/|k|.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Álgebra Linear -->
+        <div class="topic-group" id="es-lin-alg">
+          <div class="topic-title">Álgebra linear</div>
+          <div class="formula-grid">
+            <div class="formula-card">
+              <div class="fc-name">Produto escalar</div>
+              <div class="fc-formula">u·v = |u||v| cos θ = Σ uᵢvᵢ</div>
+              <div class="fc-note">u ⊥ v ↔ u·v = 0.</div>
+            </div>
+            <div class="formula-card">
+              <div class="fc-name">Produto vetorial (ℝ³)</div>
+              <div class="fc-formula">|u×v| = |u||v| sen θ</div>
+              <div class="fc-note">Direção: regra da mão direita. |u×v| = área do paralelogramo formado por u e v.</div>
+            </div>
+            <div class="formula-card">
+              <div class="fc-name">Autovalores</div>
+              <div class="fc-formula">det(A − λI) = 0</div>
+              <div class="fc-note">Resolva o polinômio característico para obter λ. Substitua para encontrar os autovetores.</div>
+            </div>
+            <div class="formula-card">
+              <div class="fc-name">Espaço nulo e posto</div>
+              <div class="fc-formula">posto(A) + nulidade(A) = n</div>
+              <div class="fc-note">n = número de colunas. Teorema do núcleo e da imagem.</div>
+            </div>
+            <div class="formula-card">
+              <div class="fc-name">Gram-Schmidt</div>
+              <div class="fc-formula">eₖ = vₖ − Σᵢ (vₖ·eᵢ/|eᵢ|²) eᵢ</div>
+              <div class="fc-note">Ortogonaliza um conjunto de vetores linearmente independentes.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Números complexos -->
+        <div class="topic-group" id="es-complexos">
+          <div class="topic-title">Números complexos</div>
+          <div class="formula-grid">
+            <div class="formula-card">
+              <div class="fc-name">Forma algébrica</div>
+              <div class="fc-formula">z = a + bi,  i² = −1</div>
+              <div class="fc-note">a = parte real, b = parte imaginária.</div>
+            </div>
+            <div class="formula-card">
+              <div class="fc-name">Módulo e argumento</div>
+              <div class="fc-formula">|z| = √(a²+b²)<br>θ = arg(z) = arctan(b/a)</div>
+            </div>
+            <div class="formula-card">
+              <div class="fc-name">Forma polar</div>
+              <div class="fc-formula">z = r(cos θ + i sen θ) = reⁱᶿ</div>
+            </div>
+            <div class="formula-card">
+              <div class="fc-name">Multiplicação polar</div>
+              <div class="fc-formula">z₁z₂ = r₁r₂ · eⁱ⁽ᶿ¹⁺ᶿ²⁾</div>
+              <div class="fc-note">Módulos multiplicam, ângulos somam.</div>
+            </div>
+            <div class="formula-card">
+              <div class="fc-name">Fórmula de De Moivre</div>
+              <div class="fc-formula">zⁿ = rⁿ(cos nθ + i sen nθ)</div>
+            </div>
+            <div class="formula-card">
+              <div class="fc-name">Conjugado</div>
+              <div class="fc-formula">z̄ = a − bi<br>z · z̄ = |z|²</div>
+              <div class="fc-note">Útil para dividir complexos: multiplique numerador e denominador pelo conjugado do denominador.</div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div><!-- /content -->
+  </div><!-- /page-wrapper -->
+
+  <script>
+    // Active sidebar link tracking via IntersectionObserver
+    (function () {
+      var links = document.querySelectorAll('.sb-link');
+      var anchors = [];
+      links.forEach(function(l) {
+        var id = l.getAttribute('href').slice(1);
+        var el = document.getElementById(id);
+        if (el) anchors.push({ id: id, el: el, link: l });
+      });
+
+      var active = null;
+      var obs = new IntersectionObserver(function(entries) {
+        entries.forEach(function(e) {
+          if (e.isIntersecting) {
+            var found = anchors.find(function(a) { return a.el === e.target; });
+            if (found && found !== active) {
+              if (active) active.link.classList.remove('active');
+              active = found;
+              active.link.classList.add('active');
+            }
+          }
+        });
+      }, { rootMargin: '-60px 0px -70% 0px' });
+
+      anchors.forEach(function(a) { obs.observe(a.el); });
+    })();
+  </script>
+
+</body>
+</html>

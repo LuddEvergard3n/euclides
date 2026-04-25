@@ -44,6 +44,34 @@ Cada arquivo tem exatamente uma responsabilidade. Violações desta tabela são 
 | `wasm/src/math_core.c` | math pura em C | qualquer coisa do browser |
 | `modules/<id>.js` | orquestrar as 3 fases de um tópico | implementar math diretamente |
 
+### Convenção de registro de geradores
+
+Cada gerador registra-se em `window.MathGenerators[topicId]`, onde `topicId` deve
+corresponder exatamente ao campo `id` em `data/topics.json`. O dispatcher em
+`math/fallback.js` faz `MathGenerators[topicId](difficulty)`.
+
+**Aliases especiais — `math/generators/efI.js`:**
+
+O módulo `arithmetic.js` gera exercícios por tipo de operação. Para suportar isso,
+`efI.js` registra 8 aliases além do gerador principal:
+
+```js
+MathGenerators['arithmetic']          // geral — sorteia operação aleatoriamente
+MathGenerators['arith_addition']      // força adição
+MathGenerators['arith_subtraction']   // força subtração
+MathGenerators['arith_multiplication'] // força multiplicação
+MathGenerators['arith_division']      // força divisão
+// Aliases sem prefixo (usados pelo fallback direto):
+MathGenerators['addition']
+MathGenerators['subtraction']
+MathGenerators['multiplication']
+MathGenerators['division']
+```
+
+`arithmetic.js` sempre chama `MathFallback.generateExercise('arith_' + opType, d)`.
+Nunca use `_genByType` com chave sem prefixo — esse método é alias interno e
+não garante que a chave exista.
+
 ---
 
 ## Layout estrutural
@@ -209,20 +237,28 @@ Seleção: distribuição cumulativa + random uniform
 
 ## PWA e cache
 
-`sw.js` usa duas estratégias separadas:
+`sw.js` usa **três estratégias** separadas no fetch handler:
 
-**App assets** (cache-first) — todos os arquivos estáticos em `CACHE_URLS`:
-pré-cacheados no install, servidos do cache sem tocar na rede.
+**Navigation requests** (`e.request.mode === 'navigate'`) — páginas HTML:
+cache-first com fallback para `index.html` cacheado quando offline. A resposta
+HTML offline só é servida para requests de navegação, nunca para assets. Servir
+HTML para um `<script>` confunde o browser e impede `script.onerror` de disparar
+corretamente (bug corrigido na v4.1).
+
+**App assets estáticos** (JS, WASM, CSS, JSON) — cache-first **sem `catch`**:
+se o fetch falha (rede, 404, arquivo não compilado como `wasm/math_core.js`),
+o erro propaga naturalmente — `script.onerror` dispara limpo, `wasm-loader.js`
+chama `_useFallback()` e o fallback JS assume sem exibir mensagem de erro.
 
 **Google Fonts** (network-first com fallback persistente):
-- Detectado por `_isFont(url)`: qualquer request para `fonts.googleapis.com` ou `fonts.gstatic.com`
+- Detectado por `_isFont(url)`: `fonts.googleapis.com` ou `fonts.gstatic.com`
 - Tenta a rede primeiro; em sucesso, salva em `FONT_CACHE` (cache separado e persistente)
 - Se offline, serve a versão em cache — fontes ficam disponíveis após primeira visita online
 - `FONT_CACHE = 'euclides-fonts-v1'` **não é apagado** quando `CACHE_VER` sobe,
   garantindo que as fontes sobrevivam a atualizações do app
 
 ```js
-var CACHE_VER  = 'euclides-v3';       // bumpar a cada deploy com mudanças de app
+var CACHE_VER  = 'euclides-v4-4';     // bumpar a cada deploy com mudanças de app
 var FONT_CACHE = 'euclides-fonts-v1'; // estável; só mudar se trocar de fonte
 ```
 
@@ -246,6 +282,7 @@ MathRNG.randInt(a, b)   // inteiro uniformemente distribuído em [a, b]
 | Arquivo | Template | Descrição |
 |---|---|---|
 | `sobre.html` | Coluna única centrada (max 860px) | Origem do nome, filosofia, cobertura, ecossistema |
+| `formulas.html` | Sidebar 220px + conteúdo flex:1 | Referência de fórmulas — EF I, EF II, EM, ES; âncoras com IntersectionObserver |
 | `guia-professor.html` | Sidebar 220px + conteúdo flex:1 | Orientações pedagógicas, atividades práticas, referência |
 | `plano-aula.html` | Dois painéis (grid 480px + 1fr) | Gerador de plano com BNCC Matemática, presets, export print |
 
