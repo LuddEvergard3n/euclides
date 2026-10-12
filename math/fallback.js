@@ -13,10 +13,43 @@
   function _parseNum(s) {
     if (typeof s === 'number') return s;
     s = String(s).trim().replace(',', '.');
-    // Reject strings with non-numeric content ("2 ou -3", "x = 5")
-    if (!/^-?[\d.]+$/.test(s)) return null;
-    var n = parseFloat(s);
-    return isNaN(n) ? null : n;
+    // A complete match is deliberate: parseFloat('2abc') must not be accepted.
+    if (!/^[+-]?(?:\d+(?:\.\d*)?|\.\d+)(?:e[+-]?\d+)?$/i.test(s)) return null;
+    var n = Number(s);
+    return isFinite(n) ? n : null;
+  }
+
+  function _normaliseText(s) {
+    return String(s).trim().toLowerCase().replace(/\s+/g, ' ').replace(',', '.');
+  }
+
+  function _splitValueAndUnit(s) {
+    var match = _normaliseText(s).match(/^([+-]?(?:\d+(?:\.\d*)?|\.\d+)(?:e[+-]?\d+)?)\s*([^\d\s].*)?$/i);
+    if (!match) return null;
+    return { value: Number(match[1]), unit: (match[2] || '').replace(/\s+/g, '') };
+  }
+
+  function _numericEqual(student, correct, spec) {
+    var s = spec.unitRequired ? _splitValueAndUnit(student) : { value: _parseNum(student), unit: '' };
+    var c = spec.unitRequired ? _splitValueAndUnit(correct) : { value: _parseNum(correct), unit: '' };
+    if (!s || !c || s.value === null || c.value === null) return false;
+    if (spec.unitRequired && s.unit !== c.unit) return false;
+    var absTolerance = typeof spec.absoluteTolerance === 'number' ? spec.absoluteTolerance : 1e-9;
+    var relTolerance = typeof spec.relativeTolerance === 'number' ? Math.abs(c.value) * spec.relativeTolerance : 0;
+    return Math.abs(s.value - c.value) <= Math.max(absTolerance, relTolerance);
+  }
+
+  function _compatibilitySpec(topicId) {
+    var halfDegree = { absoluteTolerance: 0.5 };
+    var hundredth = { absoluteTolerance: 0.01 };
+    var relative = { absoluteTolerance: 1, relativeTolerance: 0.01 };
+    if (topicId === 'angles' || topicId === 'trig_graphs') return halfDegree;
+    if (topicId === 'decimals' || topicId === 'dataanalysis') return hundredth;
+    if (topicId === 'exponential' || topicId === 'series') return relative;
+    if (topicId === 'measures' || topicId === 'similarity') {
+      return { absoluteTolerance: 0.01, relativeTolerance: 0.01, unitRequired: true };
+    }
+    return { absoluteTolerance: 0.05 };
   }
 
   // ── Trig / symbolic normalisation ─────────────────────────────────
@@ -33,9 +66,21 @@
 
   // ── Validation ────────────────────────────────────────────────────
 
-  function validate(topicId, studentAnswer, correctAnswer) {
-    var s = String(studentAnswer).trim().toLowerCase().replace(',', '.');
-    var c = String(correctAnswer).trim().toLowerCase().replace(',', '.');
+  function validate(topicId, studentAnswer, correctAnswer, validation) {
+    var s = _normaliseText(studentAnswer);
+    var c = _normaliseText(correctAnswer);
+    var spec = validation || _compatibilitySpec(topicId);
+
+    if (!s || !c) return false;
+
+    if (topicId === 'angles' || topicId === 'trig_graphs') {
+      s = s.replace(/[°º]$/, '');
+      c = c.replace(/[°º]$/, '');
+    }
+    if (topicId === 'modular') {
+      s = s.replace(/^x\s*=\s*/, '');
+      c = c.replace(/^x\s*=\s*/, '');
+    }
 
     // Trig / exact-form normalised match
     if (_normTrig(s) === _normTrig(c)) return true;
@@ -52,8 +97,7 @@
     if (s === c) return true;
 
     // Numeric comparison (single value)
-    var sn = _parseNum(s), cn = _parseNum(c);
-    if (sn !== null && cn !== null) return Math.abs(sn - cn) < 1e-9;
+    if (_numericEqual(s, c, spec)) return true;
 
     // Multi-root: "x1 ou x2" — order-independent, both roots required
     if (c.indexOf(' ou ') !== -1) {
@@ -65,7 +109,9 @@
         var rn = _parseNum(r);
         return sroots.some(function (sr) {
           var srn = _parseNum(sr);
-          return (rn !== null && srn !== null) ? Math.abs(rn - srn) < 1e-9 : sr === r;
+          return (rn !== null && srn !== null)
+            ? _numericEqual(srn, rn, spec)
+            : sr === r;
         });
       });
     }
@@ -108,6 +154,7 @@
     analyzeError:     analyzeError,
     nextDifficulty:   nextDifficulty,
     _genByType:       generateExercise,
+    parseNumber:      _parseNum,
   };
 
 })();

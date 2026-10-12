@@ -184,10 +184,8 @@
     checkAnswer:function(){
       if(_pr.solved)return;
       var inp=document.getElementById('answer-input'),fb=document.getElementById('feedback');if(!inp||!fb||!_pr.exercise)return;
-      var s=inp.value.trim().replace(/\s+/g,' '),c=String(_pr.exercise.answer);
-      var sn=parseFloat(s.replace(',','.')),cn=parseFloat(c.replace(',','.'));
-      var ok=s===c||(!isNaN(sn)&&!isNaN(cn)&&Math.abs(sn-cn)<=Math.max(0.01,Math.abs(cn)*0.01)&&s.replace(/[0-9.,\s]/g,'').trim()===c.replace(/[0-9.,\s]/g,'').trim());
-      if(!ok)ok=s.replace(/\s/g,'')===c.replace(/\s/g,'');
+      var s=inp.value.trim(),c=String(_pr.exercise.answer);
+      var ok=MathCore.validate(TOPIC_ID,s,c,_pr.exercise.validation);
       inp.classList.toggle('correct',ok);inp.classList.toggle('wrong',!ok);
       if(ok){fb.className='feedback-line correct';fb.textContent='✓ Correto! = '+c;
         _pr.solved=true;_pr.history.push(true);Progress.recordAttempt(TOPIC_ID,true);

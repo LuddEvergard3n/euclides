@@ -207,9 +207,8 @@
     checkAnswer:function(){
       if(_pr.solved)return;
       var inp=document.getElementById('answer-input'),fb=document.getElementById('feedback');if(!inp||!fb||!_pr.exercise)return;
-      var s=inp.value.trim().replace(/\s+/g,''),c=String(_pr.exercise.answer).replace(/\s+/g,'');
-      var sn=parseFloat(s),cn=parseFloat(c);
-      var ok=s===c||s.toLowerCase()===c.toLowerCase()||(!isNaN(sn)&&!isNaN(cn)&&Math.abs(sn-cn)<=0.5);
+      var s=inp.value.trim(),c=String(_pr.exercise.answer);
+      var ok=MathCore.validate(TOPIC_ID,s,c,_pr.exercise.validation);
       inp.classList.toggle('correct',ok);inp.classList.toggle('wrong',!ok);
       if(ok){fb.className='feedback-line correct';fb.textContent='✓ Correto! = '+_pr.exercise.answer;
         _pr.solved=true;_pr.history.push(true);Progress.recordAttempt(TOPIC_ID,true);

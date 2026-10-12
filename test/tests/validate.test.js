@@ -49,7 +49,30 @@ describe('validate — numeric tolerance', () => {
   });
 
   it('rejects float outside tolerance', () => {
-    assert.notOk(validate('any', '3.14', '3.15'));
+    assert.notOk(validate('any', '3.14', '3.25'));
+  });
+
+  it('rejects numeric prefixes followed by garbage', () => {
+    assert.notOk(validate('any', '2abc', '2'));
+    assert.notOk(validate('any', '3.14rad', '3.14'));
+  });
+
+  it('rejects non-finite numeric values', () => {
+    assert.notOk(validate('any', 'Infinity', '1'));
+    assert.notOk(validate('any', '1e9999', '1'));
+  });
+
+  it('supports declared absolute and relative tolerance', () => {
+    assert.ok(validate('any', '9.96', '10', { absoluteTolerance: 0.05 }));
+    assert.ok(validate('any', '99.5', '100', { relativeTolerance: 0.01 }));
+    assert.notOk(validate('any', '98', '100', { relativeTolerance: 0.01 }));
+  });
+
+  it('requires matching units when requested', () => {
+    var spec = { absoluteTolerance: 0.01, unitRequired: true };
+    assert.ok(validate('measures', '2,5 m', '2.5 m', spec));
+    assert.notOk(validate('measures', '2.5', '2.5 m', spec));
+    assert.notOk(validate('measures', '2.5 cm', '2.5 m', spec));
   });
 
   it('accepts negative numbers', () => {

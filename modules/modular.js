@@ -172,9 +172,8 @@
     checkAnswer:function(){
       if(_pr.solved)return;
       var inp=document.getElementById('answer-input'),fb=document.getElementById('feedback');if(!inp||!fb||!_pr.exercise)return;
-      var s=_normAns(inp.value.trim()),c=_normAns(String(_pr.exercise.answer));
-      var sn=parseFloat(s.replace(/x=/,'')),cn=parseFloat(c.replace(/x=/,''));
-      var ok=s===c||(!isNaN(sn)&&!isNaN(cn)&&Math.abs(sn-cn)<=0.05);
+      var s=inp.value.trim(),c=String(_pr.exercise.answer);
+      var ok=MathCore.validate(TOPIC_ID,s,c,_pr.exercise.validation);
       inp.classList.toggle('correct',ok);inp.classList.toggle('wrong',!ok);
       if(ok){fb.className='feedback-line correct';fb.textContent='✓ Correto! = '+_pr.exercise.answer;
         _pr.solved=true;_pr.history.push(true);Progress.recordAttempt(TOPIC_ID,true);

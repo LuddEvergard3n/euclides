@@ -86,7 +86,12 @@ var MathCore = (function () {
      * @param  {string} correctAnswer  as returned by generateExercise
      * @return {boolean}
      */
-    validate: function (topicId, studentAnswer, correctAnswer) {
+    validate: function (topicId, studentAnswer, correctAnswer, validation) {
+      // Validation metadata is handled by the JS implementation until the
+      // optional WASM API exposes the same contract.
+      if (validation && typeof MathFallback !== 'undefined') {
+        return MathFallback.validate(topicId, studentAnswer, correctAnswer, validation);
+      }
       return _call('validate_answer', 'validate', [topicId, studentAnswer, correctAnswer]);
     },
 

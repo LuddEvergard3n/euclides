@@ -208,8 +208,8 @@
       if(_pr.solved)return;
       var inp=document.getElementById('answer-input'),fb=document.getElementById('feedback');
       if(!inp||!fb||!_pr.exercise)return;
-      var student=inp.value.trim().toUpperCase(),correct=String(_pr.exercise.answer).toUpperCase();
-      var ok=student===correct;
+      var student=inp.value.trim(),correct=String(_pr.exercise.answer);
+      var ok=MathCore.validate(TOPIC_ID,student,correct,_pr.exercise.validation);
       inp.classList.toggle('correct',ok);inp.classList.toggle('wrong',!ok);
       if(ok){fb.className='feedback-line correct';fb.textContent='✓ Correto! = '+_pr.exercise.answer;
         _pr.solved=true;_pr.history.push(true);Progress.recordAttempt(TOPIC_ID,true);

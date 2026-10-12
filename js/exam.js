@@ -249,11 +249,7 @@ var Exam = (function () {
       if (!item) return;
       var s  = inp.value.trim();
       var c  = String(item.exercise.answer);
-      var sn = parseFloat(s.replace(',', '.'));
-      var cn = parseFloat(c.replace(',', '.'));
-      var ok = s === c ||
-               s.toLowerCase() === c.toLowerCase() ||
-               (!isNaN(sn) && !isNaN(cn) && Math.abs(sn - cn) <= 0.05);
+      var ok = MathCore.validate(item.topicId, s, c, item.exercise.validation);
 
       _s.answered++;
       _s.solved = true;
