@@ -6,7 +6,7 @@
  * FONT_CACHE is intentionally stable — never deleted on version bumps.
  */
 
-var CACHE_VER  = 'euclides-v4-4';
+var CACHE_VER  = 'euclides-v5-0';
 var FONT_CACHE = 'euclides-fonts-v1';  // separate, persistent font cache
 var CACHE_URLS = [
   './',
@@ -24,6 +24,7 @@ var CACHE_URLS = [
   './js/ui.js',
   './js/renderer.js',
   './js/router.js',
+  './js/task-engine.js',
   './js/wasm-loader.js',
   './js/teacher.js',
   './js/anim.js',
@@ -56,90 +57,6 @@ var CACHE_URLS = [
   './math/generators/prob.js',
   './math/generators/trig.js',
   /* Modules (79) */
-  './modules/algebraic.js',
-  './modules/analytic_geo.js',
-  './modules/angles.js',
-  './modules/arithmetic.js',
-  './modules/binomial.js',
-  './modules/calc_limits.js',
-  './modules/calculus.js',
-  './modules/cartesian.js',
-  './modules/combinatorics.js',
-  './modules/complex.js',
-  './modules/conics.js',
-  './modules/curve_analysis.js',
-  './modules/dataanalysis.js',
-  './modules/decimals.js',
-  './modules/definite_integrals.js',
-  './modules/derivatives.js',
-  './modules/distributions.js',
-  './modules/eigenvalues_adv.js',
-  './modules/equations1.js',
-  './modules/equations2.js',
-  './modules/euler_method.js',
-  './modules/exponential.js',
-  './modules/factoring.js',
-  './modules/finance.js',
-  './modules/fourier_series.js',
-  './modules/fractions.js',
-  './modules/functions.js',
-  './modules/gauss_elim.js',
-  './modules/geometry.js',
-  './modules/gram_schmidt.js',
-  './modules/graph_theory.js',
-  './modules/heat_eq.js',
-  './modules/complex_var.js',
-  './modules/runge_kutta.js',
-  './modules/wave_eq.js',
-  './modules/interpolation.js',
-  './modules/ode_systems.js',
-  './modules/inequalities.js',
-  './modules/inference.js',
-  './modules/integers.js',
-  './modules/integrals.js',
-  './modules/inverse_func.js',
-  './modules/lagrange.js',
-  './modules/laplace.js',
-  './modules/lin_transformations.js',
-  './modules/linear_prog.js',
-  './modules/logarithms.js',
-  './modules/logic.js',
-  './modules/lu_factoring.js',
-  './modules/markov.js',
-  './modules/matrices.js',
-  './modules/measures.js',
-  './modules/mmc_mdc.js',
-  './modules/modular.js',
-  './modules/multiple_integrals.js',
-  './modules/newton_raphson.js',
-  './modules/nonlinear.js',
-  './modules/numeric_integ.js',
-  './modules/ode_first.js',
-  './modules/ode_second.js',
-  './modules/optimization.js',
-  './modules/partial_deriv.js',
-  './modules/polynomials.js',
-  './modules/powers.js',
-  './modules/prob_advanced.js',
-  './modules/probability.js',
-  './modules/progressions.js',
-  './modules/quadratic_forms.js',
-  './modules/ratio.js',
-  './modules/rationals.js',
-  './modules/real_numbers.js',
-  './modules/regression.js',
-  './modules/series.js',
-  './modules/series_calc.js',
-  './modules/similarity.js',
-  './modules/spatial.js',
-  './modules/statistics.js',
-  './modules/systems.js',
-  './modules/trig.js',
-  './modules/trig_circle.js',
-  './modules/trig_graphs.js',
-  './modules/vector_calc.js',
-  './modules/vector_spaces.js',
-  './modules/vectors.js',
 ];
 
 // ── Install: pre-cache all static assets ─────────────────────────
@@ -211,21 +128,20 @@ self.addEventListener('fetch', function (e) {
     return;
   }
 
-  // ── Navigation requests (HTML pages): cache-first, offline fallback ─
+  // ── Navigation requests (HTML pages): network-first, offline fallback ─
   //   Only navigation requests get the offline fallback page.
   //   Serving HTML for a JS/WASM request confuses the browser and breaks
   //   script loading error handling (script.onerror never fires cleanly).
   if (e.request.mode === 'navigate') {
     e.respondWith(
-      caches.match(e.request).then(function (cached) {
-        if (cached) return cached;
-        return fetch(e.request).then(function (response) {
+      fetch(e.request).then(function (response) {
           if (!response || response.status !== 200) return response;
           var clone = response.clone();
           caches.open(CACHE_VER).then(function (cache) { cache.put(e.request, clone); });
           return response;
-        });
-      }).catch(function () {
+        }).catch(function () {
+        return caches.match(e.request, { ignoreSearch: true }).then(function (cached) {
+          if (cached) return cached;
         // Offline: serve cached index.html as app shell.
         return caches.match('./index.html').then(function (shell) {
           return shell || new Response(
@@ -234,7 +150,7 @@ self.addEventListener('fetch', function (e) {
             '</body></html>',
             { headers: { 'Content-Type': 'text/html' } }
           );
-        });
+        }); });
       })
     );
     return;
@@ -245,7 +161,7 @@ self.addEventListener('fetch', function (e) {
   //   This ensures script.onerror fires correctly (e.g. wasm-loader.js
   //   calls _useFallback() cleanly when wasm/math_core.js is not compiled).
   e.respondWith(
-    caches.match(e.request).then(function (cached) {
+    caches.match(e.request, { ignoreSearch: true }).then(function (cached) {
       if (cached) return cached;
       return fetch(e.request).then(function (response) {
         if (!response || response.status !== 200 || response.type === 'opaque') return response;

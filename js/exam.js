@@ -10,7 +10,7 @@ var Exam = (function () {
 
   var _topics  = [];
   var _TOTAL   = 20;
-  var _MINUTES = 15;
+  var _MINUTES = 30;
 
   var _s = {
     queue:     [],   // [{topicId, topicTitle, exercise}]
@@ -317,6 +317,11 @@ var Exam = (function () {
     abort: function () {
       _stopTimer();
       _showResults();
+    },
+
+    destroy: function () {
+      _stopTimer();
+      Progress.unmuteEvents();
     },
 
   };

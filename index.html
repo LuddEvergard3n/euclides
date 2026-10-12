@@ -6,17 +6,17 @@
   <title>Euclides</title>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
-  <link rel="stylesheet" href="style.css"/>
+  <link rel="stylesheet" href="style.css?v=5.0"/>
   <link rel="icon" type="image/svg+xml" href="icon.svg"/>
   <link rel="manifest" href="manifest.json"/>
 </head>
 <body>
   <!-- ── Top bar ─────────────────────────────────────────────────── -->
   <header id="topbar">
-    <div id="topbar-brand">
+    <button id="topbar-brand" onclick="Router.navigate('')" aria-label="Ir para o início">
       <img src="icon.svg" class="logo-mark" alt="Euclides"/>
       <span class="logo-text">Euclides</span>
-    </div>
+    </button>
     <nav id="topbar-nav">
       <a class="topbar-tab" href="formulas.html">Fórmulas</a>
       <a class="topbar-tab" href="guia-professor.html">Guia do Professor</a>
@@ -24,6 +24,7 @@
       <button class="topbar-tab" onclick="TopPanel.open('sobre')">Sobre</button>
       <button class="topbar-tab" onclick="TopPanel.open('ajuda')">Ajuda</button>
       <button class="topbar-tab" onclick="TopPanel.open('ecossistema')">Ecossistema</button>
+      <button class="topbar-tab topbar-menu-button" onclick="TopPanel.open('mais')">Menu</button>
     </nav>
   </header>
 
@@ -52,6 +53,14 @@
     <div id="sidebar-overlay" onclick="Sidebar.close()"></div>
   </div>
 
+  <nav id="mobile-nav" aria-label="Navegação principal">
+    <button data-route="home" onclick="Router.navigate('')"><span aria-hidden="true">⌂</span><span>Início</span></button>
+    <button data-route="catalog" onclick="Router.navigate('catalog')"><span aria-hidden="true">⌕</span><span>Explorar</span></button>
+    <button data-route="practice" onclick="Router.navigate('practice')"><span aria-hidden="true">△</span><span>Praticar</span></button>
+    <button data-route="progress" onclick="Router.navigate('progress')"><span aria-hidden="true">↗</span><span>Progresso</span></button>
+    <button data-route="more" onclick="TopPanel.open('mais')"><span aria-hidden="true">•••</span><span>Mais</span></button>
+  </nav>
+
   <!-- ── Top panel modals ──────────────────────────────────────────── -->
   <div id="tpanel-overlay" onclick="TopPanel.close()"></div>
   <div id="tpanel" role="dialog" aria-modal="true">
@@ -61,137 +70,47 @@
     </div>
     <div id="tpanel-body"></div>
   </div>
-  <script src="js/progress.js"></script>
-  <script src="js/ui.js"></script>
-  <script src="js/renderer.js"></script>
-  <script src="math/rng.js"></script>
+  <script src="js/progress.js?v=5.0"></script>
+  <script src="js/ui.js?v=5.0"></script>
+  <script src="js/renderer.js?v=5.0"></script>
+  <script src="math/rng.js?v=5.0"></script>
   <script>window.MathGenerators = {};</script>
-  <script src="math/generators/efI.js"></script>
-  <script src="math/generators/efII.js"></script>
-  <script src="math/generators/algebra.js"></script>
-  <script src="math/generators/functions.js"></script>
-  <script src="math/generators/geometry.js"></script>
-  <script src="math/generators/trig.js"></script>
-  <script src="math/generators/prob.js"></script>
-  <script src="math/generators/matrices_logic.js"></script>
-  <script src="math/generators/calculus_adv.js"></script>
-  <script src="math/generators/calc_I.js"></script>
-  <script src="math/generators/calc_II.js"></script>
-  <script src="math/generators/calc_III.js"></script>
-  <script src="math/generators/lin_alg.js"></script>
-  <script src="math/generators/ode_prob.js"></script>
-  <script src="math/generators/numeric_transforms.js"></script>
-  <script src="math/generators/lin_alg_adv.js"></script>
-  <script src="math/generators/batch3.js"></script>
-  <script src="math/generators/batch4.js"></script>
-  <script src="math/fallback.js"></script>
-  <script src="js/wasm-loader.js"></script>
-  <script src="js/teacher.js"></script>
-  <script src="js/router.js"></script>
+  <script src="math/generators/efI.js?v=5.0"></script>
+  <script src="math/generators/efII.js?v=5.0"></script>
+  <script src="math/generators/algebra.js?v=5.0"></script>
+  <script src="math/generators/functions.js?v=5.0"></script>
+  <script src="math/generators/geometry.js?v=5.0"></script>
+  <script src="math/generators/trig.js?v=5.0"></script>
+  <script src="math/generators/prob.js?v=5.0"></script>
+  <script src="math/generators/matrices_logic.js?v=5.0"></script>
+  <script src="math/generators/calculus_adv.js?v=5.0"></script>
+  <script src="math/generators/calc_I.js?v=5.0"></script>
+  <script src="math/generators/calc_II.js?v=5.0"></script>
+  <script src="math/generators/calc_III.js?v=5.0"></script>
+  <script src="math/generators/lin_alg.js?v=5.0"></script>
+  <script src="math/generators/ode_prob.js?v=5.0"></script>
+  <script src="math/generators/numeric_transforms.js?v=5.0"></script>
+  <script src="math/generators/lin_alg_adv.js?v=5.0"></script>
+  <script src="math/generators/batch3.js?v=5.0"></script>
+  <script src="math/generators/batch4.js?v=5.0"></script>
+  <script src="math/fallback.js?v=5.0"></script>
+  <script src="js/task-engine.js?v=5.0"></script>
+  <script src="js/wasm-loader.js?v=5.0"></script>
+  <script src="js/teacher.js?v=5.0"></script>
+  <script src="js/router.js?v=5.0"></script>
 
-  <!-- Fundamental I (3) -->
-  <script src="modules/arithmetic.js"></script>
-  <script src="modules/geometry.js"></script>
-  <script src="modules/rationals.js"></script>
-
-  <!-- Fundamental II (13) -->
-  <script src="modules/algebraic.js"></script>
-  <script src="modules/angles.js"></script>
-  <script src="modules/decimals.js"></script>
-  <script src="modules/equations1.js"></script>
-  <script src="modules/fractions.js"></script>
-  <script src="modules/integers.js"></script>
-  <script src="modules/measures.js"></script>
-  <script src="modules/mmc_mdc.js"></script>
-  <script src="modules/powers.js"></script>
-  <script src="modules/ratio.js"></script>
-  <script src="modules/similarity.js"></script>
-  <script src="modules/spatial.js"></script>
-  <script src="modules/systems.js"></script>
-
-  <!-- Ensino Médio (31) -->
-  <script src="modules/analytic_geo.js"></script>
-  <script src="modules/binomial.js"></script>
-  <script src="modules/calculus.js"></script>
-  <script src="modules/cartesian.js"></script>
-  <script src="modules/combinatorics.js"></script>
-  <script src="modules/complex.js"></script>
-  <script src="modules/conics.js"></script>
-  <script src="modules/dataanalysis.js"></script>
-  <script src="modules/equations2.js"></script>
-  <script src="modules/exponential.js"></script>
-  <script src="modules/factoring.js"></script>
-  <script src="modules/finance.js"></script>
-  <script src="modules/functions.js"></script>
-  <script src="modules/inequalities.js"></script>
-  <script src="modules/inverse_func.js"></script>
-  <script src="modules/logarithms.js"></script>
-  <script src="modules/logic.js"></script>
-  <script src="modules/matrices.js"></script>
-  <script src="modules/modular.js"></script>
-  <script src="modules/nonlinear.js"></script>
-  <script src="modules/polynomials.js"></script>
-  <script src="modules/prob_advanced.js"></script>
-  <script src="modules/probability.js"></script>
-  <script src="modules/progressions.js"></script>
-  <script src="modules/real_numbers.js"></script>
-  <script src="modules/series.js"></script>
-  <script src="modules/statistics.js"></script>
-  <script src="modules/trig.js"></script>
-  <script src="modules/trig_circle.js"></script>
-  <script src="modules/trig_graphs.js"></script>
-  <script src="modules/vectors.js"></script>
-
-  <!-- Ensino Superior (32) -->
-  <script src="modules/calc_limits.js"></script>
-  <script src="modules/derivatives.js"></script>
-  <script src="modules/curve_analysis.js"></script>
-  <script src="modules/optimization.js"></script>
-  <script src="modules/integrals.js"></script>
-  <script src="modules/definite_integrals.js"></script>
-  <script src="modules/series_calc.js"></script>
-  <script src="modules/partial_deriv.js"></script>
-  <script src="modules/multiple_integrals.js"></script>
-  <script src="modules/vector_calc.js"></script>
-  <script src="modules/gauss_elim.js"></script>
-  <script src="modules/vector_spaces.js"></script>
-  <script src="modules/lin_transformations.js"></script>
-  <script src="modules/eigenvalues_adv.js"></script>
-  <script src="modules/ode_first.js"></script>
-  <script src="modules/ode_second.js"></script>
-  <script src="modules/distributions.js"></script>
-  <script src="modules/inference.js"></script>
-  <script src="modules/regression.js"></script>
-  <script src="modules/newton_raphson.js"></script>
-  <script src="modules/numeric_integ.js"></script>
-  <script src="modules/euler_method.js"></script>
-  <script src="modules/gram_schmidt.js"></script>
-  <script src="modules/lu_factoring.js"></script>
-  <script src="modules/quadratic_forms.js"></script>
-  <script src="modules/laplace.js"></script>
-  <script src="modules/fourier_series.js"></script>
-  <script src="modules/lagrange.js"></script>
-  <script src="modules/linear_prog.js"></script>
-  <script src="modules/markov.js"></script>
-  <script src="modules/graph_theory.js"></script>
-  <script src="modules/heat_eq.js"></script>
-  <script src="modules/complex_var.js"></script>
-  <script src="modules/runge_kutta.js"></script>
-  <script src="modules/wave_eq.js"></script>
-  <script src="modules/interpolation.js"></script>
-  <script src="modules/ode_systems.js"></script>
-
-  <script src="js/stats.js"></script>
-  <script src="js/sidebar.js"></script>
-  <script src="js/anim.js"></script>
-  <script src="js/review.js"></script>
-  <script src="js/completion.js"></script>
-  <script src="js/exam.js"></script>
-  <script src="js/main.js"></script>
+  <script src="js/stats.js?v=5.0"></script>
+  <script src="js/sidebar.js?v=5.0"></script>
+  <script src="js/anim.js?v=5.0"></script>
+  <script src="js/review.js?v=5.0"></script>
+  <script src="js/completion.js?v=5.0"></script>
+  <script src="js/exam.js?v=5.0"></script>
+  <script src="js/main.js?v=5.0"></script>
   <script>
   /* ── TopPanel — modal controller ──────────────────────────────── */
   var TopPanel = (function () {
     var _current = null;
+    var _trigger = null;
 
     var _content = {
       sobre: {
@@ -248,6 +167,18 @@
           '<a class="eco-link" href="https://luddevergard3n.github.io/archimedes/" target="_blank" rel="noopener">' +
             '<div><div class="eco-link-name">Archimedes</div><div class="eco-link-desc">F\u00edsica</div></div>' +
           '</a>'
+      },
+      mais: {
+        title: 'Mais opções',
+        html:
+          '<nav class="more-menu">' +
+            '<a href="formulas.html">Referência de fórmulas</a>' +
+            '<a href="guia-professor.html">Guia do Professor</a>' +
+            '<a href="plano-aula.html">Plano de Aula</a>' +
+            '<button onclick="TopPanel.open(\'sobre\')">Sobre o Euclides</button>' +
+            '<button onclick="TopPanel.open(\'ajuda\')">Ajuda</button>' +
+            '<button onclick="TopPanel.open(\'ecossistema\')">Ecossistema</button>' +
+          '</nav>'
       }
     };
 
@@ -255,6 +186,8 @@
       if (_current === key) { close(); return; }
       _current = key;
       var c = _content[key];
+      if (!c) return;
+      _trigger = document.activeElement;
       document.getElementById('tpanel-title').textContent = c.title;
       document.getElementById('tpanel-body').innerHTML = c.html;
       document.getElementById('tpanel').classList.add('open');
@@ -262,6 +195,7 @@
       document.querySelectorAll('.topbar-tab').forEach(function (b) {
         b.classList.toggle('active', b.textContent.toLowerCase().replace('\u00e9','e') === key);
       });
+      document.getElementById('tpanel-close').focus();
     }
 
     function close() {
@@ -271,10 +205,20 @@
       document.querySelectorAll('.topbar-tab').forEach(function (b) {
         b.classList.remove('active');
       });
+      if (_trigger && typeof _trigger.focus === 'function') _trigger.focus();
+      _trigger = null;
     }
 
     document.addEventListener('keydown', function (e) {
       if (e.key === 'Escape') close();
+      if (e.key === 'Tab' && _current) {
+        var panel = document.getElementById('tpanel');
+        var focusable = panel.querySelectorAll('a[href],button:not([disabled]),input:not([disabled]),select:not([disabled])');
+        if (!focusable.length) return;
+        var first = focusable[0], last = focusable[focusable.length - 1];
+        if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+        else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+      }
     });
 
     return { open: open, close: close };

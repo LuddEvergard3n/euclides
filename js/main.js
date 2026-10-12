@@ -16,6 +16,7 @@
     // 2. Load topic list and configure UI
     _loadTopics(function (topics) {
       UI.setTopics(topics);
+      Router.setTopics(topics);
       Review.setTopics(topics);
       Completion.setTopics(topics);
       Exam.setTopics(topics);
@@ -39,8 +40,8 @@
         });
       }
 
-      // 6. Navigate to home
-      Router.navigate('');
+      // 6. Restore the hash route or open the home laboratory.
+      Router.start();
     });
   }
 
