@@ -4,329 +4,1576 @@
     "title": "Aritmética",
     "symbol": "±",
     "level": "EFI",
-    "status": "available"
+    "status": "available",
+    "module": "modules/arithmetic.js",
+    "area": "Álgebra",
+    "prerequisites": [],
+    "learningObjectives": [
+      "Reconhecer as ideias centrais de Aritmética.",
+      "Resolver e interpretar problemas de Aritmética com justificativa."
+    ],
+    "estimatedMinutes": 22,
+    "tags": [
+      "álgebra",
+      "efi",
+      "aritmética"
+    ],
+    "misconceptions": [
+      "Aplicar uma transformação sem preservar a equivalência entre as expressões."
+    ],
+    "lastReviewed": "2026-10-12",
+    "reviewStatus": "em-revisao",
+    "references": [
+      {
+        "title": "Base Nacional Comum Curricular",
+        "type": "documento curricular",
+        "url": "https://basenacionalcomum.mec.gov.br/abase/"
+      }
+    ]
   },
   {
     "id": "geometry",
     "title": "Geometria Plana",
     "symbol": "△",
     "level": "EFI",
-    "status": "available"
+    "status": "available",
+    "module": "modules/geometry.js",
+    "area": "Geometria",
+    "prerequisites": [],
+    "learningObjectives": [
+      "Reconhecer as ideias centrais de Geometria Plana.",
+      "Resolver e interpretar problemas de Geometria Plana com justificativa."
+    ],
+    "estimatedMinutes": 22,
+    "tags": [
+      "geometria",
+      "efi",
+      "plana"
+    ],
+    "misconceptions": [
+      "Confundir medidas lineares, angulares, de área e de volume."
+    ],
+    "lastReviewed": "2026-10-12",
+    "reviewStatus": "em-revisao",
+    "references": [
+      {
+        "title": "Base Nacional Comum Curricular",
+        "type": "documento curricular",
+        "url": "https://basenacionalcomum.mec.gov.br/abase/"
+      }
+    ]
   },
   {
     "id": "rationals",
     "title": "Números Racionais",
     "symbol": "ℚ",
     "level": "EFI",
-    "status": "available"
+    "status": "available",
+    "module": "modules/rationals.js",
+    "area": "Álgebra",
+    "prerequisites": [],
+    "learningObjectives": [
+      "Reconhecer as ideias centrais de Números Racionais.",
+      "Resolver e interpretar problemas de Números Racionais com justificativa."
+    ],
+    "estimatedMinutes": 22,
+    "tags": [
+      "álgebra",
+      "efi",
+      "números",
+      "racionais"
+    ],
+    "misconceptions": [
+      "Aplicar uma transformação sem preservar a equivalência entre as expressões."
+    ],
+    "lastReviewed": "2026-10-12",
+    "reviewStatus": "em-revisao",
+    "references": [
+      {
+        "title": "Base Nacional Comum Curricular",
+        "type": "documento curricular",
+        "url": "https://basenacionalcomum.mec.gov.br/abase/"
+      }
+    ]
   },
   {
     "id": "algebraic",
     "title": "Expressões Algébricas",
     "symbol": "ax",
     "level": "EFII",
-    "status": "available"
+    "status": "available",
+    "module": "modules/algebraic.js",
+    "area": "Álgebra",
+    "prerequisites": [
+      "arithmetic"
+    ],
+    "learningObjectives": [
+      "Reconhecer as ideias centrais de Expressões Algébricas.",
+      "Resolver e interpretar problemas de Expressões Algébricas com justificativa."
+    ],
+    "estimatedMinutes": 22,
+    "tags": [
+      "álgebra",
+      "efii",
+      "expressões",
+      "algébricas"
+    ],
+    "misconceptions": [
+      "Aplicar uma transformação sem preservar a equivalência entre as expressões."
+    ],
+    "lastReviewed": "2026-10-12",
+    "reviewStatus": "em-revisao",
+    "references": [
+      {
+        "title": "Base Nacional Comum Curricular",
+        "type": "documento curricular",
+        "url": "https://basenacionalcomum.mec.gov.br/abase/"
+      }
+    ]
   },
   {
     "id": "angles",
     "title": "Ângulos e Polígonos",
     "symbol": "∠",
     "level": "EFII",
-    "status": "available"
+    "status": "available",
+    "module": "modules/angles.js",
+    "area": "Geometria",
+    "prerequisites": [],
+    "learningObjectives": [
+      "Reconhecer as ideias centrais de Ângulos e Polígonos.",
+      "Resolver e interpretar problemas de Ângulos e Polígonos com justificativa."
+    ],
+    "estimatedMinutes": 22,
+    "tags": [
+      "geometria",
+      "efii",
+      "ângulos",
+      "polígonos"
+    ],
+    "misconceptions": [
+      "Confundir medidas lineares, angulares, de área e de volume."
+    ],
+    "lastReviewed": "2026-10-12",
+    "reviewStatus": "em-revisao",
+    "references": [
+      {
+        "title": "Base Nacional Comum Curricular",
+        "type": "documento curricular",
+        "url": "https://basenacionalcomum.mec.gov.br/abase/"
+      }
+    ]
   },
   {
     "id": "decimals",
     "title": "Decimais e Percentuais",
     "symbol": "%",
     "level": "EFII",
-    "status": "available"
+    "status": "available",
+    "module": "modules/decimals.js",
+    "area": "Álgebra",
+    "prerequisites": [],
+    "learningObjectives": [
+      "Reconhecer as ideias centrais de Decimais e Percentuais.",
+      "Resolver e interpretar problemas de Decimais e Percentuais com justificativa."
+    ],
+    "estimatedMinutes": 22,
+    "tags": [
+      "álgebra",
+      "efii",
+      "decimais",
+      "percentuais"
+    ],
+    "misconceptions": [
+      "Aplicar uma transformação sem preservar a equivalência entre as expressões."
+    ],
+    "lastReviewed": "2026-10-12",
+    "reviewStatus": "em-revisao",
+    "references": [
+      {
+        "title": "Base Nacional Comum Curricular",
+        "type": "documento curricular",
+        "url": "https://basenacionalcomum.mec.gov.br/abase/"
+      }
+    ]
   },
   {
     "id": "equations1",
     "title": "Equações 1º Grau",
     "symbol": "x",
     "level": "EFII",
-    "status": "available"
+    "status": "available",
+    "module": "modules/equations1.js",
+    "area": "Álgebra",
+    "prerequisites": [
+      "algebraic"
+    ],
+    "learningObjectives": [
+      "Reconhecer as ideias centrais de Equações 1º Grau.",
+      "Resolver e interpretar problemas de Equações 1º Grau com justificativa."
+    ],
+    "estimatedMinutes": 22,
+    "tags": [
+      "álgebra",
+      "efii",
+      "equações",
+      "grau"
+    ],
+    "misconceptions": [
+      "Aplicar uma transformação sem preservar a equivalência entre as expressões."
+    ],
+    "lastReviewed": "2026-10-12",
+    "reviewStatus": "em-revisao",
+    "references": [
+      {
+        "title": "Base Nacional Comum Curricular",
+        "type": "documento curricular",
+        "url": "https://basenacionalcomum.mec.gov.br/abase/"
+      }
+    ]
   },
   {
     "id": "fractions",
     "title": "Frações",
     "symbol": "½",
     "level": "EFII",
-    "status": "available"
+    "status": "available",
+    "module": "modules/fractions.js",
+    "area": "Álgebra",
+    "prerequisites": [],
+    "learningObjectives": [
+      "Reconhecer as ideias centrais de Frações.",
+      "Resolver e interpretar problemas de Frações com justificativa."
+    ],
+    "estimatedMinutes": 22,
+    "tags": [
+      "álgebra",
+      "efii",
+      "frações"
+    ],
+    "misconceptions": [
+      "Aplicar uma transformação sem preservar a equivalência entre as expressões."
+    ],
+    "lastReviewed": "2026-10-12",
+    "reviewStatus": "em-revisao",
+    "references": [
+      {
+        "title": "Base Nacional Comum Curricular",
+        "type": "documento curricular",
+        "url": "https://basenacionalcomum.mec.gov.br/abase/"
+      }
+    ]
   },
   {
     "id": "integers",
     "title": "Inteiros e Divisibilidade",
     "symbol": "Z",
     "level": "EFII",
-    "status": "available"
+    "status": "available",
+    "module": "modules/integers.js",
+    "area": "Álgebra",
+    "prerequisites": [],
+    "learningObjectives": [
+      "Reconhecer as ideias centrais de Inteiros e Divisibilidade.",
+      "Resolver e interpretar problemas de Inteiros e Divisibilidade com justificativa."
+    ],
+    "estimatedMinutes": 22,
+    "tags": [
+      "álgebra",
+      "efii",
+      "inteiros",
+      "divisibilidade"
+    ],
+    "misconceptions": [
+      "Aplicar uma transformação sem preservar a equivalência entre as expressões."
+    ],
+    "lastReviewed": "2026-10-12",
+    "reviewStatus": "em-revisao",
+    "references": [
+      {
+        "title": "Base Nacional Comum Curricular",
+        "type": "documento curricular",
+        "url": "https://basenacionalcomum.mec.gov.br/abase/"
+      }
+    ]
   },
   {
     "id": "measures",
     "title": "Grandezas e Medidas",
     "symbol": "m",
     "level": "EFII",
-    "status": "available"
+    "status": "available",
+    "module": "modules/measures.js",
+    "area": "Álgebra",
+    "prerequisites": [],
+    "learningObjectives": [
+      "Reconhecer as ideias centrais de Grandezas e Medidas.",
+      "Resolver e interpretar problemas de Grandezas e Medidas com justificativa."
+    ],
+    "estimatedMinutes": 22,
+    "tags": [
+      "álgebra",
+      "efii",
+      "grandezas",
+      "medidas"
+    ],
+    "misconceptions": [
+      "Aplicar uma transformação sem preservar a equivalência entre as expressões."
+    ],
+    "lastReviewed": "2026-10-12",
+    "reviewStatus": "em-revisao",
+    "references": [
+      {
+        "title": "Base Nacional Comum Curricular",
+        "type": "documento curricular",
+        "url": "https://basenacionalcomum.mec.gov.br/abase/"
+      }
+    ]
   },
   {
     "id": "mmc_mdc",
     "title": "MMC e MDC",
     "symbol": "÷",
     "level": "EFII",
-    "status": "available"
+    "status": "available",
+    "module": "modules/mmc_mdc.js",
+    "area": "Álgebra",
+    "prerequisites": [],
+    "learningObjectives": [
+      "Reconhecer as ideias centrais de MMC e MDC.",
+      "Resolver e interpretar problemas de MMC e MDC com justificativa."
+    ],
+    "estimatedMinutes": 22,
+    "tags": [
+      "álgebra",
+      "efii"
+    ],
+    "misconceptions": [
+      "Aplicar uma transformação sem preservar a equivalência entre as expressões."
+    ],
+    "lastReviewed": "2026-10-12",
+    "reviewStatus": "em-revisao",
+    "references": [
+      {
+        "title": "Base Nacional Comum Curricular",
+        "type": "documento curricular",
+        "url": "https://basenacionalcomum.mec.gov.br/abase/"
+      }
+    ]
   },
   {
     "id": "powers",
     "title": "Potências e Raízes",
     "symbol": "√",
     "level": "EFII",
-    "status": "available"
+    "status": "available",
+    "module": "modules/powers.js",
+    "area": "Álgebra",
+    "prerequisites": [],
+    "learningObjectives": [
+      "Reconhecer as ideias centrais de Potências e Raízes.",
+      "Resolver e interpretar problemas de Potências e Raízes com justificativa."
+    ],
+    "estimatedMinutes": 22,
+    "tags": [
+      "álgebra",
+      "efii",
+      "potências",
+      "raízes"
+    ],
+    "misconceptions": [
+      "Aplicar uma transformação sem preservar a equivalência entre as expressões."
+    ],
+    "lastReviewed": "2026-10-12",
+    "reviewStatus": "em-revisao",
+    "references": [
+      {
+        "title": "Base Nacional Comum Curricular",
+        "type": "documento curricular",
+        "url": "https://basenacionalcomum.mec.gov.br/abase/"
+      }
+    ]
   },
   {
     "id": "ratio",
     "title": "Razão e Proporção",
     "symbol": "∷",
     "level": "EFII",
-    "status": "available"
+    "status": "available",
+    "module": "modules/ratio.js",
+    "area": "Álgebra",
+    "prerequisites": [],
+    "learningObjectives": [
+      "Reconhecer as ideias centrais de Razão e Proporção.",
+      "Resolver e interpretar problemas de Razão e Proporção com justificativa."
+    ],
+    "estimatedMinutes": 22,
+    "tags": [
+      "álgebra",
+      "efii",
+      "razão",
+      "proporção"
+    ],
+    "misconceptions": [
+      "Aplicar uma transformação sem preservar a equivalência entre as expressões."
+    ],
+    "lastReviewed": "2026-10-12",
+    "reviewStatus": "em-revisao",
+    "references": [
+      {
+        "title": "Base Nacional Comum Curricular",
+        "type": "documento curricular",
+        "url": "https://basenacionalcomum.mec.gov.br/abase/"
+      }
+    ]
   },
   {
     "id": "similarity",
     "title": "Semelhança e Congruência",
     "symbol": "~",
     "level": "EFII",
-    "status": "available"
+    "status": "available",
+    "module": "modules/similarity.js",
+    "area": "Geometria",
+    "prerequisites": [],
+    "learningObjectives": [
+      "Reconhecer as ideias centrais de Semelhança e Congruência.",
+      "Resolver e interpretar problemas de Semelhança e Congruência com justificativa."
+    ],
+    "estimatedMinutes": 22,
+    "tags": [
+      "geometria",
+      "efii",
+      "semelhança",
+      "congruência"
+    ],
+    "misconceptions": [
+      "Confundir medidas lineares, angulares, de área e de volume."
+    ],
+    "lastReviewed": "2026-10-12",
+    "reviewStatus": "em-revisao",
+    "references": [
+      {
+        "title": "Base Nacional Comum Curricular",
+        "type": "documento curricular",
+        "url": "https://basenacionalcomum.mec.gov.br/abase/"
+      }
+    ]
   },
   {
     "id": "spatial",
     "title": "Geometria Espacial",
     "symbol": "□",
     "level": "EFII",
-    "status": "available"
+    "status": "available",
+    "module": "modules/spatial.js",
+    "area": "Geometria",
+    "prerequisites": [],
+    "learningObjectives": [
+      "Reconhecer as ideias centrais de Geometria Espacial.",
+      "Resolver e interpretar problemas de Geometria Espacial com justificativa."
+    ],
+    "estimatedMinutes": 22,
+    "tags": [
+      "geometria",
+      "efii",
+      "espacial"
+    ],
+    "misconceptions": [
+      "Confundir medidas lineares, angulares, de área e de volume."
+    ],
+    "lastReviewed": "2026-10-12",
+    "reviewStatus": "em-revisao",
+    "references": [
+      {
+        "title": "Base Nacional Comum Curricular",
+        "type": "documento curricular",
+        "url": "https://basenacionalcomum.mec.gov.br/abase/"
+      }
+    ]
   },
   {
     "id": "systems",
     "title": "Sistemas Lineares",
     "symbol": "║",
     "level": "EFII",
-    "status": "available"
+    "status": "available",
+    "module": "modules/systems.js",
+    "area": "Álgebra",
+    "prerequisites": [
+      "equations1"
+    ],
+    "learningObjectives": [
+      "Reconhecer as ideias centrais de Sistemas Lineares.",
+      "Resolver e interpretar problemas de Sistemas Lineares com justificativa."
+    ],
+    "estimatedMinutes": 22,
+    "tags": [
+      "álgebra",
+      "efii",
+      "sistemas",
+      "lineares"
+    ],
+    "misconceptions": [
+      "Aplicar uma transformação sem preservar a equivalência entre as expressões."
+    ],
+    "lastReviewed": "2026-10-12",
+    "reviewStatus": "em-revisao",
+    "references": [
+      {
+        "title": "Base Nacional Comum Curricular",
+        "type": "documento curricular",
+        "url": "https://basenacionalcomum.mec.gov.br/abase/"
+      }
+    ]
   },
   {
     "id": "analytic_geo",
     "title": "Geometria Analítica",
     "symbol": "↗",
     "level": "EM",
-    "status": "available"
+    "status": "available",
+    "module": "modules/analytic_geo.js",
+    "area": "Geometria",
+    "prerequisites": [
+      "cartesian"
+    ],
+    "learningObjectives": [
+      "Reconhecer as ideias centrais de Geometria Analítica.",
+      "Resolver e interpretar problemas de Geometria Analítica com justificativa."
+    ],
+    "estimatedMinutes": 28,
+    "tags": [
+      "geometria",
+      "em",
+      "analítica"
+    ],
+    "misconceptions": [
+      "Confundir medidas lineares, angulares, de área e de volume."
+    ],
+    "lastReviewed": "2026-10-12",
+    "reviewStatus": "em-revisao",
+    "references": [
+      {
+        "title": "Base Nacional Comum Curricular",
+        "type": "documento curricular",
+        "url": "https://basenacionalcomum.mec.gov.br/abase/"
+      }
+    ]
   },
   {
     "id": "binomial",
     "title": "Binômio de Newton",
     "symbol": "ⁿ",
     "level": "EM",
-    "status": "available"
+    "status": "available",
+    "module": "modules/binomial.js",
+    "area": "Matemática Discreta",
+    "prerequisites": [],
+    "learningObjectives": [
+      "Reconhecer as ideias centrais de Binômio de Newton.",
+      "Resolver e interpretar problemas de Binômio de Newton com justificativa."
+    ],
+    "estimatedMinutes": 28,
+    "tags": [
+      "matemática discreta",
+      "em",
+      "binômio",
+      "newton"
+    ],
+    "misconceptions": [
+      "Usar um exemplo particular como se fosse uma demonstração geral."
+    ],
+    "lastReviewed": "2026-10-12",
+    "reviewStatus": "em-revisao",
+    "references": [
+      {
+        "title": "Base Nacional Comum Curricular",
+        "type": "documento curricular",
+        "url": "https://basenacionalcomum.mec.gov.br/abase/"
+      }
+    ]
   },
   {
     "id": "calculus",
     "title": "Cálculo",
     "symbol": "∫",
     "level": "EM",
-    "status": "available"
+    "status": "available",
+    "module": "modules/calculus.js",
+    "area": "Cálculo",
+    "prerequisites": [
+      "functions"
+    ],
+    "learningObjectives": [
+      "Reconhecer as ideias centrais de Cálculo.",
+      "Resolver e interpretar problemas de Cálculo com justificativa."
+    ],
+    "estimatedMinutes": 28,
+    "tags": [
+      "cálculo",
+      "em"
+    ],
+    "misconceptions": [
+      "Aplicar uma regra sem verificar domínio, hipótese ou constante de integração."
+    ],
+    "lastReviewed": "2026-10-12",
+    "reviewStatus": "em-revisao",
+    "references": [
+      {
+        "title": "Base Nacional Comum Curricular",
+        "type": "documento curricular",
+        "url": "https://basenacionalcomum.mec.gov.br/abase/"
+      }
+    ]
   },
   {
     "id": "cartesian",
     "title": "Cartesiano e Retas",
     "symbol": "⊹",
     "level": "EM",
-    "status": "available"
+    "status": "available",
+    "module": "modules/cartesian.js",
+    "area": "Geometria",
+    "prerequisites": [
+      "equations1"
+    ],
+    "learningObjectives": [
+      "Reconhecer as ideias centrais de Cartesiano e Retas.",
+      "Resolver e interpretar problemas de Cartesiano e Retas com justificativa."
+    ],
+    "estimatedMinutes": 28,
+    "tags": [
+      "geometria",
+      "em",
+      "cartesiano",
+      "retas"
+    ],
+    "misconceptions": [
+      "Confundir medidas lineares, angulares, de área e de volume."
+    ],
+    "lastReviewed": "2026-10-12",
+    "reviewStatus": "em-revisao",
+    "references": [
+      {
+        "title": "Base Nacional Comum Curricular",
+        "type": "documento curricular",
+        "url": "https://basenacionalcomum.mec.gov.br/abase/"
+      }
+    ]
   },
   {
     "id": "combinatorics",
     "title": "Combinatória",
     "symbol": "C",
     "level": "EM",
-    "status": "available"
+    "status": "available",
+    "module": "modules/combinatorics.js",
+    "area": "Matemática Discreta",
+    "prerequisites": [
+      "probability"
+    ],
+    "learningObjectives": [
+      "Reconhecer as ideias centrais de Combinatória.",
+      "Resolver e interpretar problemas de Combinatória com justificativa."
+    ],
+    "estimatedMinutes": 28,
+    "tags": [
+      "matemática discreta",
+      "em",
+      "combinatória"
+    ],
+    "misconceptions": [
+      "Usar um exemplo particular como se fosse uma demonstração geral."
+    ],
+    "lastReviewed": "2026-10-12",
+    "reviewStatus": "em-revisao",
+    "references": [
+      {
+        "title": "Base Nacional Comum Curricular",
+        "type": "documento curricular",
+        "url": "https://basenacionalcomum.mec.gov.br/abase/"
+      }
+    ]
   },
   {
     "id": "complex",
     "title": "Números Complexos",
     "symbol": "i",
     "level": "EM",
-    "status": "available"
+    "status": "available",
+    "module": "modules/complex.js",
+    "area": "Álgebra",
+    "prerequisites": [],
+    "learningObjectives": [
+      "Reconhecer as ideias centrais de Números Complexos.",
+      "Resolver e interpretar problemas de Números Complexos com justificativa."
+    ],
+    "estimatedMinutes": 28,
+    "tags": [
+      "álgebra",
+      "em",
+      "números",
+      "complexos"
+    ],
+    "misconceptions": [
+      "Aplicar uma transformação sem preservar a equivalência entre as expressões."
+    ],
+    "lastReviewed": "2026-10-12",
+    "reviewStatus": "em-revisao",
+    "references": [
+      {
+        "title": "Base Nacional Comum Curricular",
+        "type": "documento curricular",
+        "url": "https://basenacionalcomum.mec.gov.br/abase/"
+      }
+    ]
   },
   {
     "id": "conics",
     "title": "Cônicas",
     "symbol": "⊙",
     "level": "EM",
-    "status": "available"
+    "status": "available",
+    "module": "modules/conics.js",
+    "area": "Geometria",
+    "prerequisites": [],
+    "learningObjectives": [
+      "Reconhecer as ideias centrais de Cônicas.",
+      "Resolver e interpretar problemas de Cônicas com justificativa."
+    ],
+    "estimatedMinutes": 28,
+    "tags": [
+      "geometria",
+      "em",
+      "cônicas"
+    ],
+    "misconceptions": [
+      "Confundir medidas lineares, angulares, de área e de volume."
+    ],
+    "lastReviewed": "2026-10-12",
+    "reviewStatus": "em-revisao",
+    "references": [
+      {
+        "title": "Base Nacional Comum Curricular",
+        "type": "documento curricular",
+        "url": "https://basenacionalcomum.mec.gov.br/abase/"
+      }
+    ]
   },
   {
     "id": "dataanalysis",
     "title": "Análise de Dados",
     "symbol": "σ",
     "level": "EM",
-    "status": "available"
+    "status": "available",
+    "module": "modules/dataanalysis.js",
+    "area": "Estatística",
+    "prerequisites": [],
+    "learningObjectives": [
+      "Reconhecer as ideias centrais de Análise de Dados.",
+      "Resolver e interpretar problemas de Análise de Dados com justificativa."
+    ],
+    "estimatedMinutes": 28,
+    "tags": [
+      "estatística",
+      "em",
+      "análise",
+      "dados"
+    ],
+    "misconceptions": [
+      "Interpretar frequência, associação ou probabilidade como certeza causal."
+    ],
+    "lastReviewed": "2026-10-12",
+    "reviewStatus": "em-revisao",
+    "references": [
+      {
+        "title": "Base Nacional Comum Curricular",
+        "type": "documento curricular",
+        "url": "https://basenacionalcomum.mec.gov.br/abase/"
+      }
+    ]
   },
   {
     "id": "equations2",
     "title": "Equações 2º Grau",
     "symbol": "x²",
     "level": "EM",
-    "status": "available"
+    "status": "available",
+    "module": "modules/equations2.js",
+    "area": "Álgebra",
+    "prerequisites": [
+      "equations1"
+    ],
+    "learningObjectives": [
+      "Reconhecer as ideias centrais de Equações 2º Grau.",
+      "Resolver e interpretar problemas de Equações 2º Grau com justificativa."
+    ],
+    "estimatedMinutes": 28,
+    "tags": [
+      "álgebra",
+      "em",
+      "equações",
+      "grau"
+    ],
+    "misconceptions": [
+      "Aplicar uma transformação sem preservar a equivalência entre as expressões."
+    ],
+    "lastReviewed": "2026-10-12",
+    "reviewStatus": "em-revisao",
+    "references": [
+      {
+        "title": "Base Nacional Comum Curricular",
+        "type": "documento curricular",
+        "url": "https://basenacionalcomum.mec.gov.br/abase/"
+      }
+    ]
   },
   {
     "id": "exponential",
     "title": "Funções Exponenciais",
     "symbol": "eˣ",
     "level": "EM",
-    "status": "available"
+    "status": "available",
+    "module": "modules/exponential.js",
+    "area": "Funções",
+    "prerequisites": [
+      "functions",
+      "powers"
+    ],
+    "learningObjectives": [
+      "Reconhecer as ideias centrais de Funções Exponenciais.",
+      "Resolver e interpretar problemas de Funções Exponenciais com justificativa."
+    ],
+    "estimatedMinutes": 28,
+    "tags": [
+      "funções",
+      "em",
+      "exponenciais"
+    ],
+    "misconceptions": [
+      "Confundir a variável independente com o valor produzido pela função."
+    ],
+    "lastReviewed": "2026-10-12",
+    "reviewStatus": "em-revisao",
+    "references": [
+      {
+        "title": "Base Nacional Comum Curricular",
+        "type": "documento curricular",
+        "url": "https://basenacionalcomum.mec.gov.br/abase/"
+      }
+    ]
   },
   {
     "id": "factoring",
     "title": "Produtos Notáveis",
     "symbol": "⊠",
     "level": "EM",
-    "status": "available"
+    "status": "available",
+    "module": "modules/factoring.js",
+    "area": "Álgebra",
+    "prerequisites": [
+      "algebraic"
+    ],
+    "learningObjectives": [
+      "Reconhecer as ideias centrais de Produtos Notáveis.",
+      "Resolver e interpretar problemas de Produtos Notáveis com justificativa."
+    ],
+    "estimatedMinutes": 28,
+    "tags": [
+      "álgebra",
+      "em",
+      "produtos",
+      "notáveis"
+    ],
+    "misconceptions": [
+      "Aplicar uma transformação sem preservar a equivalência entre as expressões."
+    ],
+    "lastReviewed": "2026-10-12",
+    "reviewStatus": "em-revisao",
+    "references": [
+      {
+        "title": "Base Nacional Comum Curricular",
+        "type": "documento curricular",
+        "url": "https://basenacionalcomum.mec.gov.br/abase/"
+      }
+    ]
   },
   {
     "id": "finance",
     "title": "Matemática Financeira",
     "symbol": "R$",
     "level": "EM",
-    "status": "available"
+    "status": "available",
+    "module": "modules/finance.js",
+    "area": "Álgebra",
+    "prerequisites": [],
+    "learningObjectives": [
+      "Reconhecer as ideias centrais de Matemática Financeira.",
+      "Resolver e interpretar problemas de Matemática Financeira com justificativa."
+    ],
+    "estimatedMinutes": 28,
+    "tags": [
+      "álgebra",
+      "em",
+      "matemática",
+      "financeira"
+    ],
+    "misconceptions": [
+      "Aplicar uma transformação sem preservar a equivalência entre as expressões."
+    ],
+    "lastReviewed": "2026-10-12",
+    "reviewStatus": "em-revisao",
+    "references": [
+      {
+        "title": "Base Nacional Comum Curricular",
+        "type": "documento curricular",
+        "url": "https://basenacionalcomum.mec.gov.br/abase/"
+      }
+    ]
   },
   {
     "id": "functions",
     "title": "Funções",
     "symbol": "f",
     "level": "EM",
-    "status": "available"
+    "status": "available",
+    "module": "modules/functions.js",
+    "area": "Funções",
+    "prerequisites": [
+      "equations1"
+    ],
+    "learningObjectives": [
+      "Reconhecer as ideias centrais de Funções.",
+      "Resolver e interpretar problemas de Funções com justificativa."
+    ],
+    "estimatedMinutes": 28,
+    "tags": [
+      "funções",
+      "em"
+    ],
+    "misconceptions": [
+      "Confundir a variável independente com o valor produzido pela função."
+    ],
+    "lastReviewed": "2026-10-12",
+    "reviewStatus": "em-revisao",
+    "references": [
+      {
+        "title": "Base Nacional Comum Curricular",
+        "type": "documento curricular",
+        "url": "https://basenacionalcomum.mec.gov.br/abase/"
+      }
+    ]
   },
   {
     "id": "inequalities",
     "title": "Inequações",
     "symbol": "<",
     "level": "EM",
-    "status": "available"
+    "status": "available",
+    "module": "modules/inequalities.js",
+    "area": "Álgebra",
+    "prerequisites": [
+      "equations1"
+    ],
+    "learningObjectives": [
+      "Reconhecer as ideias centrais de Inequações.",
+      "Resolver e interpretar problemas de Inequações com justificativa."
+    ],
+    "estimatedMinutes": 28,
+    "tags": [
+      "álgebra",
+      "em",
+      "inequações"
+    ],
+    "misconceptions": [
+      "Aplicar uma transformação sem preservar a equivalência entre as expressões."
+    ],
+    "lastReviewed": "2026-10-12",
+    "reviewStatus": "em-revisao",
+    "references": [
+      {
+        "title": "Base Nacional Comum Curricular",
+        "type": "documento curricular",
+        "url": "https://basenacionalcomum.mec.gov.br/abase/"
+      }
+    ]
   },
   {
     "id": "inverse_func",
     "title": "Função Inversa",
     "symbol": "f⁻¹",
     "level": "EM",
-    "status": "available"
+    "status": "available",
+    "module": "modules/inverse_func.js",
+    "area": "Álgebra",
+    "prerequisites": [],
+    "learningObjectives": [
+      "Reconhecer as ideias centrais de Função Inversa.",
+      "Resolver e interpretar problemas de Função Inversa com justificativa."
+    ],
+    "estimatedMinutes": 28,
+    "tags": [
+      "álgebra",
+      "em",
+      "função",
+      "inversa"
+    ],
+    "misconceptions": [
+      "Aplicar uma transformação sem preservar a equivalência entre as expressões."
+    ],
+    "lastReviewed": "2026-10-12",
+    "reviewStatus": "em-revisao",
+    "references": [
+      {
+        "title": "Base Nacional Comum Curricular",
+        "type": "documento curricular",
+        "url": "https://basenacionalcomum.mec.gov.br/abase/"
+      }
+    ]
   },
   {
     "id": "logarithms",
     "title": "Logaritmos",
     "symbol": "log",
     "level": "EM",
-    "status": "available"
+    "status": "available",
+    "module": "modules/logarithms.js",
+    "area": "Funções",
+    "prerequisites": [
+      "exponential"
+    ],
+    "learningObjectives": [
+      "Reconhecer as ideias centrais de Logaritmos.",
+      "Resolver e interpretar problemas de Logaritmos com justificativa."
+    ],
+    "estimatedMinutes": 28,
+    "tags": [
+      "funções",
+      "em",
+      "logaritmos"
+    ],
+    "misconceptions": [
+      "Confundir a variável independente com o valor produzido pela função."
+    ],
+    "lastReviewed": "2026-10-12",
+    "reviewStatus": "em-revisao",
+    "references": [
+      {
+        "title": "Base Nacional Comum Curricular",
+        "type": "documento curricular",
+        "url": "https://basenacionalcomum.mec.gov.br/abase/"
+      }
+    ]
   },
   {
     "id": "logic",
     "title": "Lógica e Conjuntos",
     "symbol": "∧",
     "level": "EM",
-    "status": "available"
+    "status": "available",
+    "module": "modules/logic.js",
+    "area": "Matemática Discreta",
+    "prerequisites": [],
+    "learningObjectives": [
+      "Reconhecer as ideias centrais de Lógica e Conjuntos.",
+      "Resolver e interpretar problemas de Lógica e Conjuntos com justificativa."
+    ],
+    "estimatedMinutes": 28,
+    "tags": [
+      "matemática discreta",
+      "em",
+      "lógica",
+      "conjuntos"
+    ],
+    "misconceptions": [
+      "Usar um exemplo particular como se fosse uma demonstração geral."
+    ],
+    "lastReviewed": "2026-10-12",
+    "reviewStatus": "em-revisao",
+    "references": [
+      {
+        "title": "Base Nacional Comum Curricular",
+        "type": "documento curricular",
+        "url": "https://basenacionalcomum.mec.gov.br/abase/"
+      }
+    ]
   },
   {
     "id": "matrices",
     "title": "Matrizes",
     "symbol": "M",
     "level": "EM",
-    "status": "available"
+    "status": "available",
+    "module": "modules/matrices.js",
+    "area": "Álgebra",
+    "prerequisites": [
+      "systems"
+    ],
+    "learningObjectives": [
+      "Reconhecer as ideias centrais de Matrizes.",
+      "Resolver e interpretar problemas de Matrizes com justificativa."
+    ],
+    "estimatedMinutes": 28,
+    "tags": [
+      "álgebra",
+      "em",
+      "matrizes"
+    ],
+    "misconceptions": [
+      "Aplicar uma transformação sem preservar a equivalência entre as expressões."
+    ],
+    "lastReviewed": "2026-10-12",
+    "reviewStatus": "em-revisao",
+    "references": [
+      {
+        "title": "Base Nacional Comum Curricular",
+        "type": "documento curricular",
+        "url": "https://basenacionalcomum.mec.gov.br/abase/"
+      }
+    ]
   },
   {
     "id": "modular",
     "title": "Eq. Modulares",
     "symbol": "|x|",
     "level": "EM",
-    "status": "available"
+    "status": "available",
+    "module": "modules/modular.js",
+    "area": "Matemática Discreta",
+    "prerequisites": [],
+    "learningObjectives": [
+      "Reconhecer as ideias centrais de Eq. Modulares.",
+      "Resolver e interpretar problemas de Eq. Modulares com justificativa."
+    ],
+    "estimatedMinutes": 28,
+    "tags": [
+      "matemática discreta",
+      "em",
+      "modulares"
+    ],
+    "misconceptions": [
+      "Usar um exemplo particular como se fosse uma demonstração geral."
+    ],
+    "lastReviewed": "2026-10-12",
+    "reviewStatus": "em-revisao",
+    "references": [
+      {
+        "title": "Base Nacional Comum Curricular",
+        "type": "documento curricular",
+        "url": "https://basenacionalcomum.mec.gov.br/abase/"
+      }
+    ]
   },
   {
     "id": "nonlinear",
     "title": "Sistemas Não-lineares",
     "symbol": "⊗",
     "level": "EM",
-    "status": "available"
+    "status": "available",
+    "module": "modules/nonlinear.js",
+    "area": "Álgebra",
+    "prerequisites": [],
+    "learningObjectives": [
+      "Reconhecer as ideias centrais de Sistemas Não-lineares.",
+      "Resolver e interpretar problemas de Sistemas Não-lineares com justificativa."
+    ],
+    "estimatedMinutes": 28,
+    "tags": [
+      "álgebra",
+      "em",
+      "sistemas",
+      "não-lineares"
+    ],
+    "misconceptions": [
+      "Aplicar uma transformação sem preservar a equivalência entre as expressões."
+    ],
+    "lastReviewed": "2026-10-12",
+    "reviewStatus": "em-revisao",
+    "references": [
+      {
+        "title": "Base Nacional Comum Curricular",
+        "type": "documento curricular",
+        "url": "https://basenacionalcomum.mec.gov.br/abase/"
+      }
+    ]
   },
   {
     "id": "polynomials",
     "title": "Polinômios",
     "symbol": "p",
     "level": "EM",
-    "status": "available"
+    "status": "available",
+    "module": "modules/polynomials.js",
+    "area": "Álgebra",
+    "prerequisites": [
+      "factoring"
+    ],
+    "learningObjectives": [
+      "Reconhecer as ideias centrais de Polinômios.",
+      "Resolver e interpretar problemas de Polinômios com justificativa."
+    ],
+    "estimatedMinutes": 28,
+    "tags": [
+      "álgebra",
+      "em",
+      "polinômios"
+    ],
+    "misconceptions": [
+      "Aplicar uma transformação sem preservar a equivalência entre as expressões."
+    ],
+    "lastReviewed": "2026-10-12",
+    "reviewStatus": "em-revisao",
+    "references": [
+      {
+        "title": "Base Nacional Comum Curricular",
+        "type": "documento curricular",
+        "url": "https://basenacionalcomum.mec.gov.br/abase/"
+      }
+    ]
   },
   {
     "id": "prob_advanced",
     "title": "Probabilidade Avançada",
     "symbol": "P|",
     "level": "EM",
-    "status": "available"
+    "status": "available",
+    "module": "modules/prob_advanced.js",
+    "area": "Estatística",
+    "prerequisites": [],
+    "learningObjectives": [
+      "Reconhecer as ideias centrais de Probabilidade Avançada.",
+      "Resolver e interpretar problemas de Probabilidade Avançada com justificativa."
+    ],
+    "estimatedMinutes": 28,
+    "tags": [
+      "estatística",
+      "em",
+      "probabilidade",
+      "avançada"
+    ],
+    "misconceptions": [
+      "Interpretar frequência, associação ou probabilidade como certeza causal."
+    ],
+    "lastReviewed": "2026-10-12",
+    "reviewStatus": "em-revisao",
+    "references": [
+      {
+        "title": "Base Nacional Comum Curricular",
+        "type": "documento curricular",
+        "url": "https://basenacionalcomum.mec.gov.br/abase/"
+      }
+    ]
   },
   {
     "id": "probability",
     "title": "Probabilidade",
     "symbol": "P",
     "level": "EM",
-    "status": "available"
+    "status": "available",
+    "module": "modules/probability.js",
+    "area": "Estatística",
+    "prerequisites": [
+      "fractions"
+    ],
+    "learningObjectives": [
+      "Reconhecer as ideias centrais de Probabilidade.",
+      "Resolver e interpretar problemas de Probabilidade com justificativa."
+    ],
+    "estimatedMinutes": 28,
+    "tags": [
+      "estatística",
+      "em",
+      "probabilidade"
+    ],
+    "misconceptions": [
+      "Interpretar frequência, associação ou probabilidade como certeza causal."
+    ],
+    "lastReviewed": "2026-10-12",
+    "reviewStatus": "em-revisao",
+    "references": [
+      {
+        "title": "Base Nacional Comum Curricular",
+        "type": "documento curricular",
+        "url": "https://basenacionalcomum.mec.gov.br/abase/"
+      }
+    ]
   },
   {
     "id": "progressions",
     "title": "Progressões (PA/PG)",
     "symbol": "∑",
     "level": "EM",
-    "status": "available"
+    "status": "available",
+    "module": "modules/progressions.js",
+    "area": "Álgebra",
+    "prerequisites": [
+      "functions"
+    ],
+    "learningObjectives": [
+      "Reconhecer as ideias centrais de Progressões (PA/PG).",
+      "Resolver e interpretar problemas de Progressões (PA/PG) com justificativa."
+    ],
+    "estimatedMinutes": 28,
+    "tags": [
+      "álgebra",
+      "em",
+      "progressões",
+      "(pa/pg)"
+    ],
+    "misconceptions": [
+      "Aplicar uma transformação sem preservar a equivalência entre as expressões."
+    ],
+    "lastReviewed": "2026-10-12",
+    "reviewStatus": "em-revisao",
+    "references": [
+      {
+        "title": "Base Nacional Comum Curricular",
+        "type": "documento curricular",
+        "url": "https://basenacionalcomum.mec.gov.br/abase/"
+      }
+    ]
   },
   {
     "id": "real_numbers",
     "title": "Números Reais",
     "symbol": "ℝ",
     "level": "EM",
-    "status": "available"
+    "status": "available",
+    "module": "modules/real_numbers.js",
+    "area": "Álgebra",
+    "prerequisites": [],
+    "learningObjectives": [
+      "Reconhecer as ideias centrais de Números Reais.",
+      "Resolver e interpretar problemas de Números Reais com justificativa."
+    ],
+    "estimatedMinutes": 28,
+    "tags": [
+      "álgebra",
+      "em",
+      "números",
+      "reais"
+    ],
+    "misconceptions": [
+      "Aplicar uma transformação sem preservar a equivalência entre as expressões."
+    ],
+    "lastReviewed": "2026-10-12",
+    "reviewStatus": "em-revisao",
+    "references": [
+      {
+        "title": "Base Nacional Comum Curricular",
+        "type": "documento curricular",
+        "url": "https://basenacionalcomum.mec.gov.br/abase/"
+      }
+    ]
   },
   {
     "id": "series",
     "title": "Sequências e Séries",
     "symbol": "∞",
     "level": "EM",
-    "status": "available"
+    "status": "available",
+    "module": "modules/series.js",
+    "area": "Cálculo",
+    "prerequisites": [],
+    "learningObjectives": [
+      "Reconhecer as ideias centrais de Sequências e Séries.",
+      "Resolver e interpretar problemas de Sequências e Séries com justificativa."
+    ],
+    "estimatedMinutes": 28,
+    "tags": [
+      "cálculo",
+      "em",
+      "sequências",
+      "séries"
+    ],
+    "misconceptions": [
+      "Aplicar uma regra sem verificar domínio, hipótese ou constante de integração."
+    ],
+    "lastReviewed": "2026-10-12",
+    "reviewStatus": "em-revisao",
+    "references": [
+      {
+        "title": "Base Nacional Comum Curricular",
+        "type": "documento curricular",
+        "url": "https://basenacionalcomum.mec.gov.br/abase/"
+      }
+    ]
   },
   {
     "id": "statistics",
     "title": "Estatística Avançada",
     "symbol": "σ²",
     "level": "EM",
-    "status": "available"
+    "status": "available",
+    "module": "modules/statistics.js",
+    "area": "Estatística",
+    "prerequisites": [
+      "dataanalysis",
+      "probability"
+    ],
+    "learningObjectives": [
+      "Reconhecer as ideias centrais de Estatística Avançada.",
+      "Resolver e interpretar problemas de Estatística Avançada com justificativa."
+    ],
+    "estimatedMinutes": 28,
+    "tags": [
+      "estatística",
+      "em",
+      "avançada"
+    ],
+    "misconceptions": [
+      "Interpretar frequência, associação ou probabilidade como certeza causal."
+    ],
+    "lastReviewed": "2026-10-12",
+    "reviewStatus": "em-revisao",
+    "references": [
+      {
+        "title": "Base Nacional Comum Curricular",
+        "type": "documento curricular",
+        "url": "https://basenacionalcomum.mec.gov.br/abase/"
+      }
+    ]
   },
   {
     "id": "trig",
     "title": "Trigonometria",
     "symbol": "θ",
     "level": "EM",
-    "status": "available"
+    "status": "available",
+    "module": "modules/trig.js",
+    "area": "Funções",
+    "prerequisites": [
+      "angles",
+      "similarity"
+    ],
+    "learningObjectives": [
+      "Reconhecer as ideias centrais de Trigonometria.",
+      "Resolver e interpretar problemas de Trigonometria com justificativa."
+    ],
+    "estimatedMinutes": 28,
+    "tags": [
+      "funções",
+      "em",
+      "trigonometria"
+    ],
+    "misconceptions": [
+      "Confundir a variável independente com o valor produzido pela função."
+    ],
+    "lastReviewed": "2026-10-12",
+    "reviewStatus": "em-revisao",
+    "references": [
+      {
+        "title": "Base Nacional Comum Curricular",
+        "type": "documento curricular",
+        "url": "https://basenacionalcomum.mec.gov.br/abase/"
+      }
+    ]
   },
   {
     "id": "trig_circle",
     "title": "Trig. Círculo Unitário",
     "symbol": "○",
     "level": "EM",
-    "status": "available"
+    "status": "available",
+    "module": "modules/trig_circle.js",
+    "area": "Funções",
+    "prerequisites": [
+      "trig"
+    ],
+    "learningObjectives": [
+      "Reconhecer as ideias centrais de Trig. Círculo Unitário.",
+      "Resolver e interpretar problemas de Trig. Círculo Unitário com justificativa."
+    ],
+    "estimatedMinutes": 28,
+    "tags": [
+      "funções",
+      "em",
+      "trig.",
+      "círculo",
+      "unitário"
+    ],
+    "misconceptions": [
+      "Confundir a variável independente com o valor produzido pela função."
+    ],
+    "lastReviewed": "2026-10-12",
+    "reviewStatus": "em-revisao",
+    "references": [
+      {
+        "title": "Base Nacional Comum Curricular",
+        "type": "documento curricular",
+        "url": "https://basenacionalcomum.mec.gov.br/abase/"
+      }
+    ]
   },
   {
     "id": "trig_graphs",
     "title": "Trig. Gráficos",
     "symbol": "∿",
     "level": "EM",
-    "status": "available"
+    "status": "available",
+    "module": "modules/trig_graphs.js",
+    "area": "Funções",
+    "prerequisites": [
+      "trig_circle"
+    ],
+    "learningObjectives": [
+      "Reconhecer as ideias centrais de Trig. Gráficos.",
+      "Resolver e interpretar problemas de Trig. Gráficos com justificativa."
+    ],
+    "estimatedMinutes": 28,
+    "tags": [
+      "funções",
+      "em",
+      "trig.",
+      "gráficos"
+    ],
+    "misconceptions": [
+      "Confundir a variável independente com o valor produzido pela função."
+    ],
+    "lastReviewed": "2026-10-12",
+    "reviewStatus": "em-revisao",
+    "references": [
+      {
+        "title": "Base Nacional Comum Curricular",
+        "type": "documento curricular",
+        "url": "https://basenacionalcomum.mec.gov.br/abase/"
+      }
+    ]
   },
   {
     "id": "vectors",
     "title": "Vetores",
     "symbol": "→",
     "level": "EM",
-    "status": "available"
+    "status": "available",
+    "module": "modules/vectors.js",
+    "area": "Geometria",
+    "prerequisites": [
+      "cartesian"
+    ],
+    "learningObjectives": [
+      "Reconhecer as ideias centrais de Vetores.",
+      "Resolver e interpretar problemas de Vetores com justificativa."
+    ],
+    "estimatedMinutes": 28,
+    "tags": [
+      "geometria",
+      "em",
+      "vetores"
+    ],
+    "misconceptions": [
+      "Confundir medidas lineares, angulares, de área e de volume."
+    ],
+    "lastReviewed": "2026-10-12",
+    "reviewStatus": "em-revisao",
+    "references": [
+      {
+        "title": "Base Nacional Comum Curricular",
+        "type": "documento curricular",
+        "url": "https://basenacionalcomum.mec.gov.br/abase/"
+      }
+    ]
   },
   {
     "id": "calc_limits",
@@ -334,7 +1581,34 @@
     "symbol": "lim",
     "level": "ES",
     "group": "Cálculo I",
-    "status": "available"
+    "status": "available",
+    "module": "modules/calc_limits.js",
+    "area": "Cálculo",
+    "prerequisites": [
+      "functions"
+    ],
+    "learningObjectives": [
+      "Reconhecer as ideias centrais de Limites.",
+      "Resolver e interpretar problemas de Limites com justificativa."
+    ],
+    "estimatedMinutes": 35,
+    "tags": [
+      "cálculo",
+      "es",
+      "limites"
+    ],
+    "misconceptions": [
+      "Aplicar uma regra sem verificar domínio, hipótese ou constante de integração."
+    ],
+    "lastReviewed": "2026-10-12",
+    "reviewStatus": "em-revisao",
+    "references": [
+      {
+        "title": "OpenStax Calculus",
+        "type": "livro aberto",
+        "url": "https://openstax.org/details/books/calculus-volume-1"
+      }
+    ]
   },
   {
     "id": "derivatives",
@@ -342,7 +1616,34 @@
     "symbol": "f'",
     "level": "ES",
     "group": "Cálculo I",
-    "status": "available"
+    "status": "available",
+    "module": "modules/derivatives.js",
+    "area": "Cálculo",
+    "prerequisites": [
+      "calc_limits"
+    ],
+    "learningObjectives": [
+      "Reconhecer as ideias centrais de Derivadas.",
+      "Resolver e interpretar problemas de Derivadas com justificativa."
+    ],
+    "estimatedMinutes": 35,
+    "tags": [
+      "cálculo",
+      "es",
+      "derivadas"
+    ],
+    "misconceptions": [
+      "Aplicar uma regra sem verificar domínio, hipótese ou constante de integração."
+    ],
+    "lastReviewed": "2026-10-12",
+    "reviewStatus": "em-revisao",
+    "references": [
+      {
+        "title": "OpenStax Calculus",
+        "type": "livro aberto",
+        "url": "https://openstax.org/details/books/calculus-volume-1"
+      }
+    ]
   },
   {
     "id": "curve_analysis",
@@ -350,7 +1651,35 @@
     "symbol": "f''",
     "level": "ES",
     "group": "Cálculo I",
-    "status": "available"
+    "status": "available",
+    "module": "modules/curve_analysis.js",
+    "area": "Álgebra",
+    "prerequisites": [
+      "derivatives"
+    ],
+    "learningObjectives": [
+      "Reconhecer as ideias centrais de Análise de Curvas.",
+      "Resolver e interpretar problemas de Análise de Curvas com justificativa."
+    ],
+    "estimatedMinutes": 35,
+    "tags": [
+      "álgebra",
+      "es",
+      "análise",
+      "curvas"
+    ],
+    "misconceptions": [
+      "Aplicar uma transformação sem preservar a equivalência entre as expressões."
+    ],
+    "lastReviewed": "2026-10-12",
+    "reviewStatus": "em-revisao",
+    "references": [
+      {
+        "title": "OpenStax Calculus",
+        "type": "livro aberto",
+        "url": "https://openstax.org/details/books/calculus-volume-1"
+      }
+    ]
   },
   {
     "id": "optimization",
@@ -358,7 +1687,34 @@
     "symbol": "max",
     "level": "ES",
     "group": "Cálculo I",
-    "status": "available"
+    "status": "available",
+    "module": "modules/optimization.js",
+    "area": "Cálculo",
+    "prerequisites": [
+      "curve_analysis"
+    ],
+    "learningObjectives": [
+      "Reconhecer as ideias centrais de Otimização.",
+      "Resolver e interpretar problemas de Otimização com justificativa."
+    ],
+    "estimatedMinutes": 35,
+    "tags": [
+      "cálculo",
+      "es",
+      "otimização"
+    ],
+    "misconceptions": [
+      "Aplicar uma regra sem verificar domínio, hipótese ou constante de integração."
+    ],
+    "lastReviewed": "2026-10-12",
+    "reviewStatus": "em-revisao",
+    "references": [
+      {
+        "title": "OpenStax Calculus",
+        "type": "livro aberto",
+        "url": "https://openstax.org/details/books/calculus-volume-1"
+      }
+    ]
   },
   {
     "id": "integrals",
@@ -366,7 +1722,34 @@
     "symbol": "∫",
     "level": "ES",
     "group": "Cálculo II",
-    "status": "available"
+    "status": "available",
+    "module": "modules/integrals.js",
+    "area": "Cálculo",
+    "prerequisites": [
+      "derivatives"
+    ],
+    "learningObjectives": [
+      "Reconhecer as ideias centrais de Integrais.",
+      "Resolver e interpretar problemas de Integrais com justificativa."
+    ],
+    "estimatedMinutes": 35,
+    "tags": [
+      "cálculo",
+      "es",
+      "integrais"
+    ],
+    "misconceptions": [
+      "Aplicar uma regra sem verificar domínio, hipótese ou constante de integração."
+    ],
+    "lastReviewed": "2026-10-12",
+    "reviewStatus": "em-revisao",
+    "references": [
+      {
+        "title": "OpenStax Calculus",
+        "type": "livro aberto",
+        "url": "https://openstax.org/details/books/calculus-volume-1"
+      }
+    ]
   },
   {
     "id": "definite_integrals",
@@ -374,7 +1757,35 @@
     "symbol": "∫ᵃᵇ",
     "level": "ES",
     "group": "Cálculo II",
-    "status": "available"
+    "status": "available",
+    "module": "modules/definite_integrals.js",
+    "area": "Cálculo",
+    "prerequisites": [
+      "integrals"
+    ],
+    "learningObjectives": [
+      "Reconhecer as ideias centrais de Integrais Definidas.",
+      "Resolver e interpretar problemas de Integrais Definidas com justificativa."
+    ],
+    "estimatedMinutes": 35,
+    "tags": [
+      "cálculo",
+      "es",
+      "integrais",
+      "definidas"
+    ],
+    "misconceptions": [
+      "Aplicar uma regra sem verificar domínio, hipótese ou constante de integração."
+    ],
+    "lastReviewed": "2026-10-12",
+    "reviewStatus": "em-revisao",
+    "references": [
+      {
+        "title": "OpenStax Calculus",
+        "type": "livro aberto",
+        "url": "https://openstax.org/details/books/calculus-volume-1"
+      }
+    ]
   },
   {
     "id": "series_calc",
@@ -382,7 +1793,36 @@
     "symbol": "Σ∞",
     "level": "ES",
     "group": "Cálculo II",
-    "status": "available"
+    "status": "available",
+    "module": "modules/series_calc.js",
+    "area": "Cálculo",
+    "prerequisites": [
+      "calc_limits",
+      "series"
+    ],
+    "learningObjectives": [
+      "Reconhecer as ideias centrais de Séries e Convergência.",
+      "Resolver e interpretar problemas de Séries e Convergência com justificativa."
+    ],
+    "estimatedMinutes": 35,
+    "tags": [
+      "cálculo",
+      "es",
+      "séries",
+      "convergência"
+    ],
+    "misconceptions": [
+      "Aplicar uma regra sem verificar domínio, hipótese ou constante de integração."
+    ],
+    "lastReviewed": "2026-10-12",
+    "reviewStatus": "em-revisao",
+    "references": [
+      {
+        "title": "OpenStax Calculus",
+        "type": "livro aberto",
+        "url": "https://openstax.org/details/books/calculus-volume-1"
+      }
+    ]
   },
   {
     "id": "partial_deriv",
@@ -390,7 +1830,35 @@
     "symbol": "∂",
     "level": "ES",
     "group": "Cálculo III",
-    "status": "available"
+    "status": "available",
+    "module": "modules/partial_deriv.js",
+    "area": "Cálculo",
+    "prerequisites": [
+      "derivatives"
+    ],
+    "learningObjectives": [
+      "Reconhecer as ideias centrais de Derivadas Parciais.",
+      "Resolver e interpretar problemas de Derivadas Parciais com justificativa."
+    ],
+    "estimatedMinutes": 35,
+    "tags": [
+      "cálculo",
+      "es",
+      "derivadas",
+      "parciais"
+    ],
+    "misconceptions": [
+      "Aplicar uma regra sem verificar domínio, hipótese ou constante de integração."
+    ],
+    "lastReviewed": "2026-10-12",
+    "reviewStatus": "em-revisao",
+    "references": [
+      {
+        "title": "OpenStax Calculus",
+        "type": "livro aberto",
+        "url": "https://openstax.org/details/books/calculus-volume-1"
+      }
+    ]
   },
   {
     "id": "multiple_integrals",
@@ -398,7 +1866,36 @@
     "symbol": "∬",
     "level": "ES",
     "group": "Cálculo III",
-    "status": "available"
+    "status": "available",
+    "module": "modules/multiple_integrals.js",
+    "area": "Cálculo",
+    "prerequisites": [
+      "integrals",
+      "partial_deriv"
+    ],
+    "learningObjectives": [
+      "Reconhecer as ideias centrais de Integrais Múltiplas.",
+      "Resolver e interpretar problemas de Integrais Múltiplas com justificativa."
+    ],
+    "estimatedMinutes": 35,
+    "tags": [
+      "cálculo",
+      "es",
+      "integrais",
+      "múltiplas"
+    ],
+    "misconceptions": [
+      "Aplicar uma regra sem verificar domínio, hipótese ou constante de integração."
+    ],
+    "lastReviewed": "2026-10-12",
+    "reviewStatus": "em-revisao",
+    "references": [
+      {
+        "title": "OpenStax Calculus",
+        "type": "livro aberto",
+        "url": "https://openstax.org/details/books/calculus-volume-1"
+      }
+    ]
   },
   {
     "id": "vector_calc",
@@ -406,7 +1903,36 @@
     "symbol": "∇",
     "level": "ES",
     "group": "Cálculo III",
-    "status": "available"
+    "status": "available",
+    "module": "modules/vector_calc.js",
+    "area": "Geometria",
+    "prerequisites": [
+      "vectors",
+      "partial_deriv"
+    ],
+    "learningObjectives": [
+      "Reconhecer as ideias centrais de Cálculo Vetorial.",
+      "Resolver e interpretar problemas de Cálculo Vetorial com justificativa."
+    ],
+    "estimatedMinutes": 35,
+    "tags": [
+      "geometria",
+      "es",
+      "cálculo",
+      "vetorial"
+    ],
+    "misconceptions": [
+      "Confundir medidas lineares, angulares, de área e de volume."
+    ],
+    "lastReviewed": "2026-10-12",
+    "reviewStatus": "em-revisao",
+    "references": [
+      {
+        "title": "OpenStax Calculus",
+        "type": "livro aberto",
+        "url": "https://openstax.org/details/books/calculus-volume-1"
+      }
+    ]
   },
   {
     "id": "gauss_elim",
@@ -414,7 +1940,36 @@
     "symbol": "[A|b]",
     "level": "ES",
     "group": "Álgebra Linear",
-    "status": "available"
+    "status": "available",
+    "module": "modules/gauss_elim.js",
+    "area": "Álgebra",
+    "prerequisites": [
+      "matrices",
+      "systems"
+    ],
+    "learningObjectives": [
+      "Reconhecer as ideias centrais de Eliminação de Gauss.",
+      "Resolver e interpretar problemas de Eliminação de Gauss com justificativa."
+    ],
+    "estimatedMinutes": 35,
+    "tags": [
+      "álgebra",
+      "es",
+      "eliminação",
+      "gauss"
+    ],
+    "misconceptions": [
+      "Aplicar uma transformação sem preservar a equivalência entre as expressões."
+    ],
+    "lastReviewed": "2026-10-12",
+    "reviewStatus": "em-revisao",
+    "references": [
+      {
+        "title": "OpenStax Calculus",
+        "type": "livro aberto",
+        "url": "https://openstax.org/details/books/calculus-volume-1"
+      }
+    ]
   },
   {
     "id": "vector_spaces",
@@ -422,7 +1977,35 @@
     "symbol": "V",
     "level": "ES",
     "group": "Álgebra Linear",
-    "status": "available"
+    "status": "available",
+    "module": "modules/vector_spaces.js",
+    "area": "Geometria",
+    "prerequisites": [
+      "vectors"
+    ],
+    "learningObjectives": [
+      "Reconhecer as ideias centrais de Espaços Vetoriais.",
+      "Resolver e interpretar problemas de Espaços Vetoriais com justificativa."
+    ],
+    "estimatedMinutes": 35,
+    "tags": [
+      "geometria",
+      "es",
+      "espaços",
+      "vetoriais"
+    ],
+    "misconceptions": [
+      "Confundir medidas lineares, angulares, de área e de volume."
+    ],
+    "lastReviewed": "2026-10-12",
+    "reviewStatus": "em-revisao",
+    "references": [
+      {
+        "title": "OpenStax Calculus",
+        "type": "livro aberto",
+        "url": "https://openstax.org/details/books/calculus-volume-1"
+      }
+    ]
   },
   {
     "id": "lin_transformations",
@@ -430,7 +2013,36 @@
     "symbol": "T",
     "level": "ES",
     "group": "Álgebra Linear",
-    "status": "available"
+    "status": "available",
+    "module": "modules/lin_transformations.js",
+    "area": "Álgebra",
+    "prerequisites": [
+      "vector_spaces",
+      "matrices"
+    ],
+    "learningObjectives": [
+      "Reconhecer as ideias centrais de Transformações Lineares.",
+      "Resolver e interpretar problemas de Transformações Lineares com justificativa."
+    ],
+    "estimatedMinutes": 35,
+    "tags": [
+      "álgebra",
+      "es",
+      "transformações",
+      "lineares"
+    ],
+    "misconceptions": [
+      "Aplicar uma transformação sem preservar a equivalência entre as expressões."
+    ],
+    "lastReviewed": "2026-10-12",
+    "reviewStatus": "em-revisao",
+    "references": [
+      {
+        "title": "OpenStax Calculus",
+        "type": "livro aberto",
+        "url": "https://openstax.org/details/books/calculus-volume-1"
+      }
+    ]
   },
   {
     "id": "eigenvalues_adv",
@@ -438,7 +2050,35 @@
     "symbol": "λ",
     "level": "ES",
     "group": "Álgebra Linear",
-    "status": "available"
+    "status": "available",
+    "module": "modules/eigenvalues_adv.js",
+    "area": "Álgebra",
+    "prerequisites": [
+      "lin_transformations"
+    ],
+    "learningObjectives": [
+      "Reconhecer as ideias centrais de Autovalores e Autovetores.",
+      "Resolver e interpretar problemas de Autovalores e Autovetores com justificativa."
+    ],
+    "estimatedMinutes": 35,
+    "tags": [
+      "álgebra",
+      "es",
+      "autovalores",
+      "autovetores"
+    ],
+    "misconceptions": [
+      "Aplicar uma transformação sem preservar a equivalência entre as expressões."
+    ],
+    "lastReviewed": "2026-10-12",
+    "reviewStatus": "em-revisao",
+    "references": [
+      {
+        "title": "OpenStax Calculus",
+        "type": "livro aberto",
+        "url": "https://openstax.org/details/books/calculus-volume-1"
+      }
+    ]
   },
   {
     "id": "ode_first",
@@ -446,7 +2086,35 @@
     "symbol": "y'",
     "level": "ES",
     "group": "EDO",
-    "status": "available"
+    "status": "available",
+    "module": "modules/ode_first.js",
+    "area": "Cálculo",
+    "prerequisites": [
+      "integrals",
+      "derivatives"
+    ],
+    "learningObjectives": [
+      "Reconhecer as ideias centrais de EDO de 1ª Ordem.",
+      "Resolver e interpretar problemas de EDO de 1ª Ordem com justificativa."
+    ],
+    "estimatedMinutes": 35,
+    "tags": [
+      "cálculo",
+      "es",
+      "ordem"
+    ],
+    "misconceptions": [
+      "Aplicar uma regra sem verificar domínio, hipótese ou constante de integração."
+    ],
+    "lastReviewed": "2026-10-12",
+    "reviewStatus": "em-revisao",
+    "references": [
+      {
+        "title": "OpenStax Calculus",
+        "type": "livro aberto",
+        "url": "https://openstax.org/details/books/calculus-volume-1"
+      }
+    ]
   },
   {
     "id": "ode_second",
@@ -454,7 +2122,34 @@
     "symbol": "y''",
     "level": "ES",
     "group": "EDO",
-    "status": "available"
+    "status": "available",
+    "module": "modules/ode_second.js",
+    "area": "Cálculo",
+    "prerequisites": [
+      "ode_first"
+    ],
+    "learningObjectives": [
+      "Reconhecer as ideias centrais de EDO de 2ª Ordem.",
+      "Resolver e interpretar problemas de EDO de 2ª Ordem com justificativa."
+    ],
+    "estimatedMinutes": 35,
+    "tags": [
+      "cálculo",
+      "es",
+      "ordem"
+    ],
+    "misconceptions": [
+      "Aplicar uma regra sem verificar domínio, hipótese ou constante de integração."
+    ],
+    "lastReviewed": "2026-10-12",
+    "reviewStatus": "em-revisao",
+    "references": [
+      {
+        "title": "OpenStax Calculus",
+        "type": "livro aberto",
+        "url": "https://openstax.org/details/books/calculus-volume-1"
+      }
+    ]
   },
   {
     "id": "distributions",
@@ -462,7 +2157,36 @@
     "symbol": "φ",
     "level": "ES",
     "group": "Prob & Estat",
-    "status": "available"
+    "status": "available",
+    "module": "modules/distributions.js",
+    "area": "Estatística",
+    "prerequisites": [
+      "probability",
+      "calculus"
+    ],
+    "learningObjectives": [
+      "Reconhecer as ideias centrais de Distribuições Contínuas.",
+      "Resolver e interpretar problemas de Distribuições Contínuas com justificativa."
+    ],
+    "estimatedMinutes": 35,
+    "tags": [
+      "estatística",
+      "es",
+      "distribuições",
+      "contínuas"
+    ],
+    "misconceptions": [
+      "Interpretar frequência, associação ou probabilidade como certeza causal."
+    ],
+    "lastReviewed": "2026-10-12",
+    "reviewStatus": "em-revisao",
+    "references": [
+      {
+        "title": "OpenStax Calculus",
+        "type": "livro aberto",
+        "url": "https://openstax.org/details/books/calculus-volume-1"
+      }
+    ]
   },
   {
     "id": "inference",
@@ -470,7 +2194,34 @@
     "symbol": "H₀",
     "level": "ES",
     "group": "Prob & Estat",
-    "status": "available"
+    "status": "available",
+    "module": "modules/inference.js",
+    "area": "Estatística",
+    "prerequisites": [
+      "distributions"
+    ],
+    "learningObjectives": [
+      "Reconhecer as ideias centrais de Inferência Estatística.",
+      "Resolver e interpretar problemas de Inferência Estatística com justificativa."
+    ],
+    "estimatedMinutes": 35,
+    "tags": [
+      "estatística",
+      "es",
+      "inferência"
+    ],
+    "misconceptions": [
+      "Interpretar frequência, associação ou probabilidade como certeza causal."
+    ],
+    "lastReviewed": "2026-10-12",
+    "reviewStatus": "em-revisao",
+    "references": [
+      {
+        "title": "OpenStax Calculus",
+        "type": "livro aberto",
+        "url": "https://openstax.org/details/books/calculus-volume-1"
+      }
+    ]
   },
   {
     "id": "regression",
@@ -478,7 +2229,35 @@
     "symbol": "ŷ",
     "level": "ES",
     "group": "Prob & Estat",
-    "status": "available"
+    "status": "available",
+    "module": "modules/regression.js",
+    "area": "Estatística",
+    "prerequisites": [
+      "statistics"
+    ],
+    "learningObjectives": [
+      "Reconhecer as ideias centrais de Regressão Linear.",
+      "Resolver e interpretar problemas de Regressão Linear com justificativa."
+    ],
+    "estimatedMinutes": 35,
+    "tags": [
+      "estatística",
+      "es",
+      "regressão",
+      "linear"
+    ],
+    "misconceptions": [
+      "Interpretar frequência, associação ou probabilidade como certeza causal."
+    ],
+    "lastReviewed": "2026-10-12",
+    "reviewStatus": "em-revisao",
+    "references": [
+      {
+        "title": "OpenStax Calculus",
+        "type": "livro aberto",
+        "url": "https://openstax.org/details/books/calculus-volume-1"
+      }
+    ]
   },
   {
     "id": "newton_raphson",
@@ -486,7 +2265,34 @@
     "symbol": "x*",
     "level": "ES",
     "group": "Cálculo Numérico",
-    "status": "available"
+    "status": "available",
+    "module": "modules/newton_raphson.js",
+    "area": "Cálculo",
+    "prerequisites": [
+      "derivatives"
+    ],
+    "learningObjectives": [
+      "Reconhecer as ideias centrais de Newton-Raphson.",
+      "Resolver e interpretar problemas de Newton-Raphson com justificativa."
+    ],
+    "estimatedMinutes": 35,
+    "tags": [
+      "cálculo",
+      "es",
+      "newton-raphson"
+    ],
+    "misconceptions": [
+      "Aplicar uma regra sem verificar domínio, hipótese ou constante de integração."
+    ],
+    "lastReviewed": "2026-10-12",
+    "reviewStatus": "em-revisao",
+    "references": [
+      {
+        "title": "OpenStax Calculus",
+        "type": "livro aberto",
+        "url": "https://openstax.org/details/books/calculus-volume-1"
+      }
+    ]
   },
   {
     "id": "numeric_integ",
@@ -494,7 +2300,35 @@
     "symbol": "∫≈",
     "level": "ES",
     "group": "Cálculo Numérico",
-    "status": "available"
+    "status": "available",
+    "module": "modules/numeric_integ.js",
+    "area": "Álgebra",
+    "prerequisites": [
+      "definite_integrals"
+    ],
+    "learningObjectives": [
+      "Reconhecer as ideias centrais de Integração Numérica.",
+      "Resolver e interpretar problemas de Integração Numérica com justificativa."
+    ],
+    "estimatedMinutes": 35,
+    "tags": [
+      "álgebra",
+      "es",
+      "integração",
+      "numérica"
+    ],
+    "misconceptions": [
+      "Aplicar uma transformação sem preservar a equivalência entre as expressões."
+    ],
+    "lastReviewed": "2026-10-12",
+    "reviewStatus": "em-revisao",
+    "references": [
+      {
+        "title": "OpenStax Calculus",
+        "type": "livro aberto",
+        "url": "https://openstax.org/details/books/calculus-volume-1"
+      }
+    ]
   },
   {
     "id": "euler_method",
@@ -502,7 +2336,35 @@
     "symbol": "yₙ",
     "level": "ES",
     "group": "Cálculo Numérico",
-    "status": "available"
+    "status": "available",
+    "module": "modules/euler_method.js",
+    "area": "Cálculo",
+    "prerequisites": [
+      "ode_first"
+    ],
+    "learningObjectives": [
+      "Reconhecer as ideias centrais de Método de Euler.",
+      "Resolver e interpretar problemas de Método de Euler com justificativa."
+    ],
+    "estimatedMinutes": 35,
+    "tags": [
+      "cálculo",
+      "es",
+      "método",
+      "euler"
+    ],
+    "misconceptions": [
+      "Aplicar uma regra sem verificar domínio, hipótese ou constante de integração."
+    ],
+    "lastReviewed": "2026-10-12",
+    "reviewStatus": "em-revisao",
+    "references": [
+      {
+        "title": "OpenStax Calculus",
+        "type": "livro aberto",
+        "url": "https://openstax.org/details/books/calculus-volume-1"
+      }
+    ]
   },
   {
     "id": "gram_schmidt",
@@ -510,7 +2372,34 @@
     "symbol": "Q",
     "level": "ES",
     "group": "Álgebra Linear",
-    "status": "available"
+    "status": "available",
+    "module": "modules/gram_schmidt.js",
+    "area": "Álgebra",
+    "prerequisites": [
+      "vector_spaces"
+    ],
+    "learningObjectives": [
+      "Reconhecer as ideias centrais de Gram-Schmidt.",
+      "Resolver e interpretar problemas de Gram-Schmidt com justificativa."
+    ],
+    "estimatedMinutes": 35,
+    "tags": [
+      "álgebra",
+      "es",
+      "gram-schmidt"
+    ],
+    "misconceptions": [
+      "Aplicar uma transformação sem preservar a equivalência entre as expressões."
+    ],
+    "lastReviewed": "2026-10-12",
+    "reviewStatus": "em-revisao",
+    "references": [
+      {
+        "title": "OpenStax Calculus",
+        "type": "livro aberto",
+        "url": "https://openstax.org/details/books/calculus-volume-1"
+      }
+    ]
   },
   {
     "id": "lu_factoring",
@@ -518,7 +2407,34 @@
     "symbol": "LU",
     "level": "ES",
     "group": "Álgebra Linear",
-    "status": "available"
+    "status": "available",
+    "module": "modules/lu_factoring.js",
+    "area": "Álgebra",
+    "prerequisites": [
+      "gauss_elim"
+    ],
+    "learningObjectives": [
+      "Reconhecer as ideias centrais de Fatoração LU.",
+      "Resolver e interpretar problemas de Fatoração LU com justificativa."
+    ],
+    "estimatedMinutes": 35,
+    "tags": [
+      "álgebra",
+      "es",
+      "fatoração"
+    ],
+    "misconceptions": [
+      "Aplicar uma transformação sem preservar a equivalência entre as expressões."
+    ],
+    "lastReviewed": "2026-10-12",
+    "reviewStatus": "em-revisao",
+    "references": [
+      {
+        "title": "OpenStax Calculus",
+        "type": "livro aberto",
+        "url": "https://openstax.org/details/books/calculus-volume-1"
+      }
+    ]
   },
   {
     "id": "quadratic_forms",
@@ -526,7 +2442,35 @@
     "symbol": "xᵀAx",
     "level": "ES",
     "group": "Álgebra Linear",
-    "status": "available"
+    "status": "available",
+    "module": "modules/quadratic_forms.js",
+    "area": "Álgebra",
+    "prerequisites": [
+      "eigenvalues_adv"
+    ],
+    "learningObjectives": [
+      "Reconhecer as ideias centrais de Formas Quadráticas.",
+      "Resolver e interpretar problemas de Formas Quadráticas com justificativa."
+    ],
+    "estimatedMinutes": 35,
+    "tags": [
+      "álgebra",
+      "es",
+      "formas",
+      "quadráticas"
+    ],
+    "misconceptions": [
+      "Aplicar uma transformação sem preservar a equivalência entre as expressões."
+    ],
+    "lastReviewed": "2026-10-12",
+    "reviewStatus": "em-revisao",
+    "references": [
+      {
+        "title": "OpenStax Calculus",
+        "type": "livro aberto",
+        "url": "https://openstax.org/details/books/calculus-volume-1"
+      }
+    ]
   },
   {
     "id": "laplace",
@@ -534,7 +2478,36 @@
     "symbol": "ℒ",
     "level": "ES",
     "group": "Transformadas",
-    "status": "available"
+    "status": "available",
+    "module": "modules/laplace.js",
+    "area": "Cálculo",
+    "prerequisites": [
+      "ode_second",
+      "integrals"
+    ],
+    "learningObjectives": [
+      "Reconhecer as ideias centrais de Transformada de Laplace.",
+      "Resolver e interpretar problemas de Transformada de Laplace com justificativa."
+    ],
+    "estimatedMinutes": 35,
+    "tags": [
+      "cálculo",
+      "es",
+      "transformada",
+      "laplace"
+    ],
+    "misconceptions": [
+      "Aplicar uma regra sem verificar domínio, hipótese ou constante de integração."
+    ],
+    "lastReviewed": "2026-10-12",
+    "reviewStatus": "em-revisao",
+    "references": [
+      {
+        "title": "OpenStax Calculus",
+        "type": "livro aberto",
+        "url": "https://openstax.org/details/books/calculus-volume-1"
+      }
+    ]
   },
   {
     "id": "fourier_series",
@@ -542,7 +2515,36 @@
     "symbol": "Σfₙ",
     "level": "ES",
     "group": "Transformadas",
-    "status": "available"
+    "status": "available",
+    "module": "modules/fourier_series.js",
+    "area": "Cálculo",
+    "prerequisites": [
+      "series_calc",
+      "integrals"
+    ],
+    "learningObjectives": [
+      "Reconhecer as ideias centrais de Série de Fourier.",
+      "Resolver e interpretar problemas de Série de Fourier com justificativa."
+    ],
+    "estimatedMinutes": 35,
+    "tags": [
+      "cálculo",
+      "es",
+      "série",
+      "fourier"
+    ],
+    "misconceptions": [
+      "Aplicar uma regra sem verificar domínio, hipótese ou constante de integração."
+    ],
+    "lastReviewed": "2026-10-12",
+    "reviewStatus": "em-revisao",
+    "references": [
+      {
+        "title": "OpenStax Calculus",
+        "type": "livro aberto",
+        "url": "https://openstax.org/details/books/calculus-volume-1"
+      }
+    ]
   },
   {
     "id": "lagrange",
@@ -550,7 +2552,35 @@
     "symbol": "λ",
     "level": "ES",
     "group": "Otimização",
-    "status": "available"
+    "status": "available",
+    "module": "modules/lagrange.js",
+    "area": "Cálculo",
+    "prerequisites": [
+      "partial_deriv"
+    ],
+    "learningObjectives": [
+      "Reconhecer as ideias centrais de Multiplicadores de Lagrange.",
+      "Resolver e interpretar problemas de Multiplicadores de Lagrange com justificativa."
+    ],
+    "estimatedMinutes": 35,
+    "tags": [
+      "cálculo",
+      "es",
+      "multiplicadores",
+      "lagrange"
+    ],
+    "misconceptions": [
+      "Aplicar uma regra sem verificar domínio, hipótese ou constante de integração."
+    ],
+    "lastReviewed": "2026-10-12",
+    "reviewStatus": "em-revisao",
+    "references": [
+      {
+        "title": "OpenStax Calculus",
+        "type": "livro aberto",
+        "url": "https://openstax.org/details/books/calculus-volume-1"
+      }
+    ]
   },
   {
     "id": "linear_prog",
@@ -558,7 +2588,35 @@
     "symbol": "LP",
     "level": "ES",
     "group": "Otimização",
-    "status": "available"
+    "status": "available",
+    "module": "modules/linear_prog.js",
+    "area": "Álgebra",
+    "prerequisites": [
+      "systems"
+    ],
+    "learningObjectives": [
+      "Reconhecer as ideias centrais de Programação Linear.",
+      "Resolver e interpretar problemas de Programação Linear com justificativa."
+    ],
+    "estimatedMinutes": 35,
+    "tags": [
+      "álgebra",
+      "es",
+      "programação",
+      "linear"
+    ],
+    "misconceptions": [
+      "Aplicar uma transformação sem preservar a equivalência entre as expressões."
+    ],
+    "lastReviewed": "2026-10-12",
+    "reviewStatus": "em-revisao",
+    "references": [
+      {
+        "title": "OpenStax Calculus",
+        "type": "livro aberto",
+        "url": "https://openstax.org/details/books/calculus-volume-1"
+      }
+    ]
   },
   {
     "id": "markov",
@@ -566,7 +2624,36 @@
     "symbol": "π",
     "level": "ES",
     "group": "Prob Avançada",
-    "status": "available"
+    "status": "available",
+    "module": "modules/markov.js",
+    "area": "Estatística",
+    "prerequisites": [
+      "matrices",
+      "probability"
+    ],
+    "learningObjectives": [
+      "Reconhecer as ideias centrais de Cadeias de Markov.",
+      "Resolver e interpretar problemas de Cadeias de Markov com justificativa."
+    ],
+    "estimatedMinutes": 35,
+    "tags": [
+      "estatística",
+      "es",
+      "cadeias",
+      "markov"
+    ],
+    "misconceptions": [
+      "Interpretar frequência, associação ou probabilidade como certeza causal."
+    ],
+    "lastReviewed": "2026-10-12",
+    "reviewStatus": "em-revisao",
+    "references": [
+      {
+        "title": "OpenStax Calculus",
+        "type": "livro aberto",
+        "url": "https://openstax.org/details/books/calculus-volume-1"
+      }
+    ]
   },
   {
     "id": "graph_theory",
@@ -574,7 +2661,35 @@
     "symbol": "G",
     "level": "ES",
     "group": "Grafos",
-    "status": "available"
+    "status": "available",
+    "module": "modules/graph_theory.js",
+    "area": "Matemática Discreta",
+    "prerequisites": [
+      "logic"
+    ],
+    "learningObjectives": [
+      "Reconhecer as ideias centrais de Teoria dos Grafos.",
+      "Resolver e interpretar problemas de Teoria dos Grafos com justificativa."
+    ],
+    "estimatedMinutes": 35,
+    "tags": [
+      "matemática discreta",
+      "es",
+      "teoria",
+      "grafos"
+    ],
+    "misconceptions": [
+      "Usar um exemplo particular como se fosse uma demonstração geral."
+    ],
+    "lastReviewed": "2026-10-12",
+    "reviewStatus": "em-revisao",
+    "references": [
+      {
+        "title": "OpenStax Calculus",
+        "type": "livro aberto",
+        "url": "https://openstax.org/details/books/calculus-volume-1"
+      }
+    ]
   },
   {
     "id": "heat_eq",
@@ -582,7 +2697,36 @@
     "symbol": "EDP",
     "level": "ES",
     "group": "EDP",
-    "status": "available"
+    "status": "available",
+    "module": "modules/heat_eq.js",
+    "area": "Cálculo",
+    "prerequisites": [
+      "ode_second",
+      "fourier_series"
+    ],
+    "learningObjectives": [
+      "Reconhecer as ideias centrais de Equação do Calor.",
+      "Resolver e interpretar problemas de Equação do Calor com justificativa."
+    ],
+    "estimatedMinutes": 35,
+    "tags": [
+      "cálculo",
+      "es",
+      "equação",
+      "calor"
+    ],
+    "misconceptions": [
+      "Aplicar uma regra sem verificar domínio, hipótese ou constante de integração."
+    ],
+    "lastReviewed": "2026-10-12",
+    "reviewStatus": "em-revisao",
+    "references": [
+      {
+        "title": "OpenStax Calculus",
+        "type": "livro aberto",
+        "url": "https://openstax.org/details/books/calculus-volume-1"
+      }
+    ]
   },
   {
     "id": "complex_var",
@@ -590,7 +2734,36 @@
     "symbol": "ℂ",
     "level": "ES",
     "group": "Cálculo II",
-    "status": "available"
+    "status": "available",
+    "module": "modules/complex_var.js",
+    "area": "Álgebra",
+    "prerequisites": [
+      "complex",
+      "integrals"
+    ],
+    "learningObjectives": [
+      "Reconhecer as ideias centrais de Variável Complexa.",
+      "Resolver e interpretar problemas de Variável Complexa com justificativa."
+    ],
+    "estimatedMinutes": 35,
+    "tags": [
+      "álgebra",
+      "es",
+      "variável",
+      "complexa"
+    ],
+    "misconceptions": [
+      "Aplicar uma transformação sem preservar a equivalência entre as expressões."
+    ],
+    "lastReviewed": "2026-10-12",
+    "reviewStatus": "em-revisao",
+    "references": [
+      {
+        "title": "OpenStax Calculus",
+        "type": "livro aberto",
+        "url": "https://openstax.org/details/books/calculus-volume-1"
+      }
+    ]
   },
   {
     "id": "runge_kutta",
@@ -598,7 +2771,34 @@
     "symbol": "RK",
     "level": "ES",
     "group": "Cálculo Numérico",
-    "status": "available"
+    "status": "available",
+    "module": "modules/runge_kutta.js",
+    "area": "Cálculo",
+    "prerequisites": [
+      "euler_method"
+    ],
+    "learningObjectives": [
+      "Reconhecer as ideias centrais de Runge-Kutta.",
+      "Resolver e interpretar problemas de Runge-Kutta com justificativa."
+    ],
+    "estimatedMinutes": 35,
+    "tags": [
+      "cálculo",
+      "es",
+      "runge-kutta"
+    ],
+    "misconceptions": [
+      "Aplicar uma regra sem verificar domínio, hipótese ou constante de integração."
+    ],
+    "lastReviewed": "2026-10-12",
+    "reviewStatus": "em-revisao",
+    "references": [
+      {
+        "title": "OpenStax Calculus",
+        "type": "livro aberto",
+        "url": "https://openstax.org/details/books/calculus-volume-1"
+      }
+    ]
   },
   {
     "id": "wave_eq",
@@ -606,7 +2806,36 @@
     "symbol": "EO",
     "level": "ES",
     "group": "EDP",
-    "status": "available"
+    "status": "available",
+    "module": "modules/wave_eq.js",
+    "area": "Cálculo",
+    "prerequisites": [
+      "ode_second",
+      "fourier_series"
+    ],
+    "learningObjectives": [
+      "Reconhecer as ideias centrais de Equação de Onda.",
+      "Resolver e interpretar problemas de Equação de Onda com justificativa."
+    ],
+    "estimatedMinutes": 35,
+    "tags": [
+      "cálculo",
+      "es",
+      "equação",
+      "onda"
+    ],
+    "misconceptions": [
+      "Aplicar uma regra sem verificar domínio, hipótese ou constante de integração."
+    ],
+    "lastReviewed": "2026-10-12",
+    "reviewStatus": "em-revisao",
+    "references": [
+      {
+        "title": "OpenStax Calculus",
+        "type": "livro aberto",
+        "url": "https://openstax.org/details/books/calculus-volume-1"
+      }
+    ]
   },
   {
     "id": "interpolation",
@@ -614,7 +2843,35 @@
     "symbol": "Pₙ",
     "level": "ES",
     "group": "Cálculo Numérico",
-    "status": "available"
+    "status": "available",
+    "module": "modules/interpolation.js",
+    "area": "Cálculo",
+    "prerequisites": [
+      "polynomials"
+    ],
+    "learningObjectives": [
+      "Reconhecer as ideias centrais de Interpolação Polinomial.",
+      "Resolver e interpretar problemas de Interpolação Polinomial com justificativa."
+    ],
+    "estimatedMinutes": 35,
+    "tags": [
+      "cálculo",
+      "es",
+      "interpolação",
+      "polinomial"
+    ],
+    "misconceptions": [
+      "Aplicar uma regra sem verificar domínio, hipótese ou constante de integração."
+    ],
+    "lastReviewed": "2026-10-12",
+    "reviewStatus": "em-revisao",
+    "references": [
+      {
+        "title": "OpenStax Calculus",
+        "type": "livro aberto",
+        "url": "https://openstax.org/details/books/calculus-volume-1"
+      }
+    ]
   },
   {
     "id": "ode_systems",
@@ -622,6 +2879,34 @@
     "symbol": "Ax",
     "level": "ES",
     "group": "EDO",
-    "status": "available"
+    "status": "available",
+    "module": "modules/ode_systems.js",
+    "area": "Cálculo",
+    "prerequisites": [
+      "ode_first",
+      "matrices"
+    ],
+    "learningObjectives": [
+      "Reconhecer as ideias centrais de Sistemas de EDO.",
+      "Resolver e interpretar problemas de Sistemas de EDO com justificativa."
+    ],
+    "estimatedMinutes": 35,
+    "tags": [
+      "cálculo",
+      "es",
+      "sistemas"
+    ],
+    "misconceptions": [
+      "Aplicar uma regra sem verificar domínio, hipótese ou constante de integração."
+    ],
+    "lastReviewed": "2026-10-12",
+    "reviewStatus": "em-revisao",
+    "references": [
+      {
+        "title": "OpenStax Calculus",
+        "type": "livro aberto",
+        "url": "https://openstax.org/details/books/calculus-volume-1"
+      }
+    ]
   }
 ]

@@ -142,13 +142,22 @@ function loadMathModules() {
     }
   });
 
+  const taskSource = fs.readFileSync(path.join(__dirname, '..', 'js', 'task-engine.js'), 'utf8')
+    .replace(/var TaskEngine\s*=\s*/, 'global.TaskEngine = ');
+  new Function('require', 'module', 'exports', taskSource)(require, module, exports);
+
   // MathCore shim: in tests we use MathFallback directly (no WASM)
   global.MathCore = {
-    generateExercise: global.MathFallback.generateExercise,
+    generateExercise: (topicId, difficulty) => global.TaskEngine.normalise(global.MathFallback.generateExercise(topicId, difficulty), topicId, difficulty),
+    validate:         global.MathFallback.validate,
     nextDifficulty:   global.MathFallback.nextDifficulty,
     usingWasm:        () => false,
     load:             () => Promise.resolve(),
   };
+
+  const progressSource = fs.readFileSync(path.join(__dirname, '..', 'js', 'progress.js'), 'utf8')
+    .replace(/var Progress\s*=\s*/, 'global.Progress = ');
+  new Function('require', 'module', 'exports', progressSource)(require, module, exports);
 }
 
 // ── Step 3: Test registry (used by test files) ────────────────────────────────

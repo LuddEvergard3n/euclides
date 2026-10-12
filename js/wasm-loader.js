@@ -75,7 +75,10 @@ var MathCore = (function () {
      * @return {object}            { statement, equation, answer, hints }
      */
     generateExercise: function (topicId, difficulty) {
-      return _call('generate_exercise', 'generateExercise', [topicId, difficulty]);
+      var exercise = _call('generate_exercise', 'generateExercise', [topicId, difficulty]);
+      return typeof TaskEngine !== 'undefined'
+        ? TaskEngine.normalise(exercise, topicId, difficulty)
+        : exercise;
     },
 
     /**
