@@ -46,13 +46,13 @@
     _mc(view.querySelector('#canvas-panel'),420,380);_drawTrap();
   }
 
-  var _exSteps=[{"equation":"∯₀¹ x² dx,  n=4,  h = (1−0)/4 = 0,25","note":"subintervalos: x₀=0, x₁=0,25, x₂=0,5, x₃=0,75, x₄=1"},{"equation":"f(xᵢ): 0 | 0,0625 | 0,25 | 0,5625 | 1","note":"avaliar f(x)=x² nos 5 nós"},{"equation":"T = (0,25/2)(0+2·0,0625+2·0,25+2·0,5625+1) = 0,34375","note":"regra do trapézio"},{"equation":"S = (0,25/3)(0+4·0,0625+2·0,25+4·0,5625+1) = 0,3333","note":"Simpson 1/3 (padrão 1,4,2,4,1)"},{"equation":"Valor exato: [x³/3]₀¹ = 1/3 ≈ 0,3333","note":"TFC II"},{"equation":"Erro T = 0,0104 | Erro S ≈ 0 — Simpson exato para grau 2!","note":"Simpson exato até grau 3"}];
+  var _exSteps=[{"equation":"∫₀¹ x² dx,  n=4,  h = (1−0)/4 = 0,25","note":"subintervalos: x₀=0, x₁=0,25, x₂=0,5, x₃=0,75, x₄=1"},{"equation":"f(xᵢ): 0 | 0,0625 | 0,25 | 0,5625 | 1","note":"avaliar f(x)=x² nos 5 nós"},{"equation":"T = (0,25/2)(0+2·0,0625+2·0,25+2·0,5625+1) = 0,34375","note":"regra do trapézio"},{"equation":"S = (0,25/3)(0+4·0,0625+2·0,25+4·0,5625+1) = 0,3333","note":"Simpson 1/3 (padrão 1,4,2,4,1)"},{"equation":"Valor exato: [x³/3]₀¹ = 1/3 ≈ 0,3333","note":"TFC II"},{"equation":"Erro T = 0,0104 | Erro S ≈ 0 — Simpson exato para grau 2!","note":"Simpson exato até grau 3"}];
   function renderExample(view){
     _exStep=0;
     view.innerHTML='<div class="topic-screen"><div class="topic-content">'+
       UI.renderBreadcrumb([{label:'In\u00edcio',href:''},{label:'Integração Numérica',href:'topic/numeric_integ/concept'},{label:'Exemplo'}])+
       UI.renderPhaseBar(TOPIC_ID,'example')+
-      '<h1 class="topic-title">Exemplo: ∯₀¹ x² dx com n=4</h1>'+
+      '<h1 class="topic-title">Exemplo: ∫₀¹ x² dx com n=4</h1>'+ 
       '<p class="topic-meta">trapézio e Simpson, comparar com valor exato 1/3</p>'+
       '<div class="example-step-bar"><span class="step-counter" id="step-counter">Passo 1 de '+_exSteps.length+'</span>'+
       '<div class="step-progress"><div class="step-progress-fill" id="step-fill" style="width:0%"></div></div></div>'+

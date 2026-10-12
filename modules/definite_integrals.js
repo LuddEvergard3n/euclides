@@ -28,7 +28,7 @@
     for(var xi=-1;xi<=3;xi+=0.05){var yi=xi*xi+1;if(xi===-1)ctx.moveTo(cx+xi*sc,cy-yi*sc);else ctx.lineTo(cx+xi*sc,cy-yi*sc);}
     ctx.stroke();
     ctx.fillStyle='#c8a44a';ctx.font='10px JetBrains Mono,monospace';ctx.textAlign='center';
-    ctx.fillText('∯₀² (x²+1)dx = 14/3',W/2,H-5);
+    ctx.fillText('∫₀² (x²+1)dx = 14/3',W/2,H-5);
   }
 
 
@@ -39,20 +39,20 @@
       UI.renderPhaseBar(TOPIC_ID,'concept')+
       '<h1 class="topic-title">Integrais Definidas</h1>'+
       '<p class="topic-meta">Teorema Fundamental do Cálculo · áreas · volumes de revolução</p>'+
-      '<div class="content-block">'+'<p>A integral definida mede a área líquida (assinada) sob a curva. O TFC conecta derivação e integração.</p>'+'<div class="concept-highlight"><div class="hl-label">Teorema Fundamental do Cálculo</div>TFC I: d/dx ∯ₐˣ f(t)dt = f(x)<br>TFC II: ∯ₐᵇ f(x)dx = F(b)−F(a), onde F′=f</div>'+'<div class="concept-highlight"><div class="hl-label">Volume de revolução</div>Disco: V = π∯ₐᵇ [f(x)]² dx (rotação em torno do eixo x)<br>Casca: V = 2π∯ₐᵇ x·f(x) dx</div>'+'</div>'+
+      '<div class="content-block">'+'<p>A integral definida mede a área líquida (assinada) sob a curva. O TFC conecta derivação e integração.</p>'+'<div class="concept-highlight"><div class="hl-label">Teorema Fundamental do Cálculo</div>TFC I: d/dx ∫ₐˣ f(t)dt = f(x)<br>TFC II: ∫ₐᵇ f(x)dx = F(b)−F(a), onde F′=f</div>'+'<div class="concept-highlight"><div class="hl-label">Volume de revolução</div>Disco: V = π∫ₐᵇ [f(x)]² dx (rotação em torno do eixo x)<br>Casca: V = 2π∫ₐᵇ x·f(x) dx</div>'+'</div>'+ 
       '<div class="btn-row mt-24"><button class="btn btn-primary" onclick="Router.navigate(\'topic/definite_integrals/example\')">Ver exemplo →</button></div>'+
     '</div><div class="topic-canvas-panel" id="canvas-panel"></div></div>';
-    _mc(view.querySelector('#canvas-panel'),420,380);_drawAxes('∯ₐᵇ f(x)dx — área assinada');
+    _mc(view.querySelector('#canvas-panel'),420,380);_drawAxes('∫ₐᵇ f(x)dx — área assinada');
   }
 
-  var _exSteps=[{"equation":"∯₀² (x²+1) dx","note":"calcular área sob a curva"},{"equation":"F(x) = x³/3 + x","note":"antiderivada"},{"equation":"= F(2)−F(0) = (8/3+2)−0 = 14/3","note":"TFC II"},{"equation":"Área entre y=x² e y=x (0≤1≤1)","note":"segundo exemplo"},{"equation":"A = ∯₀¹ (x−x²)dx = [x²/2 − x³/3]₀¹","note":"integral da diferença"},{"equation":"= 1/2 − 1/3 = 1/6","note":"resultado"}];
+  var _exSteps=[{"equation":"∫₀² (x²+1) dx","note":"calcular área sob a curva"},{"equation":"F(x) = x³/3 + x","note":"antiderivada"},{"equation":"= F(2)−F(0) = (8/3+2)−0 = 14/3","note":"TFC II"},{"equation":"Área entre y=x² e y=x (0≤x≤1)","note":"segundo exemplo"},{"equation":"A = ∫₀¹ (x−x²)dx = [x²/2 − x³/3]₀¹","note":"integral da diferença"},{"equation":"= 1/2 − 1/3 = 1/6","note":"resultado"}];
   function renderExample(view){
     _exStep=0;
     view.innerHTML='<div class="topic-screen"><div class="topic-content">'+
       UI.renderBreadcrumb([{label:'Início',href:''},{label:'Integrais Definidas',href:'topic/definite_integrals/concept'},{label:'Exemplo'}])+
       UI.renderPhaseBar(TOPIC_ID,'example')+
       '<h1 class="topic-title">Exemplo: área entre curvas e volume</h1>'+
-      '<p class="topic-meta">∯₀² (x²+1)dx e área entre parábolas</p>'+
+      '<p class="topic-meta">∫₀² (x²+1)dx e área entre parábolas</p>'+ 
       '<div class="example-step-bar"><span class="step-counter" id="step-counter">Passo 1 de '+_exSteps.length+'</span>'+
       '<div class="step-progress"><div class="step-progress-fill" id="step-fill" style="width:0%"></div></div></div>'+
       '<div class="step-description" id="step-desc"><span class="text-mono text-gold">'+_exSteps[0].equation+'</span></div>'+
@@ -90,7 +90,7 @@
   function _loadNext(){
     _pr.exercise=MathCore.generateExercise(TOPIC_ID,_pr.difficulty);
     _pr.hintIndex=0;_pr.solved=false;_renderCard();
-    var p=document.getElementById('canvas-panel');if(!p)return;_mc(p,420,380);_drawAxes('∯ₐᵇ f(x)dx — área assinada');
+    var p=document.getElementById('canvas-panel');if(!p)return;_mc(p,420,380);_drawAxes('∫ₐᵇ f(x)dx — área assinada');
   }
   function _renderCard(){
     var area=document.getElementById('exercise-area');if(!area)return;

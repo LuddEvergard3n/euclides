@@ -47,20 +47,20 @@
       UI.renderPhaseBar(TOPIC_ID,'concept')+
       '<h1 class="topic-title">Integrais</h1>'+
       '<p class="topic-meta">substituição · integração por partes · frações parciais</p>'+
-      '<div class="content-block">'+'<p>A integral indefinida ∯f(x)dx busca F(x) tal que F′(x)=f(x). Constante de integração C sempre presente.</p>'+'<div class="concept-highlight"><div class="hl-label">Regras básicas</div>∯xⁿdx = xⁿ⁺¹/(n+1)+C | ∯eˣdx = eˣ+C<br>∯1/x dx = ln|x|+C | ∯sin x dx = −cos x+C</div>'+'<div class="concept-highlight"><div class="hl-label">Substituição (u-sub)</div>∯f(g(x))g′(x)dx: faça u=g(x), du=g′(x)dx → ∯f(u)du<br>Exemplo: ∯2x·eˣ² dx: u=x², du=2x dx → ∯eᵘdu = eˣ²+C</div>'+'<div class="concept-highlight"><div class="hl-label">Integração por partes</div>∯u dv = uv − ∯v du<br>LIATE: Logarítmica, Inversa trig., Algébrica, Trigon., Exponencial.</div>'+'</div>'+
+      '<div class="content-block">'+'<p>A integral indefinida ∫f(x)dx busca F(x) tal que F′(x)=f(x). Constante de integração C sempre presente.</p>'+'<div class="concept-highlight"><div class="hl-label">Regras básicas</div>∫xⁿdx = xⁿ⁺¹/(n+1)+C | ∫eˣdx = eˣ+C<br>∫1/x dx = ln|x|+C | ∫sin x dx = −cos x+C</div>'+'<div class="concept-highlight"><div class="hl-label">Substituição (u-sub)</div>∫f(g(x))g′(x)dx: faça u=g(x), du=g′(x)dx → ∫f(u)du<br>Exemplo: ∫2x·eˣ² dx: u=x², du=2x dx → ∫eᵘdu = eˣ²+C</div>'+'<div class="concept-highlight"><div class="hl-label">Integração por partes</div>∫u dv = uv − ∫v du<br>LIATE: Logarítmica, Inversa trig., Algébrica, Trigon., Exponencial.</div>'+'</div>'+ 
       '<div class="btn-row mt-24"><button class="btn btn-primary" onclick="Router.navigate(\'topic/integrals/example\')">Ver exemplo →</button></div>'+
     '</div><div class="topic-canvas-panel" id="canvas-panel"></div></div>';
-    _mc(view.querySelector('#canvas-panel'),420,380);_drawAxes('∯f(x)dx — área sob a curva');
+    _mc(view.querySelector('#canvas-panel'),420,380);_drawAxes('∫f(x)dx — família de antiderivadas');
   }
 
-  var _exSteps=[{"equation":"∯x·eˣ dx — integração por partes","note":"problema 1"},{"equation":"u=x, dv=eˣdx → du=dx, v=eˣ","note":"escolha de u e dv (LIATE)"},{"equation":"= xeˣ − ∯eˣdx = xeˣ − eˣ + C","note":"aplicar fórmula"},{"equation":"∯cos(2x) dx — substituição","note":"problema 2"},{"equation":"u=2x, du=2dx → dx=du/2","note":"u-sub"},{"equation":"= (1/2)∯cos(u)du = (1/2)sin(2x) + C","note":"resultado"}];
+  var _exSteps=[{"equation":"∫x·eˣ dx — integração por partes","note":"problema 1"},{"equation":"u=x, dv=eˣdx → du=dx, v=eˣ","note":"escolha de u e dv (LIATE)"},{"equation":"= xeˣ − ∫eˣdx = xeˣ − eˣ + C","note":"aplicar fórmula"},{"equation":"∫cos(2x) dx — substituição","note":"problema 2"},{"equation":"u=2x, du=2dx → dx=du/2","note":"u-sub"},{"equation":"= (1/2)∫cos(u)du = (1/2)sin(2x) + C","note":"resultado"}];
   function renderExample(view){
     _exStep=0;
     view.innerHTML='<div class="topic-screen"><div class="topic-content">'+
       UI.renderBreadcrumb([{label:'Início',href:''},{label:'Integrais',href:'topic/integrals/concept'},{label:'Exemplo'}])+
       UI.renderPhaseBar(TOPIC_ID,'example')+
       '<h1 class="topic-title">Exemplo: por partes e substituição</h1>'+
-      '<p class="topic-meta">∯x·eˣdx e ∯cos(2x)dx</p>'+
+      '<p class="topic-meta">∫x·eˣdx e ∫cos(2x)dx</p>'+ 
       '<div class="example-step-bar"><span class="step-counter" id="step-counter">Passo 1 de '+_exSteps.length+'</span>'+
       '<div class="step-progress"><div class="step-progress-fill" id="step-fill" style="width:0%"></div></div></div>'+
       '<div class="step-description" id="step-desc"><span class="text-mono text-gold">'+_exSteps[0].equation+'</span></div>'+
@@ -98,7 +98,7 @@
   function _loadNext(){
     _pr.exercise=MathCore.generateExercise(TOPIC_ID,_pr.difficulty);
     _pr.hintIndex=0;_pr.solved=false;_renderCard();
-    var p=document.getElementById('canvas-panel');if(!p)return;_mc(p,420,380);_drawAxes('∯f(x)dx — área sob a curva');
+    var p=document.getElementById('canvas-panel');if(!p)return;_mc(p,420,380);_drawAxes('∫f(x)dx — família de antiderivadas');
   }
   function _renderCard(){
     var area=document.getElementById('exercise-area');if(!area)return;

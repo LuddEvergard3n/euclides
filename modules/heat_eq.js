@@ -26,7 +26,7 @@
       UI.renderPhaseBar(TOPIC_ID,'concept')+
       '<h1 class="topic-title">Equação do Calor</h1>'+
       '<p class="topic-meta">EDP parabólica · separação de variáveis · série de Fourier · difusão</p>'+
-      '<div class="content-block">'+'<p>A equação do calor modela difusão: temperatura, concentração, probaüilidade. Resolve-se por separação de variáveis + Fourier.</p>'+'<div class="concept-highlight"><div class="hl-label">Equação e classificação</div>uₜ = k·uₓₓ  (EDP parabólica)<br>k = difusividade térmica > 0.<br>Condições: inicial u(x,0)=f(x) + contorno u(0,t)=u(L,t)=0.</div>'+'<div class="concept-highlight"><div class="hl-label">Separação de variáveis</div>u(x,t) = X(x)T(t) → T′/kT = X″/X = −λ<br>X″+λX=0 com X(0)=X(L)=0 → Xₙ=sin(nπx/L), λₙ=(nπ/L)²<br>T′+λₙkT=0 → Tₙ=e^(-λₙkt)</div>'+'<div class="concept-highlight"><div class="hl-label">Solução geral</div>u(x,t) = Σ Bₙ sin(nπx/L) e^(-(nπ/L)² kt)<br>Bₙ = (2/L)∯₀ᴿ f(x) sin(nπx/L) dx  (coeficientes de Fourier)<br>Cada modo decai exponencialmente: modos altos decaem mais rápido.</div>'+'</div>'+
+      '<div class="content-block">'+'<p>A equação do calor modela difusão: temperatura, concentração e densidade de probabilidade. Resolve-se por separação de variáveis e séries de Fourier.</p>'+'<div class="concept-highlight"><div class="hl-label">Equação e classificação</div>uₜ = k·uₓₓ  (EDP parabólica)<br>k = difusividade térmica > 0.<br>Condições: inicial u(x,0)=f(x) e contorno u(0,t)=u(L,t)=0.</div>'+'<div class="concept-highlight"><div class="hl-label">Separação de variáveis</div>u(x,t) = X(x)T(t) → T′/kT = X″/X = −λ<br>X″+λX=0 com X(0)=X(L)=0 → Xₙ=sin(nπx/L), λₙ=(nπ/L)²<br>T′+λₙkT=0 → Tₙ=e^(-λₙkt)</div>'+'<div class="concept-highlight"><div class="hl-label">Solução geral</div>u(x,t) = Σ Bₙ sin(nπx/L) e^(-(nπ/L)² kt)<br>Bₙ = (2/L)∫₀ᴸ f(x) sin(nπx/L) dx  (coeficientes de Fourier)<br>Cada modo decai exponencialmente: modos altos decaem mais rápido.</div>'+'</div>'+ 
       '<div class="btn-row mt-24"><button class="btn btn-primary" onclick="Router.navigate(\'topic/heat_eq/example\')">Ver exemplo \u2192</button></div>'+
     '</div><div class="topic-canvas-panel" id="canvas-panel"></div></div>';
     _mc(view.querySelector('#canvas-panel'),420,380);_drawAxes();
@@ -38,7 +38,7 @@
     view.innerHTML='<div class="topic-screen"><div class="topic-content">'+
       UI.renderBreadcrumb([{label:'In\u00edcio',href:''},{label:'Equação do Calor',href:'topic/heat_eq/concept'},{label:'Exemplo'}])+
       UI.renderPhaseBar(TOPIC_ID,'example')+
-      '<h1 class="topic-title">Exemplo: solucão da equação do calor</h1>'+
+      '<h1 class="topic-title">Exemplo: solução da equação do calor</h1>'+ 
       '<p class="topic-meta">uₜ = uₓₓ, u(0,t)=u(π,t)=0, u(x,0)=sin(x)</p>'+
       '<div class="example-step-bar"><span class="step-counter" id="step-counter">Passo 1 de '+_exSteps.length+'</span>'+
       '<div class="step-progress"><div class="step-progress-fill" id="step-fill" style="width:0%"></div></div></div>'+
