@@ -43,7 +43,8 @@ describe('delivery — static and lazy', () => {
     for (const directory of ['js', 'modules']) {
       for (const name of fs.readdirSync(path.join(root, directory)).filter(file => file.endsWith('.js'))) {
         const source = read(directory + '/' + name);
-        assert.notOk(/parseFloat\([^\n]+(?:answer-input|\.value)/.test(source), directory + '/' + name + ' parses learner input permissively');
+        const permissive = source.split(/\r?\n/).some(line => line.includes('parseFloat(') && (line.includes('answer-input') || line.includes('.value')));
+        assert.notOk(permissive, directory + '/' + name + ' parses learner input permissively');
       }
     }
   });
@@ -53,10 +54,17 @@ describe('content — known notation regressions', () => {
   it('contains none of the audited notation and spelling errors', () => {
     const files = fs.readdirSync(path.join(root, 'modules')).filter(name => name.endsWith('.js'))
       .concat(fs.readdirSync(path.join(root, 'math', 'generators')).filter(name => name.endsWith('.js')).map(name => '../math/generators/' + name));
-    const banned = ['∯', '\\u222f', '0≤1≤1', 'probaüilidade', 'solucão'];
+    const banned = ['∯', '\\u222f', '0≤1≤1', 'probaüilidade', 'solucão', 'post(A)', 'Aeˣ²/²'];
     for (const file of files) {
       const source = file.startsWith('../') ? read(file.slice(3)) : read('modules/' + file);
       for (const token of banned) assert.notOk(source.includes(token), file + ' contains ' + token);
     }
+  });
+
+  it('keeps discrete Poisson content out of the continuous-distributions topic', () => {
+    assert.notOk(/Poisson/.test(read('modules/distributions.js')), 'continuous lesson contains Poisson');
+    const source = read('math/generators/ode_prob.js');
+    const section = source.slice(source.indexOf("MathGenerators['distributions']"), source.indexOf("MathGenerators['inference']"));
+    assert.notOk(/poisson/i.test(section), 'continuous generator contains Poisson');
   });
 });

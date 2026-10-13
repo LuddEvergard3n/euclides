@@ -144,7 +144,7 @@
   // ── distributions ─────────────────────────────────────────────────────────
   MathGenerators['distributions'] = function (difficulty) {
     _reseed();
-    var types = ['normal_prob', 'exp_dist', 'poisson', 'normal_params', 'clt'];
+    var types = ['normal_prob', 'exp_dist', 'student_t', 'normal_params', 'clt'];
     var type  = types[Math.min(difficulty - 1, 4)];
 
     if (type === 'normal_prob') {
@@ -178,17 +178,14 @@
                 String(p)]
       };
     }
-    if (type === 'poisson') {
-      var lam = _randInt(2, 5), k = _randInt(0, 3);
-      var fac = [1, 1, 2, 6, 24][k];
-      var p = Math.round(Math.exp(-lam) * Math.pow(lam, k) / fac * 1000) / 1000;
+    if (type === 'student_t') {
       return {
-        statement: 'X ~ Poisson(λ=' + lam + '). Calcule P(X = ' + k + ').',
-        equation:  'P(X=k) = e^(−λ)·λᵏ/k!',
-        answer:    String(p),
-        hints: ['P(X=' + k + ') = e^(−' + lam + ')·' + lam + '^' + k + '/' + k + '!',
-                '= e^(−' + lam + ')·' + Math.pow(lam, k) + '/' + fac + '.',
-                String(p)]
+        statement: 'Uma amostra pequena vem de população aproximadamente normal, com desvio-padrão populacional desconhecido. Qual distribuição é usada para inferir a média?',
+        equation:  'T = (X̄ − μ)/(S/√n)',
+        answer:    't de Student',
+        hints: ['O desvio-padrão populacional σ não é conhecido.',
+                'Substituir σ pelo desvio amostral S acrescenta incerteza e caudas mais pesadas.',
+                't de Student']
       };
     }
     if (type === 'normal_params') {

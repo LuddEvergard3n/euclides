@@ -39,6 +39,23 @@
     return Math.abs(s.value - c.value) <= Math.max(absTolerance, relTolerance);
   }
 
+  function _parseFraction(value) {
+    var match = String(value).replace(/\s+/g, '').match(/^([+-]?\d+)(?:\/([+-]?\d+))?$/);
+    if (!match) return null;
+    var numerator = Number(match[1]), denominator = match[2] === undefined ? 1 : Number(match[2]);
+    if (!denominator) return null;
+    return { numerator: numerator, denominator: denominator };
+  }
+
+  function _fractionEqual(student, correct) {
+    var s = _parseFraction(student), c = _parseFraction(correct);
+    return !!s && !!c && s.numerator * c.denominator === c.numerator * s.denominator;
+  }
+
+  function _normaliseInequality(value) {
+    return String(value).toLowerCase().replace(/\s+/g, '').replace(/≤|<=/g, '<=').replace(/≥|>=/g, '>=');
+  }
+
   function _compatibilitySpec(topicId) {
     var halfDegree = { absoluteTolerance: 0.5 };
     var hundredth = { absoluteTolerance: 0.01 };
@@ -95,6 +112,9 @@
 
     // Direct string match
     if (s === c) return true;
+
+    if (topicId === 'fractions' && _fractionEqual(s, c)) return true;
+    if (topicId === 'inequalities' && _normaliseInequality(s) === _normaliseInequality(c)) return true;
 
     // Numeric comparison (single value)
     if (_numericEqual(s, c, spec)) return true;

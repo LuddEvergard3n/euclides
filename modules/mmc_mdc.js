@@ -164,7 +164,7 @@
       if(_pr.solved)return;
       var inp=document.getElementById('answer-input'),fb=document.getElementById('feedback');
       if(!inp||!fb||!_pr.exercise)return;
-      var ok=inp.value.trim()===String(_pr.exercise.answer);
+      var ok=MathCore.validate(TOPIC_ID,inp.value,_pr.exercise.answer,_pr.exercise.validation);
       inp.classList.toggle('correct',ok);inp.classList.toggle('wrong',!ok);
       if(ok){fb.className='feedback-line correct';fb.textContent='✓ Correto! = '+_pr.exercise.answer;
         _pr.solved=true;_pr.history.push(true);Progress.recordAttempt(TOPIC_ID,true);

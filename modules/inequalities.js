@@ -178,8 +178,6 @@
     _uhb();
   }
   function _uhb(){var b=document.getElementById('btn-hint');if(b)b.style.display=_pr.hintsEnabled&&!_pr.solved?'':'none';}
-  // Normalize inequality string for comparison
-  function _normIneq(s){return s.replace(/\s+/g,'').replace(/<=|≤/g,'<=').replace(/>=|≥/g,'>=');}
   var _pub={
     showExample:function(mode){
       var p=document.getElementById('canvas-panel');if(!p)return;_mc(p,420,380);
@@ -198,7 +196,7 @@
       if(_pr.solved)return;
       var inp=document.getElementById('answer-input'),fb=document.getElementById('feedback');
       if(!inp||!fb||!_pr.exercise)return;
-      var ok=_normIneq(inp.value.trim())===_normIneq(String(_pr.exercise.answer));
+      var ok=MathCore.validate(TOPIC_ID,inp.value,_pr.exercise.answer,_pr.exercise.validation);
       inp.classList.toggle('correct',ok);inp.classList.toggle('wrong',!ok);
       if(ok){fb.className='feedback-line correct';fb.textContent='✓ Correto! = '+_pr.exercise.answer;
         _pr.solved=true;_pr.history.push(true);Progress.recordAttempt(TOPIC_ID,true);

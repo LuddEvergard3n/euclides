@@ -104,6 +104,20 @@ describe('validate — multi-root answers', () => {
   });
 });
 
+describe('validate — fractions and inequalities', () => {
+  it('accepts equivalent fractions without accepting malformed input', () => {
+    assert.ok(validate('fractions', '2/4', '1/2'));
+    assert.ok(validate('fractions', '-2/-4', '1/2'));
+    assert.notOk(validate('fractions', '1/0', '1/2'));
+    assert.notOk(validate('fractions', '1/2abc', '1/2'));
+  });
+
+  it('normalises inequality spacing and symbols', () => {
+    assert.ok(validate('inequalities', '-1 < x <= 3', '-1<x≤3'));
+    assert.notOk(validate('inequalities', '-1 < x < 3', '-1<x≤3'));
+  });
+});
+
 // ── Trig normalisation ────────────────────────────────────────────────────────
 
 describe('validate — trig normalisation', () => {

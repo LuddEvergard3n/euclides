@@ -2,7 +2,7 @@
  * test/tests/generators.test.js
  * Coverage: every registered generator, every difficulty level.
  * Verifies that generateExercise() returns a structurally valid exercise
- * with a non-empty answer for all 79 topics × 5 difficulties = 395 cases.
+ * with a non-empty answer for all available topics and five difficulty levels.
  */
 
 'use strict';

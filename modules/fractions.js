@@ -184,13 +184,6 @@
     _uhb();
   }
   function _uhb(){var b=document.getElementById('btn-hint');if(b)b.style.display=_pr.hintsEnabled&&!_pr.solved?'':'none';}
-  // Fraction equality: reduce both and compare
-  function _fracEq(s,c){
-    function red(str){var p=str.split('/');if(p.length===1)return{n:parseInt(p[0]),d:1};var n=parseInt(p[0]),d=parseInt(p[1]);if(isNaN(n)||isNaN(d)||d===0)return null;function g(a,b){a=Math.abs(a);b=Math.abs(b);while(b){var t=b;b=a%b;a=t;}return a||1;}var gv=g(Math.abs(n),d);return{n:n/gv,d:d/gv};}
-    var a=red(s.replace(/\s/g,'')),b=red(c.replace(/\s/g,''));
-    if(!a||!b)return false;
-    return a.n===b.n&&a.d===b.d;
-  }
   var _pub={
     showBar:function(n,d){var p=document.getElementById('canvas-panel');if(!p)return;_mc(p,420,380);document.querySelectorAll('.phase-step').forEach(function(t,i){t.classList.toggle('active',(n===3&&d===4&&i===0)||(n===2&&d===3&&i===1));});_drawFracBar(n,d);},
     showLine:function(){var p=document.getElementById('canvas-panel');if(!p)return;_mc(p,420,380);document.querySelectorAll('.phase-step').forEach(function(t,i){t.classList.toggle('active',i===2);});_drawNumberLine([{n:1,d:4,color:'#5a8fd2',label:'1/4'},{n:1,d:2,color:'#4ab8b2',label:'1/2'},{n:3,d:4,color:'#c8a44a',label:'3/4'}]);},
@@ -202,7 +195,7 @@
       if(_pr.solved)return;
       var inp=document.getElementById('answer-input'),fb=document.getElementById('feedback');
       if(!inp||!fb||!_pr.exercise)return;
-      var ok=_fracEq(inp.value.trim(),String(_pr.exercise.answer));
+      var ok=MathCore.validate(TOPIC_ID,inp.value,_pr.exercise.answer,_pr.exercise.validation);
       inp.classList.toggle('correct',ok);inp.classList.toggle('wrong',!ok);
       if(ok){fb.className='feedback-line correct';fb.textContent='✓ Correto! = '+_pr.exercise.answer;
         _pr.solved=true;_pr.history.push(true);Progress.recordAttempt(TOPIC_ID,true);
