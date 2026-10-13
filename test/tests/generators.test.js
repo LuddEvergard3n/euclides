@@ -94,6 +94,54 @@ describe('Generators — deterministic properties', () => {
       }
     });
   }
+
+  it('factoring quadratics preserve their generated roots', () => {
+    for (let seed = 1; seed <= 50; seed++) {
+      global.MathRNG.setSeed(seed * 3571);
+      const ex = global.MathFallback.generateExercise('factoring', 4);
+      const factor = value => '(x ' + (value >= 0 ? '− ' + value : '+ ' + Math.abs(value)) + ')';
+      assert.equal(ex.answer, factor(ex.r1) + factor(ex.r2), 'incorrect factors at seed ' + seed);
+      assert.equal(ex.r1 * ex.r2, ex.c, 'constant term does not match roots at seed ' + seed);
+    }
+  });
+
+  it('linear systems preserve both generated equations', () => {
+    for (let seed = 1; seed <= 50; seed++) {
+      global.MathRNG.setSeed(seed * 4567);
+      const ex = global.MathFallback.generateExercise('systems', (seed % 5) + 1);
+      assert.equal(ex.a1 * ex.x0 + ex.b1 * ex.y0, ex.c1, 'first equation failed at seed ' + seed);
+      assert.equal(ex.a2 * ex.x0 + ex.b2 * ex.y0, ex.c2, 'second equation failed at seed ' + seed);
+    }
+  });
+
+  it('quadratic equations preserve their discriminant', () => {
+    for (let seed = 1; seed <= 50; seed++) {
+      global.MathRNG.setSeed(seed * 6151);
+      const ex = global.MathFallback.generateExercise('equations2', (seed % 5) + 1);
+      assert.equal(ex.delta, ex.b * ex.b - 4 * ex.a * ex.c, 'incorrect discriminant at seed ' + seed);
+    }
+  });
+
+  it('matrix results match their generated operands', () => {
+    for (let difficulty = 1; difficulty <= 5; difficulty++) {
+      for (let seed = 1; seed <= 25; seed++) {
+        global.MathRNG.setSeed(seed * 6997);
+        const ex = global.MathFallback.generateExercise('matrices', difficulty);
+        if (ex.matType === 'add') {
+          assert.deepEqual(ex.matR, ex.matA.map((row, i) => row.map((value, j) => value + ex.matB[i][j])), 'incorrect matrix sum at seed ' + seed);
+        } else if (ex.matType === 'multiply') {
+          const product = [0, 1].map(i => [0, 1].map(j => ex.matA[i][0] * ex.matB[0][j] + ex.matA[i][1] * ex.matB[1][j]));
+          assert.deepEqual(ex.matR, product, 'incorrect matrix product at seed ' + seed);
+        } else {
+          const matrix = ex.matA;
+          const determinant = matrix.length === 2
+            ? matrix[0][0] * matrix[1][1] - matrix[0][1] * matrix[1][0]
+            : matrix[0][0] * (matrix[1][1] * matrix[2][2] - matrix[1][2] * matrix[2][1]) - matrix[0][1] * (matrix[1][0] * matrix[2][2] - matrix[1][2] * matrix[2][0]) + matrix[0][2] * (matrix[1][0] * matrix[2][1] - matrix[1][1] * matrix[2][0]);
+          assert.equal(Number(ex.answer), determinant, 'incorrect determinant at seed ' + seed);
+        }
+      }
+    }
+  });
 });
 
 // ── Hints are strings when present ────────────────────────────────────────────

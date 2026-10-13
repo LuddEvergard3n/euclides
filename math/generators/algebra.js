@@ -412,11 +412,8 @@
     var b=-(r1+r2),c=r1*r2;
     var bStr=b>0?' + '+b:b<0?' − '+Math.abs(b):'';
     var cStr=c>0?' + '+c:c<0?' − '+Math.abs(c):'';
-    var r1s=r1<0?'(x − '+(Math.abs(r1))+')':'(x + '+r1+')';
-    var r2s=r2<0?'(x − '+(Math.abs(r2))+')':'(x + '+r2+')';
-    // simpler: show as (x-r1)(x-r2)
-    var ans='(x '+(r1>=0?'+ '+r1:'− '+Math.abs(r1))+')'+'(x '+(r2>=0?'+ '+r2:'− '+Math.abs(r2))+')';
-    return{statement:'Fatore: x²'+bStr+'x'+cStr+'.',equation:'x²'+bStr+'x'+cStr,answer:ans,factType:'quad',
+    var ans='(x '+(r1>=0?'− '+r1:'+ '+Math.abs(r1))+')'+'(x '+(r2>=0?'− '+r2:'+ '+Math.abs(r2))+')';
+    return{statement:'Fatore: x²'+bStr+'x'+cStr+'.',equation:'x²'+bStr+'x'+cStr,answer:ans,factType:'quad',r1:r1,r2:r2,b:b,c:c,
       hints:['Procure r₁ e r₂ com r₁+r₂='+(-b)+' e r₁×r₂='+c,'r₁='+r1+', r₂='+r2,ans]};
   }
   // difference of squares

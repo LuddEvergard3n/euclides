@@ -2,7 +2,7 @@
  * exam.js
  * Single responsibility: timed exam session.
  * 20 questions drawn from all available topics, difficulty 3,
- * 15-minute countdown timer, result screen at the end.
+ * 30-minute countdown timer, result screen at the end.
  * Route: 'exam'
  */
 
