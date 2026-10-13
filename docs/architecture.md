@@ -10,7 +10,7 @@ roda em JS puro (ou WASM quando compilado).
 Topbar (Sobre | Ajuda | Ecossistema)
     └── TopPanel (painel deslizante, script inline)
 
-URL hash → Router → Module.renderPhase(view)
+URL hash → Router → lazy loader → Module.renderPhase(view)
                          │
               ┌──────────┼──────────────┐
               ▼          ▼              ▼
@@ -29,10 +29,11 @@ Cada arquivo tem exatamente uma responsabilidade. Violações desta tabela são 
 | Arquivo | Pode | Não pode |
 |---|---|---|
 | `js/main.js` | boot sequence, inicializar módulos | DOM, math, storage |
-| `js/router.js` | mapear hash → módulo, chamar render | math, canvas, storage |
+| `js/router.js` | mapear hash → módulo, carregar sob demanda, coordenar ciclo de vida | math, storage |
 | `js/progress.js` | ler/escrever localStorage | DOM, math, canvas |
 | `js/ui.js` | construir strings HTML, manipular DOM | canvas, math, localStorage |
 | `js/renderer.js` | Canvas 2D API | DOM fora do canvas, math |
+| `js/generator-loader.js` | carregar geradores na primeira prática | DOM de interface, math, storage |
 | `js/stats.js` | ler Progress, renderizar tela de stats | escrever Progress, math |
 | `js/exam.js` | orquestrar prova, timer | math logic, canvas |
 | `js/review.js` | seleção ponderada de tópicos | math logic, canvas |
@@ -258,7 +259,7 @@ chama `_useFallback()` e o fallback JS assume sem exibir mensagem de erro.
   garantindo que as fontes sobrevivam a atualizações do app
 
 ```js
-var CACHE_VER  = 'euclides-v4-4';     // bumpar a cada deploy com mudanças de app
+var CACHE_VER  = 'euclides-v5-0';     // bumpar quando o inventário essencial mudar
 var FONT_CACHE = 'euclides-fonts-v1'; // estável; só mudar se trocar de fonte
 ```
 
@@ -266,12 +267,12 @@ var FONT_CACHE = 'euclides-fonts-v1'; // estável; só mudar se trocar de fonte
 
 ## RNG determinístico
 
-`math/rng.js` implementa um LCG (Linear Congruential Generator). `MathRNG.reseed()`
-é chamado no início de cada `generateExercise` para garantir que exercícios com
-mesma semente produzam resultado idêntico (útil para testes reproduzíveis).
+`math/rng.js` implementa um gerador xorshift32. `MathRNG.setSeed()` permite reproduzir
+uma sequência em testes; `reseed()` avança a sequência de forma determinística.
 
 ```js
-MathRNG.reseed()        // nova semente baseada em Date.now()
+MathRNG.setSeed(seed)   // define uma semente reproduzível
+MathRNG.reseed()        // avança deterministicamente a sequência
 MathRNG.randInt(a, b)   // inteiro uniformemente distribuído em [a, b]
 ```
 

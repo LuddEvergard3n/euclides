@@ -143,20 +143,17 @@ Grupos ES existentes: `Cálculo I`, `Cálculo II`, `Cálculo III`, `Álgebra Lin
 
 ---
 
-## 4. Registrar em index.html
+## 4. Carregamento do módulo
 
-Adicionar **dois** `<script>` tags no lugar certo:
+Adicione apenas o gerador compartilhado ao `index.html` quando ele estiver em um arquivo novo. O módulo do tópico não recebe uma tag fixa: `js/router.js` carrega `modules/<id>.js` sob demanda usando o ID do catálogo.
 
 ```html
 <!-- após o arquivo de generator correspondente: -->
 <script src="math/generators/batch4.js"></script>
 
-<!-- após o último módulo: -->
-<script src="modules/meu_topico.js"></script>
 ```
 
-A ordem importa: generators devem ser carregados antes de `math/fallback.js`,
-e módulos devem ser carregados após todos os arquivos de `js/`.
+A ordem importa: generators devem ser carregados antes de `math/fallback.js`.
 
 ---
 
@@ -166,8 +163,9 @@ Em `sw.js`, dentro de `CACHE_URLS`:
 
 ```js
 './math/generators/batch4.js',   // se batch4 for novo
-'./modules/meu_topico.js',
 ```
+
+Módulos de tópico são armazenados no cache quando usados e não entram no precache inicial.
 
 ---
 
@@ -187,7 +185,7 @@ node test/runner.js
 ```
 
 O runner carrega `data/topics.json` dinamicamente — o novo tópico é testado
-automaticamente em 5 dificuldades. Verificar que todos os 469+ testes passam.
+automaticamente em 5 dificuldades. Verificar que toda a suíte passa.
 
 Se um exercício retornar `answer: ''` ou `answer: '—'`, o teste falha com
 `Field "answer" failed validator`. Corrigir o gerador.
@@ -201,9 +199,7 @@ Se um exercício retornar `answer: ''` ou `answer: '—'`, o teste falha com
 [ ] modules/meu_topico.js com renderConcept + renderExample + renderPractice
 [ ] Entrada em data/topics.json
 [ ] <script> do generator em index.html (se arquivo novo)
-[ ] <script> do módulo em index.html
 [ ] Arquivo do generator em CACHE_URLS do sw.js (se arquivo novo)
-[ ] Arquivo do módulo em CACHE_URLS do sw.js
 [ ] CACHE_VER incrementado em sw.js
 [ ] node test/runner.js — todos passando
 ```

@@ -5,6 +5,24 @@ Formato: [versão] — data | mudanças agrupadas por tipo.
 
 ---
 
+## [v5.0.0-rc] — 2026-10-12
+
+### Adicionado
+- Página inicial e catálogo responsivos com busca, filtros compartilháveis, favoritos, continuidade e domínio por habilidade.
+- Contrato pedagógico para os 84 tópicos, contrato comum de tarefas e migração compatível do progresso local.
+- Rotas por hash, carregamento dos módulos sob demanda e servidor local em Node.js.
+- Camada visual comum para as páginas auxiliares e navegação móvel.
+
+### Corrigido
+- Notações de integral, domínio da equação do calor, erros de digitação e geração determinística.
+- Validação estrita e centralizada de respostas na prática, revisão e prova.
+- Encerramento de cronômetros, listeners e interação de Canvas ao trocar de rota.
+- Canvas preservado e utilizável em telas pequenas; contraste e foco revistos.
+
+### Validação
+- Catálogo, pré-requisitos, PWA, lazy loading, notações conhecidas, geradores, migração e validação cobertos pela suíte local.
+- A revisão editorial profunda permanece identificada por `reviewStatus: em-revisao`; nenhuma revisão foi declarada concluída sem conferência individual.
+
 ## [v4.4] — 2026-04-25
 
 ### Adicionado
