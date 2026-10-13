@@ -1,0 +1,48 @@
+/* Shared Euclides 5 shell for reference and teacher-facing pages. */
+:root {
+  --bg: #0a0c12 !important;
+  --surface: #11151f !important;
+  --surface-2: #181e2b !important;
+  --border: #293248 !important;
+  --border-2: #3a4662 !important;
+  --text-muted: #a1a8bb !important;
+  --text-dim: #858da3 !important;
+}
+
+body {
+  background-color: var(--bg) !important;
+  background-image: linear-gradient(rgba(90,143,210,.03) 1px, transparent 1px), linear-gradient(90deg, rgba(90,143,210,.03) 1px, transparent 1px) !important;
+  background-size: 28px 28px !important;
+}
+
+#topbar { min-height: 52px !important; height: 52px !important; border-color: var(--border-2) !important; }
+#topbar-brand:focus-visible, .topbar-tab:focus-visible, button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
+  outline: 3px solid var(--gold-light) !important;
+  outline-offset: 3px !important;
+}
+
+.page-wrapper { width: min(100%, 1240px); margin-inline: auto; }
+.content, .main-content, .guide-main, .preview-panel, .form-panel, .about-card, .section-card, .formula-section {
+  box-shadow: 0 18px 55px rgba(0,0,0,.18);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; }
+}
+
+@media (max-width: 760px) {
+  #topbar { padding-inline: 12px !important; }
+  #topbar-nav { max-width: 58vw; overflow-x: auto; scrollbar-width: none; }
+  .topbar-tab { min-height: 44px; white-space: nowrap; padding-inline: 9px !important; }
+  .page-wrapper { display: block !important; padding: 18px 14px 42px !important; }
+  .sidebar, .guia-sidebar { position: static !important; width: 100% !important; height: auto !important; margin-bottom: 16px; }
+  .page-main, .main-content, .guide-main, .form-panel, .preview-panel { width: 100% !important; min-width: 0 !important; }
+  table { display: block; max-width: 100%; overflow-x: auto; }
+  pre, code, .formula, .formula-box { max-width: 100%; overflow-x: auto; }
+  input, select, textarea, button { max-width: 100%; }
+}
+
+@media (max-width: 390px) {
+  #topbar-nav .topbar-tab:nth-child(n+3) { display: none !important; }
+  h1 { overflow-wrap: anywhere; }
+}

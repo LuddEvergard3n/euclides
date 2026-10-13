@@ -22,6 +22,7 @@ var Exam = (function () {
     timerInterval: null,
     hintsEnabled: false,
     hintIndex: 0,
+    results:   [],
   };
 
   function setTopics(topics) { _topics = topics; }
@@ -123,7 +124,6 @@ var Exam = (function () {
             '<div id="exam-hint-area"></div>' +
             '<div class="btn-row" style="margin-top:16px">' +
               '<button class="btn btn-primary" onclick="Exam.check()">Verificar</button>' +
-              '<button class="btn" id="exam-hint-btn" onclick="Exam.hint()" style="display:none">Ver dica</button>' +
               '<button class="btn" id="exam-next-btn" onclick="Exam.next()" style="display:none">Próxima \u2192</button>' +
               '<button class="btn" style="margin-left:auto;opacity:.4;font-size:12px" onclick="Exam.abort()">Encerrar</button>' +
             '</div>' +
@@ -131,10 +131,7 @@ var Exam = (function () {
         '</div>' +
 
         '<div class="exam-footer">' +
-          '<label class="hint-toggle" onclick="Exam.toggleHints()">' +
-            'Dicas' +
-            '<div class="toggle-switch' + (_s.hintsEnabled ? ' on' : '') + '" id="exam-hint-sw"><div class="toggle-knob"></div></div>' +
-          '</label>' +
+          '<span class="exam-policy">Sem dicas · feedback após cada resposta</span>' +
           '<span class="exam-score-live">' + _s.correct + ' corretas</span>' +
         '</div>' +
       '</div>';
@@ -165,6 +162,7 @@ var Exam = (function () {
     var color  = pct >= 70 ? 'var(--teal)' : pct >= 50 ? 'var(--gold)' : 'var(--red)';
     var timeUsed = _MINUTES * 60 - _s.timerSecs;
     var timeTxt  = _s.timerSecs <= 0 ? 'Tempo esgotado' : ('Concluído em ' + _formatTime(timeUsed));
+    var review = _s.results.filter(function (result) { return !result.correct; }).slice(0, 6);
 
     view.innerHTML =
       '<div class="exam-screen exam-results">' +
@@ -201,6 +199,8 @@ var Exam = (function () {
 
           '<p class="result-time">' + timeTxt + '</p>' +
 
+          (review.length ? '<div class="exam-review"><p class="eyebrow">Reforce depois</p><ul>' + review.map(function (result) { return '<li>' + result.topicTitle + '</li>'; }).join('') + '</ul></div>' : '<p class="exam-review-clear">Nenhum tópico pendente nesta prova.</p>') +
+
           '<div class="btn-row" style="justify-content:center;margin-top:32px;gap:12px">' +
             '<button class="btn btn-primary" onclick="Exam.start()">Nova prova</button>' +
             '<button class="btn" onclick="Router.navigate(\'review\')">Revisão</button>' +
@@ -232,6 +232,7 @@ var Exam = (function () {
       _s.timerSecs = _MINUTES * 60;
       _s.hintsEnabled = false;
       _s.hintIndex = 0;
+      _s.results = [];
 
       var view = document.getElementById('view');
       if (!view) return;
@@ -253,20 +254,20 @@ var Exam = (function () {
 
       _s.answered++;
       _s.solved = true;
+      _s.results.push({ topicId: item.topicId, topicTitle: item.topicTitle, correct: ok });
       inp.classList.toggle('correct', ok);
       inp.classList.toggle('wrong',  !ok);
       inp.disabled = true;
 
       if (ok) {
         _s.correct++;
-        Progress.recordAttempt(item.topicId, true);
+        Progress.recordAttempt(item.topicId, true, item.exercise.skills);
         fb.className   = 'feedback-line correct';
         fb.textContent = '\u2713 Correto! = ' + c;
       } else {
-        Progress.recordAttempt(item.topicId, false);
+        Progress.recordAttempt(item.topicId, false, item.exercise.skills);
         fb.className   = 'feedback-line wrong';
         fb.textContent = '\u2717 Incorreto. Resposta: ' + c;
-        if (_s.hintsEnabled && _s.hintIndex === 0) Exam.hint();
       }
 
       var nb = document.getElementById('exam-next-btn');

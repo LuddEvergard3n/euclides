@@ -20,6 +20,7 @@ var Renderer = (function () {
   // Pan state
   var _panStart  = null;
   var _originAtPanStart = null;
+  var _listeners = [];
 
   // Colours imported from CSS tokens (duplicated here for canvas use)
   var C = {
@@ -41,6 +42,7 @@ var Renderer = (function () {
   // ── Init ─────────────────────────────────────────────────────────
 
   function init(canvasEl) {
+    destroy();
     _canvas = canvasEl;
     _ctx    = canvasEl.getContext('2d');
     _origin = { x: canvasEl.width / 2, y: canvasEl.height / 2 };
@@ -67,25 +69,32 @@ var Renderer = (function () {
   // ── Pan interaction ──────────────────────────────────────────────
 
   function _attachPan() {
-    _canvas.addEventListener('mousedown', function (e) {
+    function on(target, type, handler, options) {
+      target.addEventListener(type, handler, options);
+      _listeners.push([target, type, handler, options]);
+    }
+
+    function startPan(e) {
+      if (e.pointerType === 'mouse' && e.button !== 0) return;
       _panStart = { x: e.clientX, y: e.clientY };
       _originAtPanStart = { x: _origin.x, y: _origin.y };
       _canvas.style.cursor = 'grabbing';
-    });
+      if (_canvas.setPointerCapture && e.pointerId !== undefined) _canvas.setPointerCapture(e.pointerId);
+    }
 
-    window.addEventListener('mousemove', function (e) {
+    function movePan(e) {
       if (!_panStart) return;
       _origin.x = _originAtPanStart.x + (e.clientX - _panStart.x);
       _origin.y = _originAtPanStart.y + (e.clientY - _panStart.y);
       // Redraw is caller's responsibility (module calls draw in RAF)
-    });
+    }
 
-    window.addEventListener('mouseup', function () {
+    function endPan() {
       _panStart = null;
       if (_canvas) _canvas.style.cursor = 'grab';
-    });
+    }
 
-    _canvas.addEventListener('wheel', function (e) {
+    function zoom(e) {
       e.preventDefault();
       var factor = e.deltaY < 0 ? 1.1 : 0.9;
       // Zoom toward mouse position
@@ -94,10 +103,27 @@ var Renderer = (function () {
       var my   = e.clientY - rect.top;
       _origin.x = mx + (_origin.x - mx) * factor;
       _origin.y = my + (_origin.y - my) * factor;
-      _scale   *= factor;
-    }, { passive: false });
+      _scale = Math.max(10, Math.min(160, _scale * factor));
+    }
+
+    on(_canvas, 'pointerdown', startPan);
+    on(window, 'pointermove', movePan);
+    on(window, 'pointerup', endPan);
+    on(window, 'pointercancel', endPan);
+    on(_canvas, 'wheel', zoom, { passive: false });
 
     _canvas.style.cursor = 'grab';
+  }
+
+  function destroy() {
+    _listeners.forEach(function (entry) {
+      entry[0].removeEventListener(entry[1], entry[2], entry[3]);
+    });
+    _listeners = [];
+    _panStart = null;
+    _originAtPanStart = null;
+    _canvas = null;
+    _ctx = null;
   }
 
   // ── Core drawing ─────────────────────────────────────────────────
@@ -435,6 +461,7 @@ var Renderer = (function () {
 
   return {
     init:              init,
+    destroy:           destroy,
     clear:             clear,
     drawAxes:          drawAxes,
     plotFunction:      plotFunction,

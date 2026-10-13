@@ -86,30 +86,51 @@ var UI = (function () {
   }
 
   function renderCatalog(view) {
-    var filters = Progress.getFilters();
+    var filters = _filtersFromUrl() || Progress.getFilters();
     view.innerHTML = '<div class="catalog-screen"><header class="page-header"><p class="eyebrow">84 tópicos, um percurso flexível</p><h1>Explorar matemática</h1><p>Encontre um conceito, filtre pelo seu momento de estudo e avance sem bloqueios.</p></header>' +
       '<section class="catalog-toolbar" aria-label="Filtros do catálogo"><div class="search-field"><input id="catalog-query" type="search" placeholder="Buscar conceito ou aplicação" value="' + _escape(filters.query || '') + '" oninput="UI.applyCatalogFilters()"></div>' +
       '<select id="catalog-level" onchange="UI.applyCatalogFilters()" aria-label="Nível"><option value="">Todos os níveis</option><option value="EM">Ensino Médio</option><option value="EFI">Fundamental I</option><option value="EFII">Fundamental II</option><option value="ES">Ensino Superior</option></select>' +
       '<select id="catalog-area" onchange="UI.applyCatalogFilters()" aria-label="Área"><option value="">Todas as áreas</option>' + ['Álgebra','Geometria','Funções','Estatística','Cálculo','Matemática Discreta'].map(function (area) { return '<option>' + area + '</option>'; }).join('') + '</select>' +
+      '<select id="catalog-duration" onchange="UI.applyCatalogFilters()" aria-label="Duração"><option value="">Qualquer duração</option><option value="20">Até 20 min</option><option value="30">Até 30 min</option></select>' +
+      '<select id="catalog-status" onchange="UI.applyCatalogFilters()" aria-label="Domínio"><option value="">Qualquer domínio</option><option value="em introdução">Em introdução</option><option value="em prática">Em prática</option><option value="consolidando">Consolidando</option><option value="dominado">Dominado</option></select>' +
       '<button class="btn" onclick="UI.clearCatalogFilters()">Limpar</button></section>' +
       '<div id="catalog-summary" class="catalog-summary" aria-live="polite"></div><section id="catalog-results" class="catalog-grid"></section></div>';
     document.getElementById('catalog-level').value = filters.level || '';
     document.getElementById('catalog-area').value = filters.area || '';
+    document.getElementById('catalog-duration').value = filters.duration || '';
+    document.getElementById('catalog-status').value = filters.status || '';
     applyCatalogFilters();
+  }
+
+  function _filtersFromUrl() {
+    var raw = String(window.location.hash || '').split('?')[1];
+    if (!raw) return null;
+    var params = new URLSearchParams(raw);
+    return { query: params.get('query') || '', level: params.get('level') || '', area: params.get('area') || '', duration: params.get('duration') || '', status: params.get('status') || '' };
+  }
+
+  function _shareFilters(filters) {
+    var params = new URLSearchParams();
+    Object.keys(filters).forEach(function (key) { if (filters[key]) params.set(key, filters[key]); });
+    var hash = '#catalog' + (params.toString() ? '?' + params.toString() : '');
+    if (history.replaceState && window.location.hash !== hash) history.replaceState(null, '', hash);
   }
 
   function applyCatalogFilters() {
     var queryEl = document.getElementById('catalog-query');
     var levelEl = document.getElementById('catalog-level');
     var areaEl = document.getElementById('catalog-area');
-    if (!queryEl || !levelEl || !areaEl) return;
-    var filters = { query: queryEl.value.trim(), level: levelEl.value, area: areaEl.value };
+    var durationEl = document.getElementById('catalog-duration');
+    var statusEl = document.getElementById('catalog-status');
+    if (!queryEl || !levelEl || !areaEl || !durationEl || !statusEl) return;
+    var filters = { query: queryEl.value.trim(), level: levelEl.value, area: areaEl.value, duration: durationEl.value, status: statusEl.value };
     var needle = filters.query.toLowerCase();
     var matches = _topics.filter(function (topic) {
       var haystack = [topic.title, topic.id, _area(topic)].concat(topic.tags || []).join(' ').toLowerCase();
-      return (!needle || haystack.indexOf(needle) !== -1) && (!filters.level || topic.level === filters.level) && (!filters.area || _area(topic) === filters.area);
+      return (!needle || haystack.indexOf(needle) !== -1) && (!filters.level || topic.level === filters.level) && (!filters.area || _area(topic) === filters.area) && (!filters.duration || Number(topic.estimatedMinutes || 0) <= Number(filters.duration)) && (!filters.status || Progress.mastery(topic.id) === filters.status);
     });
     Progress.setFilters(filters);
+    _shareFilters(filters);
     var results = document.getElementById('catalog-results');
     var summary = document.getElementById('catalog-summary');
     summary.textContent = matches.length + (matches.length === 1 ? ' tópico encontrado' : ' tópicos encontrados');
@@ -150,6 +171,29 @@ var UI = (function () {
       var classes = 'phase-step' + (phase.id === activePhase ? ' active' : '') + ((phase.id === 'example' && progress.conceptDone) || (phase.id === 'practice' && progress.exampleDone) ? ' done' : '');
       return '<button class="' + classes + '"' + (phase.id === activePhase ? ' aria-current="step"' : '') + ' onclick="Router.navigate(\'topic/' + _escape(topicId) + '/' + phase.id + '\')">' + phase.label + '</button>';
     }).join('') + '</nav>';
+  }
+
+  function decorateTopic(topicId, phase) {
+    var topic = _topic(topicId);
+    var content = document.querySelector('.topic-content');
+    if (!topic || !content || content.querySelector('.topic-contract')) return;
+    var title = content.querySelector('.topic-title') || content.querySelector('h1');
+    var prerequisites = (topic.prerequisites || []).map(function (id) {
+      var item = _topic(id);
+      return item ? '<button onclick="Router.navigate(\'topic/' + _escape(id) + '/concept\')">' + _escape(item.title) + '</button>' : '';
+    }).join('');
+    var references = (topic.references || []).map(function (reference) {
+      return '<li><a href="' + _escape(reference.url) + '" target="_blank" rel="noopener">' + _escape(reference.title) + '</a> <span>' + _escape(reference.type || '') + '</span></li>';
+    }).join('');
+    var block = document.createElement('section');
+    block.className = 'topic-contract';
+    block.setAttribute('aria-label', 'Informações pedagógicas');
+    block.innerHTML = '<div class="topic-contract-summary"><span>' + _escape(topic.level) + '</span><span>' + _escape(topic.estimatedMinutes || 20) + ' min</span><span>' + _escape(Progress.mastery(topicId)) + '</span><span>Revisão ' + _escape(topic.lastReviewed || 'pendente') + '</span></div>' +
+      '<p><strong>Objetivo:</strong> ' + _escape((topic.learningObjectives || [])[0] || 'Compreender e aplicar o conceito.') + '</p>' +
+      (prerequisites ? '<div class="topic-prerequisites"><strong>Pré-requisitos recomendados:</strong> ' + prerequisites + '</div>' : '') +
+      (phase === 'concept' && references ? '<details><summary>Referências e situação editorial</summary><p>Status: ' + _escape(topic.reviewStatus || 'em-revisao') + '.</p><ul>' + references + '</ul></details>' : '');
+    if (title && title.nextSibling) content.insertBefore(block, title.nextSibling);
+    else content.insertBefore(block, content.firstChild);
   }
 
   function renderBreadcrumb(parts) {
@@ -193,6 +237,7 @@ var UI = (function () {
     renderProgressBar: renderProgressBar,
     renderSidebar: renderSidebar,
     renderPhaseBar: renderPhaseBar,
+    decorateTopic: decorateTopic,
     renderBreadcrumb: renderBreadcrumb,
     setActiveRoute: setActiveRoute,
     showLoading: showLoading,

@@ -6,7 +6,7 @@
  * FONT_CACHE is intentionally stable — never deleted on version bumps.
  */
 
-var CACHE_VER  = 'euclides-v5-0';
+var CACHE_VER  = 'euclides-v5-1';
 var FONT_CACHE = 'euclides-fonts-v1';  // separate, persistent font cache
 var CACHE_URLS = [
   './',
@@ -16,6 +16,7 @@ var CACHE_URLS = [
   './plano-aula.html',
   './formulas.html',
   './style.css',
+  './auxiliary.css',
   './manifest.json',
   './icon.svg',
   './data/topics.json',
@@ -24,6 +25,7 @@ var CACHE_URLS = [
   './js/ui.js',
   './js/renderer.js',
   './js/router.js',
+  './js/generator-loader.js',
   './js/task-engine.js',
   './js/wasm-loader.js',
   './js/teacher.js',
@@ -37,26 +39,7 @@ var CACHE_URLS = [
   /* Math core */
   './math/rng.js',
   './math/fallback.js',
-  /* Generators */
-  './math/generators/algebra.js',
-  './math/generators/batch3.js',
-  './math/generators/batch4.js',
-  './math/generators/calc_I.js',
-  './math/generators/calc_II.js',
-  './math/generators/calc_III.js',
-  './math/generators/calculus_adv.js',
-  './math/generators/efI.js',
-  './math/generators/efII.js',
-  './math/generators/functions.js',
-  './math/generators/geometry.js',
-  './math/generators/lin_alg.js',
-  './math/generators/lin_alg_adv.js',
-  './math/generators/matrices_logic.js',
-  './math/generators/numeric_transforms.js',
-  './math/generators/ode_prob.js',
-  './math/generators/prob.js',
-  './math/generators/trig.js',
-  /* Modules (79) */
+  /* Generators and topic modules are cached on first use. */
 ];
 
 // ── Install: pre-cache all static assets ─────────────────────────

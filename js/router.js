@@ -34,6 +34,7 @@ var Router = (function () {
       try { _activeScreen.destroy(); } catch (error) { console.warn('[Euclides] screen cleanup failed:', error); }
     }
     _activeScreen = null;
+    if (typeof Renderer !== 'undefined' && Renderer.destroy) Renderer.destroy();
     Progress.unmuteEvents();
   }
 
@@ -68,7 +69,7 @@ var Router = (function () {
 
     _loading[topicId] = new Promise(function (resolve, reject) {
       var script = document.createElement('script');
-      script.src = 'modules/' + topicId + '.js?v=5.0';
+      script.src = 'modules/' + topicId + '.js?v=5.0.1';
       script.async = true;
       script.onload = function () {
         if (_modules[topicId]) resolve(_modules[topicId]);
@@ -83,30 +84,32 @@ var Router = (function () {
   function _render(path) {
     var view = document.getElementById('view');
     if (!view) return;
+    var route = path.split('?')[0];
 
-    if (!path) {
+    if (!route) {
       UI.renderHome(view);
       UI.renderSidebar(null);
       return;
     }
-    if (path === 'catalog') {
+    if (route === 'catalog') {
       UI.renderCatalog(view);
       UI.renderSidebar(null);
       return;
     }
-    if (path === 'teacher') { _activeScreen = Teacher; Teacher.render(view); UI.renderSidebar(null); return; }
-    if (path === 'review' || path === 'practice') { _activeScreen = Review; Review.render(view); UI.renderSidebar(null); return; }
-    if (path === 'stats' || path === 'progress') { _activeScreen = Stats; Stats.render(view); UI.renderSidebar(null); return; }
-    if (path === 'exam') { _activeScreen = Exam; Exam.render(view); UI.renderSidebar(null); return; }
-    if (path === 'reference') { window.location.href = 'formulas.html'; return; }
+    if (route === 'teacher') { _renderExerciseScreen(path, Teacher, view); return; }
+    if (route === 'review' || route === 'practice') { _renderExerciseScreen(path, Review, view); return; }
+    if (route === 'stats' || route === 'progress') { _activeScreen = Stats; Stats.render(view); UI.renderSidebar(null); return; }
+    if (route === 'exam') { _renderExerciseScreen(path, Exam, view); return; }
+    if (route === 'reference') { window.location.href = 'formulas.html'; return; }
 
-    var parts = path.split('/');
+    var parts = route.split('/');
     if (parts[0] === 'topic' && parts.length >= 2) {
       var topicId = parts[1];
       var phase = parts[2] || 'concept';
       UI.renderSidebar(topicId);
       UI.showLoading('Preparando laboratório…');
-      _loadTopic(topicId, function (moduleObj) {
+      var prepare = phase === 'practice' ? GeneratorLoader.prepare() : Promise.resolve();
+      prepare.then(function () { _loadTopic(topicId, function (moduleObj) {
         if (_current !== path) return;
         _activeScreen = moduleObj;
         Progress.rememberTopic(topicId, phase);
@@ -114,13 +117,28 @@ var Router = (function () {
         else if (phase === 'example' && moduleObj.renderExample) moduleObj.renderExample(view);
         else if (phase === 'practice' && moduleObj.renderPractice) moduleObj.renderPractice(view);
         else UI.showError('Etapa não encontrada para este tópico.');
+        if (typeof UI.decorateTopic === 'function') UI.decorateTopic(topicId, phase);
       }, function (error) {
+        if (_current === path) UI.showError(error.message, function () { navigate(path, true); });
+      }); }).catch(function (error) {
         if (_current === path) UI.showError(error.message, function () { navigate(path, true); });
       });
       return;
     }
 
     UI.showError('Página não encontrada: ' + path);
+  }
+
+  function _renderExerciseScreen(path, screen, view) {
+    UI.showLoading('Preparando exercícios…');
+    GeneratorLoader.prepare().then(function () {
+      if (_current !== path) return;
+      _activeScreen = screen;
+      screen.render(view);
+      UI.renderSidebar(null);
+    }).catch(function (error) {
+      if (_current === path) UI.showError(error.message, function () { navigate(path, true); });
+    });
   }
 
   function start() {
