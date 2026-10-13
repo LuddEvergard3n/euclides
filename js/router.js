@@ -69,7 +69,7 @@ var Router = (function () {
 
     _loading[topicId] = new Promise(function (resolve, reject) {
       var script = document.createElement('script');
-      script.src = 'modules/' + topicId + '.js?v=5.0.1';
+      script.src = 'modules/' + topicId + '.js?v=5.0.2';
       script.async = true;
       script.onload = function () {
         if (_modules[topicId]) resolve(_modules[topicId]);

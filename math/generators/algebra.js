@@ -407,7 +407,8 @@
       hints:['Encontre o fator comum: MDC('+k*a+','+k*b+') = '+k,k+'('+a+'x + '+b+')','Verifique: '+k+'×'+a+'x + '+k+'×'+b+' = '+k*a+'x + '+k*b]};
   }
   if(type==='factor_quad'){
-    var r1=_randInt(-6,6),r2=_randInt(-6,6);while(r1===r2||r1===0||r2===0)r2=_randInt(-6,6);
+    var r1=_randInt(-6,6);while(r1===0)r1=_randInt(-6,6);
+    var r2=_randInt(-6,6);while(r1===r2||r2===0)r2=_randInt(-6,6);
     var b=-(r1+r2),c=r1*r2;
     var bStr=b>0?' + '+b:b<0?' − '+Math.abs(b):'';
     var cStr=c>0?' + '+c:c<0?' − '+Math.abs(c):'';

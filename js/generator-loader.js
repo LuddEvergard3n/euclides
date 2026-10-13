@@ -12,7 +12,7 @@ var GeneratorLoader = (function () {
     _promise = Promise.all(FILES.map(function (name) {
       return new Promise(function (resolve, reject) {
         var script = document.createElement('script');
-        script.src = 'math/generators/' + name + '.js?v=5.0.1';
+        script.src = 'math/generators/' + name + '.js?v=5.0.2';
         script.onload = resolve;
         script.onerror = function () { reject(new Error('Não foi possível preparar os exercícios.')); };
         document.head.appendChild(script);

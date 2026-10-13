@@ -63,6 +63,37 @@ describe('Generators — variability', () => {
     // Expect at least 2 distinct answers across 8 calls
     assert.ok(answers.size >= 2, `expected >= 2 distinct answers, got ${answers.size}`);
   });
+
+  for (const topic of topics) {
+    it(topic.id + ' provides at least three task forms', () => {
+      const forms = new Set();
+      for (let difficulty = 1; difficulty <= 5; difficulty++) {
+        global.MathRNG.setSeed(1000 + difficulty);
+        const ex = global.MathFallback.generateExercise(topic.id, difficulty);
+        forms.add(ex.statement + '|' + ex.equation);
+      }
+      assert.ok(forms.size >= 3, topic.id + ' exposes only ' + forms.size + ' task forms');
+    });
+  }
+});
+
+describe('Generators — deterministic properties', () => {
+  for (const topic of topics) {
+    it(topic.id + ' reproduces and validates seeded exercises', () => {
+      global.MathRNG.setSeed(20261012);
+      const first = global.MathFallback.generateExercise(topic.id, 3);
+      global.MathRNG.setSeed(20261012);
+      const second = global.MathFallback.generateExercise(topic.id, 3);
+      assert.equal(JSON.stringify(first), JSON.stringify(second), topic.id + ' is not deterministic');
+      for (let seed = 1; seed <= 10; seed++) {
+        global.MathRNG.setSeed(seed * 7919);
+        const difficulty = (seed % 5) + 1;
+        const ex = global.MathCore.generateExercise(topic.id, difficulty);
+        assert.ok(global.MathFallback.validate(topic.id, ex.answer, ex.answer, ex.validation), topic.id + ' rejected its canonical answer at seed ' + seed);
+        assert.notOk(/(?:^|[^a-z])(?:NaN|Infinity|undefined)(?:$|[^a-z])|\[object Object\]/i.test(ex.statement + ex.equation + ex.answer), topic.id + ' produced an invalid value at seed ' + seed);
+      }
+    });
+  }
 });
 
 // ── Hints are strings when present ────────────────────────────────────────────
