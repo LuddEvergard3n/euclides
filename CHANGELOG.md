@@ -15,6 +15,7 @@ Formato: [versão] — data | mudanças agrupadas por tipo.
 
 ### Corrigido
 - Notações de integral, domínio da equação do calor, erros de digitação e geração determinística.
+- Classificação de distribuições contínuas, notação de posto matricial e solução exponencial de EDO separável.
 - Validação estrita e centralizada de respostas na prática, revisão e prova.
 - Encerramento de cronômetros, listeners e interação de Canvas ao trocar de rota.
 - Canvas preservado e utilizável em telas pequenas; contraste e foco revistos.
