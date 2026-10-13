@@ -12,15 +12,20 @@ function _rand() {
   _seed ^= _seed << 13;
   _seed ^= _seed >> 17;
   _seed ^= _seed << 5;
-  return (_seed >>> 0) / 0xFFFFFFFF;
+  return (_seed >>> 0) / 0x100000000;
 }
 
 function _randInt(min, max) {
   return Math.floor(_rand() * (max - min + 1)) + min;
 }
 
-// Reseed so successive calls within the same ms differ
-function _reseed() { _seed = (Date.now() ^ (_seed * 1664525 + 1013904223)) >>> 0; }
+// Advance the stream between exercises while remaining reproducible from a seed.
+function _reseed() { _seed = (_seed * 1664525 + 1013904223) >>> 0; }
+
+function _setSeed(seed) {
+  _seed = Number(seed) >>> 0;
+  if (_seed === 0) _seed = 0x6D2B79F5;
+}
 
 // ── Numeric parsing ──────────────────────────────────────────────
 
@@ -43,7 +48,7 @@ function nextDifficulty(history) {
     else break;
   }
   var current = history._difficulty || 1;
-  if (streak >= 3 && current < 5)  return current + 1;
+  if (streak >= 4 && current < 5)  return current + 1;
   var wrong = last.filter(function (b) { return !b; }).length;
   if (wrong >= 3 && current > 1)   return current - 1;
   return current;
@@ -51,6 +56,8 @@ function nextDifficulty(history) {
 
   window.MathRNG = {
     reseed:         _reseed,
+    setSeed:        _setSeed,
+    random:         _rand,
     randInt:        _randInt,
     nextDifficulty: nextDifficulty,
   };

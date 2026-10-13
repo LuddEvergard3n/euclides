@@ -313,7 +313,7 @@
     var n  = _randInt(3, difficulty<=2?6:10);
     var an = a1 + (n-1)*r;
     var sn = n*(a1+an)/2;
-    var ask = Math.random()<0.5 ? 'term' : 'sum';
+    var ask = MathRNG.random()<0.5 ? 'term' : 'sum';
     if (ask==='term') {
       return {
         statement: 'PA com primeiro termo '+a1+' e razão '+r+'. Calcule o '+n+'º termo.',

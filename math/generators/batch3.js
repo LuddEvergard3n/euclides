@@ -431,10 +431,10 @@
     return {
       statement: 'A solução u(x,0) = f(x) para a equação do calor em [0,L] determina os coeficientes Bₙ por qual fórmula?',
       equation:  'u(x,0) = \u03a3 Bₙ sin(n\u03c0x/L)',
-      answer:    'Bₙ = (2/L)\u222f\u2080\u1d3f f(x) sin(n\u03c0x/L) dx',
+      answer:    'Bₙ = (2/L)\u222b\u2080\u1d38 f(x) sin(n\u03c0x/L) dx',
       hints: [
-        'Usar ortogonalidade: \u222f\u2080\u1d3f sin(m\u03c0x/L)sin(n\u03c0x/L)dx = L/2 \u03b4\u2098\u2099',
-        'Multiplicar por sin(m\u03c0x/L) e integrar: Bₙ = (2/L)\u222f f(x)sin(n\u03c0x/L)dx',
+        'Usar ortogonalidade: \u222b\u2080\u1d38 sin(m\u03c0x/L)sin(n\u03c0x/L)dx = L/2 \u03b4\u2098\u2099',
+        'Multiplicar por sin(m\u03c0x/L) e integrar: Bₙ = (2/L)\u222b f(x)sin(n\u03c0x/L)dx',
       ],
     };
   };

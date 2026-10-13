@@ -383,9 +383,7 @@
       if (_pr.solved) return;
       var inp = document.getElementById('answer-input'), fb = document.getElementById('feedback');
       if (!inp || !fb || !_pr.exercise) return;
-      var s = parseFloat(inp.value.trim().replace(',', '.'));
-      var c = parseFloat(String(_pr.exercise.answer).replace(',', '.'));
-      var ok = !isNaN(s) && Math.abs(s - c) <= 0.05;
+      var ok = MathCore.validate(TOPIC_ID, inp.value, _pr.exercise.answer, _pr.exercise.validation);
       inp.classList.toggle('correct', ok); inp.classList.toggle('wrong', !ok);
       if (ok) {
         fb.className = 'feedback-line correct'; fb.textContent = '✓ Correto! R$ ' + _pr.exercise.answer;

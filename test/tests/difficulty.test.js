@@ -36,9 +36,9 @@ describe('nextDifficulty — initial state', () => {
 // ── Increase on correct streak ────────────────────────────────────────────────
 
 describe('nextDifficulty — increase', () => {
-  it('increases after 3 consecutive correct', () => {
+  it('keeps difficulty after 3 consecutive correct', () => {
     const h = history([true, true, true], 2);
-    assert.equal(nextDifficulty(h), 3);
+    assert.equal(nextDifficulty(h), 2);
   });
 
   it('increases after 4 consecutive correct', () => {
@@ -94,11 +94,10 @@ describe('nextDifficulty — stable', () => {
 
 describe('nextDifficulty — last-5 window', () => {
   it('ignores older results beyond last 5', () => {
-    // 10 wrong, then 3 correct — only last 5 count: [F,F,C,C,C]
-    // streak of 3 → increase
+    // Older results are ignored; four recent correct answers increase difficulty.
     const h = history(
       [false, false, false, false, false, false, false, false, false, false,
-       false, false, true, true, true],
+       false, true, true, true, true],
       2
     );
     assert.equal(nextDifficulty(h), 3);

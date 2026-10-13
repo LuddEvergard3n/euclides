@@ -178,11 +178,7 @@ var Review = (function () {
 
       var s  = inp.value.trim();
       var c  = String(_session.exercise.answer);
-      var sn = parseFloat(s.replace(',', '.'));
-      var cn = parseFloat(c.replace(',', '.'));
-      var ok = s === c ||
-               s.toLowerCase() === c.toLowerCase() ||
-               (!isNaN(sn) && !isNaN(cn) && Math.abs(sn - cn) <= 0.05);
+      var ok = MathCore.validate(_session.topicId, s, c, _session.exercise.validation);
 
       _session.total++;
       inp.classList.toggle('correct', ok);
@@ -192,7 +188,7 @@ var Review = (function () {
         _session.correct++;
         _session.streak++;
         _session.solved = true;
-        Progress.recordAttempt(_session.topicId, true);
+        Progress.recordAttempt(_session.topicId, true, _session.exercise.skills);
         fb.className     = 'feedback-line correct';
         fb.textContent   = '✓ Correto! = ' + c;
         inp.disabled     = true;
@@ -206,7 +202,7 @@ var Review = (function () {
         if (vt) vt.textContent = _session.total;
       } else {
         _session.streak = 0;
-        Progress.recordAttempt(_session.topicId, false);
+        Progress.recordAttempt(_session.topicId, false, _session.exercise.skills);
         fb.className   = 'feedback-line wrong';
         fb.textContent = '✗ Não é isso. Tente novamente.';
         var vt2 = document.getElementById('rv-total');

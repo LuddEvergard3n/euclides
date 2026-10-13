@@ -5,7 +5,7 @@
 
 'use strict';
 
-const { randInt, reseed } = global.MathRNG;
+const { randInt, reseed, setSeed } = global.MathRNG;
 
 // ── randInt bounds ─────────────────────────────────────────────────────────────
 
@@ -70,5 +70,23 @@ describe('MathRNG.reseed', () => {
     // They should not be identical (astronomically unlikely)
     const same = batch1.every((v, i) => v === batch2[i]);
     assert.notOk(same, 'batches should differ after reseed');
+  });
+});
+
+describe('MathRNG.setSeed — reproducibility', () => {
+  it('replays the same integer sequence from the same seed', () => {
+    setSeed(12345);
+    const first = Array.from({ length: 12 }, () => randInt(-20, 20));
+    setSeed(12345);
+    const second = Array.from({ length: 12 }, () => randInt(-20, 20));
+    assert.deepEqual(first, second);
+  });
+
+  it('replays generator output from the same seed', () => {
+    setSeed(9876);
+    const first = MathFallback.generateExercise('functions', 4);
+    setSeed(9876);
+    const second = MathFallback.generateExercise('functions', 4);
+    assert.deepEqual(first, second);
   });
 });

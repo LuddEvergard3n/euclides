@@ -184,7 +184,7 @@
   _reseed();
   var idx   = _randInt(0, Math.min(difficulty, _shapes.length - 1));
   var shape = _shapes[idx];
-  var type  = difficulty <= 3 ? 'area' : (Math.random() < 0.5 ? 'area' : 'perimeter');
+  var type  = difficulty <= 3 ? 'area' : (MathRNG.random() < 0.5 ? 'area' : 'perimeter');
 
   if (shape === 'square') {
     var s = _randInt(2, 15);

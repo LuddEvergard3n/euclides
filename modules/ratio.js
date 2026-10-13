@@ -171,9 +171,8 @@
       if(_pr.solved)return;
       var inp=document.getElementById('answer-input'),fb=document.getElementById('feedback');
       if(!inp||!fb||!_pr.exercise)return;
-      var s=inp.value.trim(),c=String(_pr.exercise.answer);
-      var sNum=parseFloat(s.replace(',','.')),cNum=parseFloat(c.replace(',','.'));
-      var ok=s===c||s.toLowerCase()===c.toLowerCase()||(!isNaN(sNum)&&Math.abs(sNum-cNum)<=0.05);
+      var c=String(_pr.exercise.answer);
+      var ok=MathCore.validate(TOPIC_ID,inp.value,c,_pr.exercise.validation);
       inp.classList.toggle('correct',ok);inp.classList.toggle('wrong',!ok);
       if(ok){fb.className='feedback-line correct';fb.textContent='✓ Correto! = '+c;
         _pr.solved=true;_pr.history.push(true);Progress.recordAttempt(TOPIC_ID,true);

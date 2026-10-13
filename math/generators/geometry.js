@@ -284,7 +284,7 @@
   if(shape==='cube') {
     var a=_randInt(2,10);
     var vol=a*a*a, area=6*a*a;
-    var ask=Math.random()<0.5;
+    var ask=MathRNG.random()<0.5;
     return {
       statement:ask?'Calcule o volume do cubo de aresta '+a+'.':'Calcule a área total do cubo de aresta '+a+'.',
       equation:ask?'V = a³  |  a='+a:'At = 6a²  |  a='+a,

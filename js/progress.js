@@ -119,7 +119,7 @@ var Progress = (function () {
           try { document.dispatchEvent(new CustomEvent('euclides:topicComplete', { detail: { id: id } })); } catch (_) {}
         }
       }
-      _recordSkills(skills, correct);
+      _recordSkills(skills && skills.length ? skills : [id], correct);
       _save();
     },
     rememberTopic: _rememberTopic,
