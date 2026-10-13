@@ -34,6 +34,7 @@ Cada arquivo tem exatamente uma responsabilidade. Violações desta tabela são 
 | `js/ui.js` | construir strings HTML, manipular DOM | canvas, math, localStorage |
 | `js/renderer.js` | Canvas 2D API | DOM fora do canvas, math |
 | `js/generator-loader.js` | carregar geradores na primeira prática | DOM de interface, math, storage |
+| `js/task-input.js` | renderizar e ler controles nativos de resposta | gerar exercícios, validar matemática, storage |
 | `js/stats.js` | ler Progress, renderizar tela de stats | escrever Progress, math |
 | `js/exam.js` | orquestrar prova, timer | math logic, canvas |
 | `js/review.js` | seleção ponderada de tópicos | math logic, canvas |
@@ -259,7 +260,7 @@ chama `_useFallback()` e o fallback JS assume sem exibir mensagem de erro.
   garantindo que as fontes sobrevivam a atualizações do app
 
 ```js
-var CACHE_VER  = 'euclides-v5-2';     // bumpar quando o inventário essencial mudar
+var CACHE_VER  = 'euclides-v5-3';     // bumpar quando o inventário essencial mudar
 var FONT_CACHE = 'euclides-fonts-v1'; // estável; só mudar se trocar de fonte
 ```
 

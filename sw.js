@@ -6,7 +6,7 @@
  * FONT_CACHE is intentionally stable — never deleted on version bumps.
  */
 
-var CACHE_VER  = 'euclides-v5-2';
+var CACHE_VER  = 'euclides-v5-3';
 var FONT_CACHE = 'euclides-fonts-v1';  // separate, persistent font cache
 var CACHE_URLS = [
   './',
@@ -27,6 +27,7 @@ var CACHE_URLS = [
   './js/router.js',
   './js/generator-loader.js',
   './js/task-engine.js',
+  './js/task-input.js',
   './js/wasm-loader.js',
   './js/teacher.js',
   './js/anim.js',

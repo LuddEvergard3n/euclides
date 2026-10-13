@@ -146,6 +146,10 @@ function loadMathModules() {
     .replace(/var TaskEngine\s*=\s*/, 'global.TaskEngine = ');
   new Function('require', 'module', 'exports', taskSource)(require, module, exports);
 
+  const taskInputSource = fs.readFileSync(path.join(__dirname, '..', 'js', 'task-input.js'), 'utf8')
+    .replace(/var TaskInput\s*=\s*/, 'global.TaskInput = ');
+  new Function('require', 'module', 'exports', taskInputSource)(require, module, exports);
+
   // MathCore shim: in tests we use MathFallback directly (no WASM)
   global.MathCore = {
     generateExercise: (topicId, difficulty) => global.TaskEngine.normalise(global.MathFallback.generateExercise(topicId, difficulty), topicId, difficulty),

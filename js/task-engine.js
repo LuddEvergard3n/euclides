@@ -19,9 +19,10 @@ var TaskEngine = (function () {
   function normalise(exercise, topicId, difficulty) {
     exercise = exercise || {};
     var hints = Array.isArray(exercise.hints) ? exercise.hints.slice() : [];
+    var choices = Array.isArray(exercise.choices) ? exercise.choices.slice() : [];
     return Object.assign({}, exercise, {
       id: exercise.id || topicId + '-' + (++_counter),
-      type: exercise.type || _inferType(exercise.answer),
+      type: exercise.type || (choices.length ? 'single-choice' : _inferType(exercise.answer)),
       prompt: exercise.prompt || exercise.statement || '',
       data: exercise.data || {},
       answer: exercise.answer === undefined ? '' : exercise.answer,
@@ -31,6 +32,7 @@ var TaskEngine = (function () {
       misconceptionId: exercise.misconceptionId || null,
       hintSteps: Array.isArray(exercise.hintSteps) ? exercise.hintSteps : hints,
       solutionSteps: Array.isArray(exercise.solutionSteps) ? exercise.solutionSteps : (Array.isArray(exercise.steps) ? exercise.steps : []),
+      choices: choices,
       hints: hints,
     });
   }

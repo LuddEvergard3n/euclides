@@ -123,10 +123,7 @@ var Review = (function () {
           '<div class="exercise-card" style="max-width:560px;margin:0 auto">' +
             '<p class="exercise-statement">' + ex.statement + '</p>' +
             '<div class="exercise-equation">' + ex.equation + '</div>' +
-            '<div class="answer-row">' +
-              '<span class="answer-label">= </span>' +
-              '<input class="answer-input" id="rv-input" type="text" placeholder="resposta" autocomplete="off"/>' +
-            '</div>' +
+            TaskInput.render(ex, 'rv-input') +
             '<p class="feedback-line" id="rv-feedback"></p>' +
             '<div id="rv-hint-area"></div>' +
             '<div class="btn-row" style="margin-top:16px">' +
@@ -152,8 +149,8 @@ var Review = (function () {
       inp.addEventListener('keydown', function (e) {
         if (e.key === 'Enter') Review.check();
       });
-      inp.focus();
     }
+    TaskInput.focus('rv-input');
     _updateHintBtn();
   }
 
@@ -172,17 +169,16 @@ var Review = (function () {
 
     check: function () {
       if (_session.solved) return;
-      var inp = document.getElementById('rv-input');
       var fb  = document.getElementById('rv-feedback');
-      if (!inp || !fb || !_session.exercise) return;
+      if (!fb || !_session.exercise) return;
 
-      var s  = inp.value.trim();
+      var s  = TaskInput.value('rv-input');
+      if (!s) return;
       var c  = String(_session.exercise.answer);
       var ok = MathCore.validate(_session.topicId, s, c, _session.exercise.validation);
 
       _session.total++;
-      inp.classList.toggle('correct', ok);
-      inp.classList.toggle('wrong',  !ok);
+      TaskInput.setResult('rv-input', ok, ok);
 
       if (ok) {
         _session.correct++;
@@ -191,7 +187,6 @@ var Review = (function () {
         Progress.recordAttempt(_session.topicId, true, _session.exercise.skills);
         fb.className     = 'feedback-line correct';
         fb.textContent   = '✓ Correto! = ' + c;
-        inp.disabled     = true;
         var nb = document.getElementById('rv-next-btn');
         if (nb) nb.style.display = '';
         _updateHintBtn();

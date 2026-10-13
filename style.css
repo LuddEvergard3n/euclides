@@ -890,8 +890,36 @@ body {
 }
 
 .answer-input:focus { border-color: var(--gold); }
-.answer-input.correct { border-color: var(--green); }
-.answer-input.wrong   { border-color: var(--red); }
+.answer-input.correct, .answer-row.correct .answer-input { border-color: var(--green); }
+.answer-input.wrong, .answer-row.wrong .answer-input { border-color: var(--red); }
+
+.task-choices {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin: 0 0 18px;
+  padding: 0;
+  border: 0;
+}
+
+.task-choice {
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface-2);
+  color: var(--text);
+  cursor: pointer;
+}
+
+.task-choice:has(input:checked) { border-color: var(--gold); background: var(--gold-dim); }
+.task-choice:has(input:focus-visible) { outline: 2px solid var(--gold-light); outline-offset: 2px; }
+.task-choice input { margin: 0 10px 0 0; accent-color: var(--gold); }
+.task-choices.correct .task-choice:has(input:checked) { border-color: var(--green); }
+.task-choices.wrong .task-choice:has(input:checked) { border-color: var(--red); }
+.task-choice:has(input:disabled) { cursor: default; }
 
 .feedback-line {
   font-size: 13px;
@@ -2123,6 +2151,7 @@ hr.section-divider {
   .exercise-card { max-width: 100% !important; }
   .answer-row { flex-wrap: wrap; gap: 8px; }
   .answer-input { min-width: 120px; }
+  .task-choices { grid-template-columns: 1fr; }
 
   /* Hint boxes */
   .hint-box { padding: 10px 12px; }

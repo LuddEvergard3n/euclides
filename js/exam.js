@@ -116,10 +116,7 @@ var Exam = (function () {
             '<p class="exam-topic-tag">' + item.topicTitle + '</p>' +
             '<p class="exercise-statement">' + ex.statement + '</p>' +
             '<div class="exercise-equation">' + ex.equation + '</div>' +
-            '<div class="answer-row">' +
-              '<span class="answer-label">= </span>' +
-              '<input class="answer-input" id="exam-input" type="text" placeholder="resposta" autocomplete="off"/>' +
-            '</div>' +
+            TaskInput.render(ex, 'exam-input') +
             '<p class="feedback-line" id="exam-feedback"></p>' +
             '<div id="exam-hint-area"></div>' +
             '<div class="btn-row" style="margin-top:16px">' +
@@ -139,8 +136,8 @@ var Exam = (function () {
     var inp = document.getElementById('exam-input');
     if (inp) {
       inp.addEventListener('keydown', function (e) { if (e.key === 'Enter') Exam.check(); });
-      inp.focus();
     }
+    TaskInput.focus('exam-input');
     _updateHintBtn();
   }
 
@@ -242,22 +239,20 @@ var Exam = (function () {
 
     check: function () {
       if (_s.solved) return;
-      var inp = document.getElementById('exam-input');
       var fb  = document.getElementById('exam-feedback');
-      if (!inp || !fb) return;
+      if (!fb) return;
 
       var item = _s.queue[_s.index];
       if (!item) return;
-      var s  = inp.value.trim();
+      var s  = TaskInput.value('exam-input');
+      if (!s) return;
       var c  = String(item.exercise.answer);
       var ok = MathCore.validate(item.topicId, s, c, item.exercise.validation);
 
       _s.answered++;
       _s.solved = true;
       _s.results.push({ topicId: item.topicId, topicTitle: item.topicTitle, correct: ok });
-      inp.classList.toggle('correct', ok);
-      inp.classList.toggle('wrong',  !ok);
-      inp.disabled = true;
+      TaskInput.setResult('exam-input', ok, true);
 
       if (ok) {
         _s.correct++;

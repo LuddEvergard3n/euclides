@@ -3,7 +3,7 @@
 ![JavaScript](https://img.shields.io/badge/JavaScript-ES5-F7DF1E?logo=javascript&logoColor=111111)
 ![WebAssembly](https://img.shields.io/badge/WebAssembly-Optional-654FF0?logo=webassembly&logoColor=white)
 ![Topics](https://img.shields.io/badge/Topics-84-7C3AED)
-![Checks](https://img.shields.io/badge/Checks-666-2563EB)
+![Checks](https://img.shields.io/badge/Checks-667-2563EB)
 
 Browser-only mathematics learning platform with 84 topics, interactive visualizations, offline support, and an optional WebAssembly calculation engine.
 
@@ -73,7 +73,7 @@ test/             Dependency-free runner and behavior checks
 - Hash routes keep reload, browser history, shared topic links, and GitHub Pages compatibility.
 - The initial document loads a lightweight topic catalog; the 84 topic modules are loaded and cached on first use.
 - Progress schema version 2 migrates legacy local data and keeps progress, favorites, filters, preferences, and skill mastery on the device.
-- The task engine normalizes legacy exercises behind one declarative contract while migration continues.
+- The task engine normalizes legacy exercises behind one declarative contract, with native text and single-choice controls in review and exam modes.
 - UI libraries and a backend are intentionally absent. Browser APIs, Canvas 2D, local files, and the optional existing WASM engine are sufficient.
 
 ## Optional WebAssembly build

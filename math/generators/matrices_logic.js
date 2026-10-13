@@ -330,10 +330,15 @@
   if (type === 'det2') {
     var a = [[_randInt(-6,6),_randInt(-6,6)],[_randInt(-6,6),_randInt(-6,6)]];
     var det = a[0][0]*a[1][1] - a[0][1]*a[1][0];
+    var choices = [det, -det, det + a[0][0], det - a[1][1]].filter(function (value, index, values) { return values.indexOf(value) === index; });
+    var candidate = det + 1;
+    while (choices.length < 4) { if (choices.indexOf(candidate) === -1) choices.push(candidate); candidate++; }
+    for (var ci = choices.length - 1; ci > 0; ci--) { var cj = _randInt(0, ci), ct = choices[ci]; choices[ci] = choices[cj]; choices[cj] = ct; }
     return {
       statement: 'Calcule o determinante da matriz 2×2.',
       equation:  'det' + _matStr(a),
       answer:    String(det),
+      choices:   choices.map(String),
       matType:   'det2', matA: a,
       hints: [
         'det(A) = a₁₁×a₂₂ − a₁₂×a₂₁',

@@ -10,6 +10,7 @@ Formato: [versão] — data | mudanças agrupadas por tipo.
 ### Adicionado
 - Página inicial e catálogo responsivos com busca, filtros compartilháveis, favoritos, continuidade e domínio por habilidade.
 - Contrato pedagógico para os 84 tópicos, contrato comum de tarefas e migração compatível do progresso local.
+- Controle nativo de seleção única reutilizado por revisão e prova, com alternativas acessíveis por teclado e fallback textual preservado.
 - Rotas por hash, carregamento dos módulos sob demanda e servidor local em Node.js.
 - Camada visual comum para as páginas auxiliares e navegação móvel.
 
@@ -22,7 +23,8 @@ Formato: [versão] — data | mudanças agrupadas por tipo.
 
 ### Validação
 - 666 verificações locais aprovadas, incluindo invariantes de fatoração, sistemas lineares, discriminantes e matrizes em múltiplas sementes.
-- Service Worker `euclides-v5-2` validado em navegador: shell controlado, 18 geradores e módulo visitado armazenados sob demanda, com recarga da prática funcionando offline.
+- Service Worker `euclides-v5-3` validado em navegador: shell controlado, 18 geradores e módulo visitado armazenados sob demanda, com tarefa de seleção funcionando offline.
+- Tarefa de seleção validada em 320 px, sem transbordamento horizontal e com alvos de 44 px.
 - Catálogo, pré-requisitos, lazy loading, notações conhecidas, migração e validação estrita cobertos pela suíte local.
 - A revisão editorial profunda permanece identificada por `reviewStatus: em-revisao`; nenhuma revisão foi declarada concluída sem conferência individual.
 
