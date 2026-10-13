@@ -260,7 +260,7 @@ chama `_useFallback()` e o fallback JS assume sem exibir mensagem de erro.
   garantindo que as fontes sobrevivam a atualizações do app
 
 ```js
-var CACHE_VER  = 'euclides-v5-3';     // bumpar quando o inventário essencial mudar
+var CACHE_VER  = 'euclides-v5-4';     // bumpar quando o inventário essencial mudar
 var FONT_CACHE = 'euclides-fonts-v1'; // estável; só mudar se trocar de fonte
 ```
 

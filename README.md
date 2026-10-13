@@ -3,7 +3,7 @@
 ![JavaScript](https://img.shields.io/badge/JavaScript-ES5-F7DF1E?logo=javascript&logoColor=111111)
 ![WebAssembly](https://img.shields.io/badge/WebAssembly-Optional-654FF0?logo=webassembly&logoColor=white)
 ![Topics](https://img.shields.io/badge/Topics-84-7C3AED)
-![Checks](https://img.shields.io/badge/Checks-667-2563EB)
+![Checks](https://img.shields.io/badge/Checks-668-2563EB)
 
 Browser-only mathematics learning platform with 84 topics, interactive visualizations, offline support, and an optional WebAssembly calculation engine.
 

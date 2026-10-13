@@ -5,6 +5,8 @@
 
 var UI = (function () {
   var _topics = [];
+  var LEVELS = [{ key:'EFI', label:'Fundamental I' },{ key:'EFII', label:'Fundamental II' },{ key:'EM', label:'Ensino Médio' },{ key:'ES', label:'Ensino Superior' }];
+  var LEVEL_RANK = { EFI: 0, EFII: 1, EM: 2, ES: 3 };
 
   function _escape(value) {
     return String(value === undefined || value === null ? '' : value)
@@ -89,7 +91,7 @@ var UI = (function () {
     var filters = _filtersFromUrl() || Progress.getFilters();
     view.innerHTML = '<div class="catalog-screen"><header class="page-header"><p class="eyebrow">84 tópicos, um percurso flexível</p><h1>Explorar matemática</h1><p>Encontre um conceito, filtre pelo seu momento de estudo e avance sem bloqueios.</p></header>' +
       '<section class="catalog-toolbar" aria-label="Filtros do catálogo"><div class="search-field"><input id="catalog-query" type="search" placeholder="Buscar conceito ou aplicação" value="' + _escape(filters.query || '') + '" oninput="UI.applyCatalogFilters()"></div>' +
-      '<select id="catalog-level" onchange="UI.applyCatalogFilters()" aria-label="Nível"><option value="">Todos os níveis</option><option value="EM">Ensino Médio</option><option value="EFI">Fundamental I</option><option value="EFII">Fundamental II</option><option value="ES">Ensino Superior</option></select>' +
+      '<select id="catalog-level" onchange="UI.applyCatalogFilters()" aria-label="Nível"><option value="">Todos os níveis</option>' + LEVELS.map(function (level) { return '<option value="' + level.key + '">' + level.label + '</option>'; }).join('') + '</select>' +
       '<select id="catalog-area" onchange="UI.applyCatalogFilters()" aria-label="Área"><option value="">Todas as áreas</option>' + ['Álgebra','Geometria','Funções','Estatística','Cálculo','Matemática Discreta'].map(function (area) { return '<option>' + area + '</option>'; }).join('') + '</select>' +
       '<select id="catalog-duration" onchange="UI.applyCatalogFilters()" aria-label="Duração"><option value="">Qualquer duração</option><option value="20">Até 20 min</option><option value="30">Até 30 min</option></select>' +
       '<select id="catalog-status" onchange="UI.applyCatalogFilters()" aria-label="Domínio"><option value="">Qualquer domínio</option><option value="em introdução">Em introdução</option><option value="em prática">Em prática</option><option value="consolidando">Consolidando</option><option value="dominado">Dominado</option></select>' +
@@ -128,6 +130,8 @@ var UI = (function () {
     var matches = _topics.filter(function (topic) {
       var haystack = [topic.title, topic.id, _area(topic)].concat(topic.tags || []).join(' ').toLowerCase();
       return (!needle || haystack.indexOf(needle) !== -1) && (!filters.level || topic.level === filters.level) && (!filters.area || _area(topic) === filters.area) && (!filters.duration || Number(topic.estimatedMinutes || 0) <= Number(filters.duration)) && (!filters.status || Progress.mastery(topic.id) === filters.status);
+    }).sort(function (a, b) {
+      return (LEVEL_RANK[a.level] === undefined ? 99 : LEVEL_RANK[a.level]) - (LEVEL_RANK[b.level] === undefined ? 99 : LEVEL_RANK[b.level]);
     });
     Progress.setFilters(filters);
     _shareFilters(filters);
@@ -150,9 +154,8 @@ var UI = (function () {
     var nav = document.getElementById('topic-nav');
     if (!nav) return;
     renderProgressBar();
-    var levels = [{ key:'EM', label:'Ensino Médio' },{ key:'EFI', label:'Fundamental I' },{ key:'EFII', label:'Fundamental II' },{ key:'ES', label:'Ensino Superior' }];
     var html = '<button class="nav-catalog" onclick="Router.navigate(\'catalog\')">Buscar e filtrar tópicos</button>';
-    levels.forEach(function (level) {
+    LEVELS.forEach(function (level) {
       var topics = _topics.filter(function (topic) { return topic.level === level.key; });
       if (!topics.length) return;
       html += '<div class="nav-section-label">' + level.label + '</div>';

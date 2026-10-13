@@ -39,6 +39,16 @@ describe('delivery — static and lazy', () => {
     for (const route of ['catalog','practice','exam','progress','reference']) assert.ok(source.includes("route === '" + route + "'") || source.includes("route === 'review' || route === 'practice'"), 'missing route ' + route);
   });
 
+  it('orders learning levels from Fundamental I through Higher Education', () => {
+    const source = read('js/ui.js');
+    const levels = source.slice(source.indexOf('var LEVELS ='), source.indexOf('var LEVEL_RANK ='));
+    assert.ok(levels.indexOf("key:'EFI'") < levels.indexOf("key:'EFII'"), 'EFI must precede EFII');
+    assert.ok(levels.indexOf("key:'EFII'") < levels.indexOf("key:'EM'"), 'EFII must precede EM');
+    assert.ok(levels.indexOf("key:'EM'") < levels.indexOf("key:'ES'"), 'EM must precede ES');
+    assert.ok(source.includes('LEVELS.map(function (level)'), 'catalog filter must use the shared order');
+    assert.ok(source.includes('LEVELS.forEach(function (level)'), 'sidebar must use the shared order');
+  });
+
   it('uses the central validator for learner answers', () => {
     for (const directory of ['js', 'modules']) {
       for (const name of fs.readdirSync(path.join(root, directory)).filter(file => file.endsWith('.js'))) {
