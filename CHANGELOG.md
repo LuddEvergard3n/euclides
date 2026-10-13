@@ -21,7 +21,9 @@ Formato: [versão] — data | mudanças agrupadas por tipo.
 - Canvas preservado e utilizável em telas pequenas; contraste e foco revistos.
 
 ### Validação
-- Catálogo, pré-requisitos, PWA, lazy loading, notações conhecidas, geradores, migração e validação cobertos pela suíte local.
+- 666 verificações locais aprovadas, incluindo invariantes de fatoração, sistemas lineares, discriminantes e matrizes em múltiplas sementes.
+- Service Worker `euclides-v5-2` validado em navegador: shell controlado, 18 geradores e módulo visitado armazenados sob demanda, com recarga da prática funcionando offline.
+- Catálogo, pré-requisitos, lazy loading, notações conhecidas, migração e validação estrita cobertos pela suíte local.
 - A revisão editorial profunda permanece identificada por `reviewStatus: em-revisao`; nenhuma revisão foi declarada concluída sem conferência individual.
 
 ## [v4.4] — 2026-04-25
