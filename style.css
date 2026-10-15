@@ -370,10 +370,6 @@ body {
   background: var(--gold-dim) !important;
 }
 
-.eco-directory { margin-top: 12px; color: var(--text-muted); font-size: 12px; line-height: 1.65; }
-.eco-directory summary { cursor: pointer; color: var(--text); }
-.eco-directory ul { margin: 8px 0 0; padding-left: 18px; }
-.eco-directory a { color: var(--gold); }
 
 .eco-link-name {
   font-size: 13px;
